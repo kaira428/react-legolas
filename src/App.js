@@ -1,6 +1,7 @@
 import { Container, Paper, Box, Stack, Grid } from "@mui/material";
 import "./App.css";
 import CountCard from "./components/CountCard";
+import LeaderBoardCard from "./components/LeaderBoardCard";
 
 function App() {
   return (
@@ -8,10 +9,12 @@ function App() {
       <Container>
         <Grid
           container
-          spacing={2}
-          sx={{ display: "inline-block"}}
+          spacing={3}
+          sx={{ float: "left" }}
           direction="column"
-          item xs={12} md={3}
+          item
+          xs={12}
+          md={3}
           padding={2}
         >
           <CountCard />
@@ -21,20 +24,23 @@ function App() {
         <Grid
           container
           spacing={2}
-          sx={{ display: "inline-block"}}
-          direction="column"
-          item xs={12} md={6}
+          sx={{ float: "left" }}
+          item
+          xs={12}
+          md={6}
           padding={2}
         >
-          <CountCard />
-          <CountCard />
+          <LeaderBoardCard />
+          <LeaderBoardCard />
         </Grid>
         <Grid
           container
-          spacing={2}
-          sx={{ display: "inline-block"}}
+          spacing={3}
+          sx={{ float: "left" }}
           direction="column"
-          item xs={12} md={3}
+          item
+          xs={12}
+          md={3}
           padding={2}
         >
           <CountCard />
