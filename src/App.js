@@ -9,8 +9,8 @@ function App() {
       <Container>
         <Grid
           container
-          spacing={3}
-          sx={{ float: "left" }}
+          spacing={8}
+          sx={{float: "left"}}
           direction="column"
           item
           xs={12}
@@ -23,7 +23,7 @@ function App() {
         </Grid>
         <Grid
           container
-          spacing={2}
+          spacing={10}
           sx={{ float: "left" }}
           item
           xs={12}
@@ -35,7 +35,7 @@ function App() {
         </Grid>
         <Grid
           container
-          spacing={3}
+          spacing={8}
           sx={{ float: "left" }}
           direction="column"
           item
