@@ -5,7 +5,7 @@ import LeaderBoardCard from "../components/LeaderBoardCard";
 
 const SupervisorLanding = () => {
   return (
-    <Container sx={{marginTop: 5}}>
+    <Container sx={{marginTop: 5, maxWidth: "lg"}}>
       <Grid
         container
         sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "40px"}}

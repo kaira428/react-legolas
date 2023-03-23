@@ -1,5 +1,6 @@
 import { Grid, Paper, Box, Typography } from "@mui/material";
 import React from "react";
+import { InfoTooltip } from "../helpers/ToolTip";
 
 const CountCard = () => {
   return (
@@ -10,6 +11,7 @@ const CountCard = () => {
             <Typography variant="h5" component="h3" sx={{ display: "flex", alignItems: "center" }}>
               Box Title
             </Typography>
+            <InfoTooltip />
           </Box>
           <Box
             sx={{
