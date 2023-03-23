@@ -3,10 +3,10 @@ import React from "react";
 
 const LeaderBoardCard = () => {
   return (
-    <Grid item>
-      <Box sx={{ height: 350, width: '100%', border: '1px solid lightgrey'}}>
+    <Grid item sx={{my: 4}}>
+      <Box sx={{ height: 250, width: 700, border: '1px solid lightgrey'}}>
         <Paper elevation={3} sx={{ height: 1}}>
-         LeaderBoard Duis elit in irure magna culpa non nisi. Officia eiusmod irure irure eu enim tempor. Proident ut aliqua sit enim id. Voluptate excepteur laborum sunt dolore eu.
+         LeaderBoard Duis elit in irure 
         </Paper>
       </Box>
     </Grid>
