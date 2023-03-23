@@ -5,7 +5,7 @@ import { InfoTooltip } from "../helpers/ToolTip";
 const CountCard = () => {
   return (
     <Grid item sx={{my: 8}}>
-      <Box sx={{ height: 120, width: 170, border: '1px solid lightgrey'}}>
+      <Box sx={{ height: 120, width: 220, border: '1px solid lightgrey'}}>
         <Paper elevation={3} sx={{ height: 1, width: 1 }}>
           <Box sx={{ height: 0.25, display: "flex", justifyContent: "center" }}>
             <Typography variant="h5" component="h3" sx={{ display: "flex", alignItems: "center" }}>

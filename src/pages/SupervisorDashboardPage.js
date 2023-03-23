@@ -1,5 +1,4 @@
 import { Container, Grid } from "@mui/material";
-import CountCard from "../components/CountCard";
 import React from "react";
 import CohortProgressChart from "../components/CohortProgressChart";
 import CohortLeaderBoardCard from "../components/CohortLeaderBoardCard";

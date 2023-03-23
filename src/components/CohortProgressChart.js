@@ -1,5 +1,6 @@
 import { Grid, Paper, Box, Typography } from "@mui/material";
 import React from "react";
+import LinearWithValueLabel from "./ProgressBar";
 
 const CohortProgressChart = () => {
   return (
@@ -12,6 +13,9 @@ const CohortProgressChart = () => {
           <Typography variant="body1" component="h6">
             (Java Developer, Cohort 8)
           </Typography>
+          <Box sx={{m: 3}}>
+          <LinearWithValueLabel />
+          </Box>
         </Paper>
       </Box>
     </Grid>
