@@ -4,14 +4,14 @@ import { InfoTooltip } from "../helpers/ToolTip";
 
 const CountCard = () => {
   return (
-    <Grid item sx={{my: 2}}>
-      <Box sx={{ height: 170, width: "100%", border: '1px solid lightgrey'}}>
+    <Grid item sx={{my: 8}}>
+      <Box sx={{ height: 120, width: 170, border: '1px solid lightgrey'}}>
         <Paper elevation={3} sx={{ height: 1, width: 1 }}>
           <Box sx={{ height: 0.25, display: "flex", justifyContent: "center" }}>
             <Typography variant="h5" component="h3" sx={{ display: "flex", alignItems: "center" }}>
               Box Title
             </Typography>
-            <InfoTooltip />
+            <span style={{marginLeft: "8px"}}><InfoTooltip /></span>
           </Box>
           <Box
             sx={{
@@ -24,9 +24,9 @@ const CountCard = () => {
             <Typography
               variant="h3"
               component="h2"
-              sx={{ display: "flex", alignItems: "center" }}
+              sx={{margin: "auto" }}
             >
-              Test 1
+              10
             </Typography>
           </Box>
         </Paper>

@@ -1,11 +1,11 @@
 import { Container, Grid } from "@mui/material";
 import CountCard from "../components/CountCard";
 import React from "react";
-import LeaderBoardCard from "../components/LeaderBoardCard";
+import SupervisorDashBoardCard from "../components/SupervisorDashBoardCard";
 
 const SupervisorLanding = () => {
   return (
-    <Container sx={{marginTop: 5, maxWidth: "lg"}}>
+    <Container sx={{marginTop: 5}}>
       <Grid
         container
         sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "40px"}}
@@ -17,8 +17,8 @@ const SupervisorLanding = () => {
         </Grid>
 
         <Grid item sx={{ gridColumn: "2 / span 2" }}>
-          <LeaderBoardCard />
-          <LeaderBoardCard />
+          <SupervisorDashBoardCard />
+          <SupervisorDashBoardCard />
         </Grid>
 
         <Grid item sx={{ gridColumn: "3 / span 1" }}>
