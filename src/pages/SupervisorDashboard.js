@@ -7,7 +7,7 @@ import TraineeProgressDetails from "../components/TraineeProgressDetails";
 import LearningTrackCard from "../components/LearningTrackCard";
 import CohortIdCard from "../components/CohortIdCard";
 
-const SupervisorDasboardPage = () => {
+const SupervisorDasboard = () => {
   return (
     <Container sx={{marginTop: 5}}>
     <Grid
@@ -33,4 +33,4 @@ const SupervisorDasboardPage = () => {
   )
 }
 
-export default SupervisorDasboardPage
+export default SupervisorDasboard
