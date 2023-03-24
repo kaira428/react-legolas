@@ -6,31 +6,33 @@ import CohortDetails from "../components/CohortDetails";
 import TraineeProgressDetails from "../components/TraineeProgressDetails";
 import LearningTrackCard from "../components/LearningTrackCard";
 import CohortIdCard from "../components/CohortIdCard";
+import classes from "./SupervisorDashboard.module.css";
 
 const SupervisorDasboard = () => {
+
   return (
-    <Container sx={{marginTop: 5}}>
-    <Grid
-      container
-      sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "40px"}}
-    >
-      <Grid item sx={{ gridColumn: "1 / span 1"}}>
-        <LearningTrackCard />
-        <CohortIdCard />
-      </Grid>
+    <Container sx={{ marginTop: 5 }}>
+      <Grid
+        container
+        sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "40px" }}
+      >
+        <Grid item className={classes.screen1}>
+          <LearningTrackCard />
+          <CohortIdCard />
+        </Grid>
 
-      <Grid item sx={{ gridColumn: "2 / span 2" }}>
-        <CohortProgressChart />
-        <CohortLeaderBoardCard />
-      </Grid>
+        <Grid item className={classes.screen2}>
+          <CohortProgressChart />
+          <CohortLeaderBoardCard />
+        </Grid>
 
-      <Grid item sx={{ gridColumn: "3 / span 1" }}>
-        <CohortDetails />
-        <TraineeProgressDetails />
+        <Grid item className={classes.screen3}>          
+          <CohortDetails />
+          <TraineeProgressDetails />
+        </Grid>
       </Grid>
-    </Grid>
-  </Container>
-  )
-}
+    </Container>
+  );
+};
 
-export default SupervisorDasboard
+export default SupervisorDasboard;
