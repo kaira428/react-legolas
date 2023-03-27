@@ -4,7 +4,7 @@ const courses = [
         "name": "Java Developer",
         "cohorts": [
             {
-                "cohortNum": 9,
+                "cohortNum": 12,
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "WK",
@@ -12,7 +12,7 @@ const courses = [
                 "country": "Singapore"
             },
             {
-                "cohortNum": 11,
+                "cohortNum": 9,
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "WK",
@@ -20,7 +20,7 @@ const courses = [
                 "country": "Singapore"
             },
             {
-                "cohortNum": 13,
+                "cohortNum": 10,
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "WK",
@@ -34,7 +34,7 @@ const courses = [
         "name": "JavaScript Developer",
         "cohorts": [
             {
-                "cohortNum": 10,
+                "cohortNum": 13,
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "WK",
@@ -42,7 +42,7 @@ const courses = [
                 "country": "Singapore"
             },
             {
-                "cohortNum": 12,
+                "cohortNum": 14,
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
@@ -50,7 +50,7 @@ const courses = [
                 "country": "Philippines"
             },
             {
-                "cohortNum": 20,
+                "cohortNum": 15,
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "HB",
@@ -62,6 +62,186 @@ const courses = [
     {
         "id": 3,
         "name": "DevOps Developer",
+        "cohorts": [
+            {
+                "cohortNum": 16,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "Thendral",
+                "coach": "Benny",
+                "country": "Philippines"
+            },
+            {
+                "cohortNum": 17,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "HB",
+                "coach": "Ben",
+                "country": "Singapore"
+            },
+            {
+                "cohortNum": 20,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "Thendral",
+                "coach": "Ben",
+                "country": "Philippines"
+            },
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Network Engineering",
+        "cohorts": [
+            {
+                "cohortNum": 21,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "Thendral",
+                "coach": "Benny",
+                "country": "Philippines"
+            },
+            {
+                "cohortNum": 22,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "HB",
+                "coach": "Ben",
+                "country": "Singapore"
+            },
+            {
+                "cohortNum": 23,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "Thendral",
+                "coach": "Ben",
+                "country": "Philippines"
+            },
+        ]
+    },
+    {
+        "id": 5,
+        "name": "PEGA Developer",
+        "cohorts": [
+            {
+                "cohortNum": 18,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "Thendral",
+                "coach": "Benny",
+                "country": "Philippines"
+            },
+            {
+                "cohortNum": 19,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "HB",
+                "coach": "Ben",
+                "country": "Singapore"
+            },
+            {
+                "cohortNum": 24,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "Thendral",
+                "coach": "Ben",
+                "country": "Philippines"
+            },
+        ]
+    },
+    {
+        "id": 6,
+        "name": "React JS",
+        "cohorts": [
+            {
+                "cohortNum": 25,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "Thendral",
+                "coach": "Benny",
+                "country": "Philippines"
+            },
+            {
+                "cohortNum": 28,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "HB",
+                "coach": "Ben",
+                "country": "Singapore"
+            },
+            {
+                "cohortNum": 29,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "Thendral",
+                "coach": "Ben",
+                "country": "Philippines"
+            },
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Angular & .Net",
+        "cohorts": [
+            {
+                "cohortNum": 30,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "Thendral",
+                "coach": "Benny",
+                "country": "Philippines"
+            },
+            {
+                "cohortNum": 31,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "HB",
+                "coach": "Ben",
+                "country": "Singapore"
+            },
+            {
+                "cohortNum": 35,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "Thendral",
+                "coach": "Ben",
+                "country": "Philippines"
+            },
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Java Fullstack",
+        "cohorts": [
+            {
+                "cohortNum": 40,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "Thendral",
+                "coach": "Benny",
+                "country": "Philippines"
+            },
+            {
+                "cohortNum": 41,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "HB",
+                "coach": "Ben",
+                "country": "Singapore"
+            },
+            {
+                "cohortNum": 45,
+                "startDate": "20-03-2022",
+                "endDate": "20-05-2022",
+                "mentorName": "Thendral",
+                "coach": "Ben",
+                "country": "Philippines"
+            },
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Salesforce Developer",
         "cohorts": [
             {
                 "cohortNum": 14,
@@ -80,7 +260,7 @@ const courses = [
                 "country": "Singapore"
             },
             {
-                "cohortNum": 15,
+                "cohortNum": 44,
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",

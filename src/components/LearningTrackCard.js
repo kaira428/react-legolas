@@ -23,17 +23,24 @@ const LearningTrackCard = ({ learningTracks }) => {
               overflow: "auto",
             }}
           >
+            {/* Sort Learning Track names alphabetically before mapping */}
             {learningTracks &&
-              learningTracks.map((learningTrack) => (
-                <Typography
-                  variant="body2"
-                  component="p"
-                  sx={{ textAlign: "left", marginLeft: "5px" }}
-                  key={learningTrack.id}
-                >
-                  {learningTrack.name}
-                </Typography>
-              ))}
+              learningTracks
+                .sort((x, y) => {
+                  let a = x.name,
+                    b = y.name;
+                  return a === b ? 0 : a > b ? 1 : -1;
+                })
+                .map((learningTrack) => (
+                  <Typography
+                    variant="body2"
+                    component="p"
+                    sx={{ textAlign: "left", marginLeft: "5px" }}
+                    key={learningTrack.id}
+                  >
+                    {learningTrack.name}
+                  </Typography>
+                ))}
           </Box>
         </Paper>
       </Box>

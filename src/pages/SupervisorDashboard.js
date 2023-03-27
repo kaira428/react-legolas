@@ -10,6 +10,7 @@ import classes from "./SupervisorDashboard.module.css";
 import courses from "../data/courses";
 
 const SupervisorDasboard = () => {
+  console.log(courses[0]);
 
   return (
     <Container sx={{ marginTop: 5 }}>
@@ -19,7 +20,7 @@ const SupervisorDasboard = () => {
       >
         <Grid item className={classes.screen1}>
           <LearningTrackCard learningTracks={courses}/>
-          <CohortIdCard learningTracks={courses}/>
+          <CohortIdCard cohorts={courses[0].cohorts}/>
         </Grid>
 
         <Grid item className={classes.screen2}>
