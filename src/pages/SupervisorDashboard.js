@@ -7,6 +7,7 @@ import TraineeProgressDetails from "../components/TraineeProgressDetails";
 import LearningTrackCard from "../components/LearningTrackCard";
 import CohortIdCard from "../components/CohortIdCard";
 import classes from "./SupervisorDashboard.module.css";
+import courses from "../data/courses";
 
 const SupervisorDasboard = () => {
 
@@ -17,8 +18,8 @@ const SupervisorDasboard = () => {
         sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "40px" }}
       >
         <Grid item className={classes.screen1}>
-          <LearningTrackCard />
-          <CohortIdCard />
+          <LearningTrackCard learningTracks={courses}/>
+          <CohortIdCard learningTracks={courses}/>
         </Grid>
 
         <Grid item className={classes.screen2}>
