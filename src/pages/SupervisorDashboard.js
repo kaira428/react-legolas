@@ -8,9 +8,10 @@ import LearningTrackCard from "../components/LearningTrackCard";
 import CohortIdCard from "../components/CohortIdCard";
 import classes from "./SupervisorDashboard.module.css";
 import courses from "../data/courses";
+import { useParams } from "react-router-dom";
 
 const SupervisorDasboard = () => {
-  console.log(courses[0]);
+  const ltId = useParams();
 
   return (
     <Container sx={{ marginTop: 5 }}>
@@ -20,7 +21,9 @@ const SupervisorDasboard = () => {
       >
         <Grid item className={classes.screen1}>
           <LearningTrackCard learningTracks={courses}/>
-          <CohortIdCard cohorts={courses[0].cohorts}/>
+
+          {Object.keys(ltId).length === 0 && <CohortIdCard learningTracks="empty" />}      {/* if ltId is empty */}
+          {Object.keys(ltId).length !== 0 && <CohortIdCard learningTracks={courses}/>}
         </Grid>
 
         <Grid item className={classes.screen2}>

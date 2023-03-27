@@ -8,7 +8,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "WK",
-                "coach": "Benny",
+                "coachName": "Benny",
                 "country": "Singapore"
             },
             {
@@ -16,7 +16,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "WK",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Singapore"
             },
             {
@@ -24,7 +24,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "WK",
-                "coach": "Benny",
+                "coachName": "Benny",
                 "country": "Philippines"
             },
         ]
@@ -38,7 +38,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "WK",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Singapore"
             },
             {
@@ -46,7 +46,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Philippines"
             },
             {
@@ -54,7 +54,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "HB",
-                "coach": "Benny",
+                "coachName": "Benny",
                 "country": "Singapore"
             },
         ]
@@ -68,7 +68,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
-                "coach": "Benny",
+                "coachName": "Benny",
                 "country": "Philippines"
             },
             {
@@ -76,7 +76,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "HB",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Singapore"
             },
             {
@@ -84,7 +84,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Philippines"
             },
         ]
@@ -98,7 +98,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
-                "coach": "Benny",
+                "coachName": "Benny",
                 "country": "Philippines"
             },
             {
@@ -106,7 +106,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "HB",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Singapore"
             },
             {
@@ -114,7 +114,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Philippines"
             },
         ]
@@ -128,7 +128,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
-                "coach": "Benny",
+                "coachName": "Benny",
                 "country": "Philippines"
             },
             {
@@ -136,7 +136,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "HB",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Singapore"
             },
             {
@@ -144,7 +144,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Philippines"
             },
         ]
@@ -154,11 +154,11 @@ const courses = [
         "name": "React JS",
         "cohorts": [
             {
-                "cohortNum": 25,
+                "cohortNum": 29,
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
-                "coach": "Benny",
+                "coachName": "Benny",
                 "country": "Philippines"
             },
             {
@@ -166,15 +166,15 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "HB",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Singapore"
             },
             {
-                "cohortNum": 29,
+                "cohortNum": 25,
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Philippines"
             },
         ]
@@ -188,7 +188,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
-                "coach": "Benny",
+                "coachName": "Benny",
                 "country": "Philippines"
             },
             {
@@ -196,7 +196,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "HB",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Singapore"
             },
             {
@@ -204,7 +204,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Philippines"
             },
         ]
@@ -218,7 +218,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
-                "coach": "Benny",
+                "coachName": "Benny",
                 "country": "Philippines"
             },
             {
@@ -226,7 +226,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "HB",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Singapore"
             },
             {
@@ -234,7 +234,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Philippines"
             },
         ]
@@ -248,7 +248,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
-                "coach": "Benny",
+                "coachName": "Benny",
                 "country": "Philippines"
             },
             {
@@ -256,7 +256,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "HB",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Singapore"
             },
             {
@@ -264,7 +264,7 @@ const courses = [
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",
                 "mentorName": "Thendral",
-                "coach": "Ben",
+                "coachName": "Ben",
                 "country": "Philippines"
             },
         ]

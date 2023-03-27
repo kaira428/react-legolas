@@ -1,7 +1,9 @@
 import { Grid, Paper, Box, Typography } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const LearningTrackCard = ({ learningTracks }) => {
+  
   return (
     <Grid item sx={{ my: 8 }}>
       <Box sx={{ width: 220, border: "1px solid lightgrey" }}>
@@ -38,7 +40,7 @@ const LearningTrackCard = ({ learningTracks }) => {
                     sx={{ textAlign: "left", marginLeft: "5px" }}
                     key={learningTrack.id}
                   >
-                    {learningTrack.name}
+                    {<Link to={`/pages/supervisorDashboard/${learningTrack.id}`}> {learningTrack.name} </Link>}
                   </Typography>
                 ))}
           </Box>

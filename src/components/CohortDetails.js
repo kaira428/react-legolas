@@ -23,7 +23,7 @@ const CohortDetails = () => {
               component="p"
               sx={{ textAlign: "left", marginLeft: "5px" }}
             >
-              Total Trainee
+              Total Trainees: 10
             </Typography>
 
             <Typography
@@ -31,7 +31,18 @@ const CohortDetails = () => {
               component="p"
               sx={{ textAlign: "left", marginLeft: "5px" }}
             >
-              Total Mentors{" "}
+              Mentor: {"Mentor Name"}
+              <span style={{ marginLeft: "5px" }}>
+                <InfoTooltip />
+              </span>
+            </Typography>
+
+            <Typography
+              variant="body2"
+              component="p"
+              sx={{ textAlign: "left", marginLeft: "5px" }}
+            >
+              Coach: {"Coach Name"}
               <span style={{ marginLeft: "5px" }}>
                 <InfoTooltip />
               </span>
@@ -42,7 +53,7 @@ const CohortDetails = () => {
               component="p"
               sx={{ textAlign: "left", marginLeft: "5px" }}
             >
-              Number of Modules
+              Number of Modules:
             </Typography>
           </Box>
         </Paper>
