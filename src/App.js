@@ -13,6 +13,7 @@ function App() {
           <Route path="supervisorLanding" element={<SupervisorLanding />} />
           <Route path="supervisorDashboard" element={<SupervisorDashboard />}>
             <Route path=":learningTrackId" element={<SupervisorDashboard />} />
+            <Route path=":learningTrackId/:cohortId" element={<SupervisorDashboard />} />
           </Route>          
         </Route>
       </Routes>

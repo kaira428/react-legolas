@@ -1,6 +1,7 @@
 import { Grid, Paper, Box, Typography } from "@mui/material";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
+import classes from "./CohortIdCard.module.css";
 
 const CohortIdCard = ({ learningTracks }) => {
   const ltId = useParams();
@@ -38,6 +39,8 @@ const CohortIdCard = ({ learningTracks }) => {
     (learningTrack) => learningTrack.id == ltId.learningTrackId
   );
 
+  // console.log(filteredLearningTracksArray);
+
   return (
     <Grid item sx={{ my: 8 }}>
       <Box sx={{ width: 220, border: "1px solid lightgrey" }}>
@@ -67,14 +70,14 @@ const CohortIdCard = ({ learningTracks }) => {
                     b = y.cohortNum;
                   return a - b;
                 })
-                .map((cohort) => (
+                .map((cohort, index) => (
                   <Typography
                     variant="body2"
                     component="p"
                     sx={{ textAlign: "left", marginLeft: "5px" }}
                     key={cohort.cohortNum}
                   >
-                    {`Cohort ${cohort.cohortNum}`}
+                    {<NavLink className={classes.linkWithOutLine} to={`/pages/supervisorDashboard/${filteredLearningTracksArray[0].id}/${cohort.cohortNum}`}> {`Cohort ${cohort.cohortNum}`} </NavLink>}
                   </Typography>
                 ))}
           </Box>

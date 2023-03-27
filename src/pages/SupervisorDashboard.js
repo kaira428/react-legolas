@@ -12,6 +12,9 @@ import { useParams } from "react-router-dom";
 
 const SupervisorDasboard = () => {
   const ltId = useParams();
+  const cohortId = useParams();
+
+  console.log(Object.keys(cohortId));
 
   return (
     <Container sx={{ marginTop: 5 }}>
@@ -32,7 +35,8 @@ const SupervisorDasboard = () => {
         </Grid>
 
         <Grid item className={classes.screen3}>          
-          <CohortDetails />
+        {Object.keys(cohortId).length <= 1 && <CohortDetails data="empty"/>}   {/* if ltId is empty */}
+        {Object.keys(cohortId).length > 1 && <CohortDetails data={courses}/>}
           <TraineeProgressDetails />
         </Grid>
       </Grid>

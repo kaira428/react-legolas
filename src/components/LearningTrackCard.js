@@ -1,6 +1,7 @@
 import { Grid, Paper, Box, Typography } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import classes from "./LearningTrackCard.module.css";
 
 const LearningTrackCard = ({ learningTracks }) => {
   
@@ -40,7 +41,7 @@ const LearningTrackCard = ({ learningTracks }) => {
                     sx={{ textAlign: "left", marginLeft: "5px" }}
                     key={learningTrack.id}
                   >
-                    {<Link to={`/pages/supervisorDashboard/${learningTrack.id}`}> {learningTrack.name} </Link>}
+                    {<NavLink className={classes.linkWithOutLine} to={`/pages/supervisorDashboard/${learningTrack.id}`}> {learningTrack.name} </NavLink>}
                   </Typography>
                 ))}
           </Box>
