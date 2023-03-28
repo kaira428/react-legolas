@@ -1,8 +1,7 @@
 import { Grid, Paper, Box, Typography } from "@mui/material";
 import React from "react";
-import { useContext } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import { DataContext } from "../App";
+import { useDataContext } from "../helpers/customedHooks";
 import classes from "./CohortIdCard.module.css";
 
 const CohortIdCard = () => {
@@ -13,7 +12,7 @@ const CohortIdCard = () => {
   const {
     selectedCohortId,
     learningTrackData
-  } = useContext(DataContext);
+  } = useDataContext();
 
   console.log(learningTrackData);
   console.log(selectedCohortId);

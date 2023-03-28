@@ -1,12 +1,11 @@
 import { Grid, Paper, Box, Typography } from "@mui/material";
 import React from "react";
-import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { DataContext } from "../App";
+import { useDataContext } from "../helpers/customedHooks";
 import classes from "./LearningTrackCard.module.css";
 
 const LearningTrackCard = () => {
-  const { learningTrackData } = useContext(DataContext);
+  const { learningTrackData } = useDataContext();
 
   let learningTracks = learningTrackData;
 

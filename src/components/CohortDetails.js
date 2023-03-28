@@ -1,10 +1,10 @@
 import { Grid, Paper, Box, Typography } from "@mui/material";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import React from "react";
 import { InfoTooltip } from "../helpers/ToolTip";
 import { NavLink, useParams } from "react-router-dom";
@@ -14,9 +14,7 @@ import { useContext } from "react";
 const CohortDetails = () => {
   const params = useParams();
 
-  const {
-    learningTrackData
-  } = useContext(DataContext);
+  const { learningTrackData } = useContext(DataContext);
 
   if (Object.keys(params).length < 2) {
     return (
@@ -24,60 +22,52 @@ const CohortDetails = () => {
         <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
           <Paper elevation={3} sx={{ height: 1, width: 1 }}>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <Typography
-                variant="h6"
-                component="h3"
-                sx={{ textAlign: "center" }}
-              >
+              <Typography variant="h6" component="h3">
                 Cohort Details
               </Typography>
             </Box>
 
             <Box
               sx={{
-                height: 120,
+                height: "auto",
                 width: 250,
                 border: "1px solid lightgrey",
                 overflow: "auto",
               }}
             >
-              <Typography
-                variant="body2"
-                component="p"
-                sx={{ textAlign: "left", marginLeft: "5px" }}
-              >
-                Total Trainees:
-              </Typography>
-
-              <Typography
-                variant="body2"
-                component="p"
-                sx={{ textAlign: "left", marginLeft: "5px" }}
-              >
-                Mentor:
-                {/* <span style={{ marginLeft: "5px" }}>
-                  <InfoTooltip />
-                </span> */}
-              </Typography>
-
-              <Typography
-                variant="body2"
-                component="p"
-                sx={{ textAlign: "left", marginLeft: "5px" }}
-              >
-                Coach:
-                {/* <span style={{ marginLeft: "5px" }}>
-                  <InfoTooltip />
-                </span> */}
-              </Typography>
-
-              <Typography
-                variant="body2"
-                component="p"
-                sx={{ textAlign: "left", marginLeft: "5px" }}
-              >
-                Number of Modules:
-              </Typography>
+              <TableContainer>
+                <Table aria-label="simple table">
+                  <TableBody>
+                    {/* {rows.map((row) => (
+            <TableRow
+              key={row.name}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            > */}
+                    <TableRow key={10} sx={{ whiteSpace: "nowrap" }}>
+                      <TableCell component="th" scope="row"></TableCell>
+                      <TableCell align="left">Total Trainees:</TableCell>
+                      <TableCell align="right"> </TableCell>
+                    </TableRow>
+                    <TableRow key={11}>
+                      <TableCell component="th" scope="row"></TableCell>
+                      <TableCell align="left">Mentor:</TableCell>
+                      <TableCell align="right"></TableCell>
+                    </TableRow>
+                    <TableRow key={12}>
+                      <TableCell component="th" scope="row"></TableCell>
+                      <TableCell align="left">Coach:</TableCell>
+                      <TableCell align="right"></TableCell>
+                    </TableRow>
+                    <TableRow key={13}>
+                      <TableCell component="th" scope="row"></TableCell>
+                      <TableCell align="left" sx={{ whiteSpace: "nowrap" }}>
+                        # of Modules:
+                      </TableCell>
+                      <TableCell align="right"> </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </Box>
           </Paper>
         </Box>
@@ -88,7 +78,9 @@ const CohortDetails = () => {
   // console.log(data);
 
   // filter for the correct Learning Track
-  const reqLearningTrack = learningTrackData.filter((lt) => lt.id === parseInt(params.learningTrackId));
+  const reqLearningTrack = learningTrackData.filter(
+    (lt) => lt.id === parseInt(params.learningTrackId)
+  );
 
   // console.log(reqLearningTrack)
 
@@ -119,41 +111,43 @@ const CohortDetails = () => {
               overflow: "auto",
             }}
           >
-<TableContainer>
-      <Table  aria-label="simple table">
-        <TableBody>
-          {/* {rows.map((row) => (
+            <TableContainer>
+              <Table aria-label="simple table">
+                <TableBody>
+                  {/* {rows.map((row) => (
             <TableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             > */}
-            <TableRow key={10} sx={{whiteSpace: "nowrap"}}>
-              <TableCell component="th" scope="row">
-              </TableCell>
-              <TableCell align="left">Total Trainees:</TableCell>
-              <TableCell align="right">10</TableCell>
-            </TableRow>
-            <TableRow key={11}>
-              <TableCell component="th" scope="row">
-              </TableCell>
-              <TableCell align="left">Mentor:</TableCell>
-              <TableCell align="right">{reqCohort[0].mentorName}</TableCell>
-            </TableRow>
-            <TableRow key={12}>
-              <TableCell component="th" scope="row">
-              </TableCell>
-              <TableCell align="left">Coach:</TableCell>
-              <TableCell align="right">{reqCohort[0].coachName}</TableCell>
-            </TableRow>
-            <TableRow key={13}>
-              <TableCell component="th" scope="row">
-              </TableCell>
-              <TableCell align="left" sx={{whiteSpace: "nowrap"}}># of Modules:</TableCell>
-              <TableCell align="right">7</TableCell>
-            </TableRow>
-        </TableBody>
-      </Table>
-    </TableContainer>
+                  <TableRow key={10} sx={{ whiteSpace: "nowrap" }}>
+                    <TableCell component="th" scope="row"></TableCell>
+                    <TableCell align="left">Total Trainees:</TableCell>
+                    <TableCell align="right">10</TableCell>
+                  </TableRow>
+                  <TableRow key={11}>
+                    <TableCell component="th" scope="row"></TableCell>
+                    <TableCell align="left">Mentor:</TableCell>
+                    <TableCell align="right">
+                      {reqCohort[0].mentorName}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow key={12}>
+                    <TableCell component="th" scope="row"></TableCell>
+                    <TableCell align="left">Coach:</TableCell>
+                    <TableCell align="right">
+                      {reqCohort[0].coachName}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow key={13}>
+                    <TableCell component="th" scope="row"></TableCell>
+                    <TableCell align="left" sx={{ whiteSpace: "nowrap" }}>
+                      # of Modules:
+                    </TableCell>
+                    <TableCell align="right">7</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
 
             {/* <Typography
               variant="body2"
@@ -194,8 +188,3 @@ const CohortDetails = () => {
 };
 
 export default CohortDetails;
-
-
-
-
-

@@ -9,22 +9,17 @@ import CohortIdCard from "../components/CohortIdCard";
 import classes from "./SupervisorDashboard.module.css";
 import courses from "../data/courses";
 import { useParams } from "react-router-dom";
-import { useContext } from "react";
-import { DataContext } from "../App";
 import { useEffect } from "react";
+import { useDataContext } from "../helpers/customedHooks";
 
 const SupervisorDasboard = () => {
   const ltId = useParams();
   const cohortId = useParams();
 
   const {
-    learningTrackId,
-    setLearningTrackId,
-    selectedCohortId,
     setSelectedCohortId,
-    learningTrackData,
     setLearningTrackData,
-  } = useContext(DataContext);
+  } = useDataContext();
 
   console.log(Object.keys(ltId).length);
   console.log(Object.keys(cohortId));
