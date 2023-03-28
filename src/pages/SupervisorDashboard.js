@@ -9,12 +9,35 @@ import CohortIdCard from "../components/CohortIdCard";
 import classes from "./SupervisorDashboard.module.css";
 import courses from "../data/courses";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { DataContext } from "../App";
+import { useEffect } from "react";
 
 const SupervisorDasboard = () => {
   const ltId = useParams();
   const cohortId = useParams();
 
+  const {
+    learningTrackId,
+    setLearningTrackId,
+    selectedCohortId,
+    setSelectedCohortId,
+    learningTrackData,
+    setLearningTrackData,
+  } = useContext(DataContext);
+
+  console.log(Object.keys(ltId).length);
   console.log(Object.keys(cohortId));
+
+  console.log(ltId);
+
+  useEffect(() => {
+    if (Object.keys(cohortId).length >= 1){
+      setSelectedCohortId(cohortId);
+    }
+  }, []);
+
+  setLearningTrackData(courses);
 
   return (
     <Container sx={{ marginTop: 5 }}>
@@ -23,10 +46,11 @@ const SupervisorDasboard = () => {
         sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "40px" }}
       >
         <Grid item className={classes.screen1}>
-          <LearningTrackCard learningTracks={courses}/>
+          <LearningTrackCard />
+          <CohortIdCard />
 
-          {Object.keys(ltId).length === 0 && <CohortIdCard learningTracks="empty" />}      {/* if ltId is empty */}
-          {Object.keys(ltId).length !== 0 && <CohortIdCard learningTracks={courses}/>}
+          {/* {Object.keys(ltId).length === 0 && <CohortIdCard learningTracks="empty" />} 
+          {Object.keys(ltId).length !== 0 && <CohortIdCard learningTracks={courses}/>} */}
         </Grid>
 
         <Grid item className={classes.screen2}>
@@ -34,9 +58,10 @@ const SupervisorDasboard = () => {
           <CohortLeaderBoardCard />
         </Grid>
 
-        <Grid item className={classes.screen3}>          
-        {Object.keys(cohortId).length <= 1 && <CohortDetails data="empty"/>}   {/* if ltId is empty */}
-        {Object.keys(cohortId).length > 1 && <CohortDetails data={courses}/>}
+        <Grid item className={classes.screen3}>
+          {Object.keys(cohortId).length <= 1 && <CohortDetails data="empty" />}{" "}
+          {/* if ltId is empty */}
+          {Object.keys(cohortId).length > 1 && <CohortDetails data={courses} />}
           <TraineeProgressDetails />
         </Grid>
       </Grid>

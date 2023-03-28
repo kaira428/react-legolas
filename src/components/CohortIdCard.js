@@ -1,15 +1,28 @@
 import { Grid, Paper, Box, Typography } from "@mui/material";
 import React from "react";
+import { useContext } from "react";
 import { NavLink, useParams } from "react-router-dom";
+import { DataContext } from "../App";
 import classes from "./CohortIdCard.module.css";
 
-const CohortIdCard = ({ learningTracks }) => {
-  const ltId = useParams();
+const CohortIdCard = () => {
+  const params = useParams();
 
-  if (learningTracks === "empty") {
+  console.log(Object.keys(params).length);
+
+  const {
+    selectedCohortId,
+    learningTrackData
+  } = useContext(DataContext);
+
+  console.log(learningTrackData);
+  console.log(selectedCohortId);
+
+  // On initial loading of page before cohortId is selected
+  if (Object.keys(params).length < 1) {
     return (
       <Grid item sx={{ my: 8 }}>
-        <Box sx={{ width: 220, border: "1px solid lightgrey" }}>
+        <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
           <Paper elevation={3} sx={{ height: 1, width: 1 }}>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Typography
@@ -23,7 +36,7 @@ const CohortIdCard = ({ learningTracks }) => {
             <Box
               sx={{
                 height: 120,
-                width: 220,
+                width: 250,
                 border: "1px solid lightgrey",
                 overflow: "auto",
               }}
@@ -35,15 +48,15 @@ const CohortIdCard = ({ learningTracks }) => {
   }
 
   // Filter for required Learning Track based on LearningTrack ID
-  const filteredLearningTracksArray = learningTracks.filter(
-    (learningTrack) => learningTrack.id == ltId.learningTrackId
+  const filteredLearningTracksArray = learningTrackData.filter(
+    (learningTrack) => learningTrack.id === parseInt(params.learningTrackId)
   );
 
   // console.log(filteredLearningTracksArray);
 
   return (
     <Grid item sx={{ my: 8 }}>
-      <Box sx={{ width: 220, border: "1px solid lightgrey" }}>
+      <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
         <Paper elevation={3} sx={{ height: 1, width: 1 }}>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Typography
@@ -57,7 +70,7 @@ const CohortIdCard = ({ learningTracks }) => {
           <Box
             sx={{
               height: 120,
-              width: 220,
+              width: 250,
               border: "1px solid lightgrey",
               overflow: "auto",
             }}
@@ -74,7 +87,7 @@ const CohortIdCard = ({ learningTracks }) => {
                   <Typography
                     variant="body2"
                     component="p"
-                    sx={{ textAlign: "left", marginLeft: "5px" }}
+                    sx={{ textAlign: "left", marginLeft: "5px", marginTop: "5px" }}
                     key={cohort.cohortNum}
                   >
                     {<NavLink className={classes.linkWithOutLine} to={`/pages/supervisorDashboard/${filteredLearningTracksArray[0].id}/${cohort.cohortNum}`}> {`Cohort ${cohort.cohortNum}`} </NavLink>}

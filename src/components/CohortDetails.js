@@ -1,15 +1,27 @@
 import { Grid, Paper, Box, Typography } from "@mui/material";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 import React from "react";
 import { InfoTooltip } from "../helpers/ToolTip";
 import { NavLink, useParams } from "react-router-dom";
+import { DataContext } from "../App";
+import { useContext } from "react";
 
-const CohortDetails = ({ data }) => {
-  const { learningTrackId, cohortId } = useParams();
+const CohortDetails = () => {
+  const params = useParams();
 
-  if (data === "empty") {
+  const {
+    learningTrackData
+  } = useContext(DataContext);
+
+  if (Object.keys(params).length < 2) {
     return (
       <Grid item sx={{ my: 8 }}>
-        <Box sx={{ width: 220, border: "1px solid lightgrey" }}>
+        <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
           <Paper elevation={3} sx={{ height: 1, width: 1 }}>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Typography
@@ -24,7 +36,7 @@ const CohortDetails = ({ data }) => {
             <Box
               sx={{
                 height: 120,
-                width: 220,
+                width: 250,
                 border: "1px solid lightgrey",
                 overflow: "auto",
               }}
@@ -43,9 +55,9 @@ const CohortDetails = ({ data }) => {
                 sx={{ textAlign: "left", marginLeft: "5px" }}
               >
                 Mentor:
-                <span style={{ marginLeft: "5px" }}>
+                {/* <span style={{ marginLeft: "5px" }}>
                   <InfoTooltip />
-                </span>
+                </span> */}
               </Typography>
 
               <Typography
@@ -54,9 +66,9 @@ const CohortDetails = ({ data }) => {
                 sx={{ textAlign: "left", marginLeft: "5px" }}
               >
                 Coach:
-                <span style={{ marginLeft: "5px" }}>
+                {/* <span style={{ marginLeft: "5px" }}>
                   <InfoTooltip />
-                </span>
+                </span> */}
               </Typography>
 
               <Typography
@@ -76,18 +88,18 @@ const CohortDetails = ({ data }) => {
   // console.log(data);
 
   // filter for the correct Learning Track
-  const reqLearningTrack = data.filter((lt) => lt.id == learningTrackId);
+  const reqLearningTrack = learningTrackData.filter((lt) => lt.id === parseInt(params.learningTrackId));
 
   // console.log(reqLearningTrack)
 
   // filter for the correct cohort
   const reqCohort = reqLearningTrack[0].cohorts.filter(
-    (cohort) => cohort.cohortNum == cohortId
+    (cohort) => cohort.cohortNum === parseInt(params.cohortId)
   );
 
   return (
     <Grid item sx={{ my: 8 }}>
-      <Box sx={{ width: 220, border: "1px solid lightgrey" }}>
+      <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
         <Paper elevation={3} sx={{ height: 1, width: 1 }}>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Typography
@@ -101,13 +113,49 @@ const CohortDetails = ({ data }) => {
 
           <Box
             sx={{
-              height: 120,
-              width: 220,
+              height: "auto",
+              width: 250,
               border: "1px solid lightgrey",
               overflow: "auto",
             }}
           >
-            <Typography
+<TableContainer>
+      <Table  aria-label="simple table">
+        <TableBody>
+          {/* {rows.map((row) => (
+            <TableRow
+              key={row.name}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            > */}
+            <TableRow key={10} sx={{whiteSpace: "nowrap"}}>
+              <TableCell component="th" scope="row">
+              </TableCell>
+              <TableCell align="left">Total Trainees:</TableCell>
+              <TableCell align="right">10</TableCell>
+            </TableRow>
+            <TableRow key={11}>
+              <TableCell component="th" scope="row">
+              </TableCell>
+              <TableCell align="left">Mentor:</TableCell>
+              <TableCell align="right">{reqCohort[0].mentorName}</TableCell>
+            </TableRow>
+            <TableRow key={12}>
+              <TableCell component="th" scope="row">
+              </TableCell>
+              <TableCell align="left">Coach:</TableCell>
+              <TableCell align="right">{reqCohort[0].coachName}</TableCell>
+            </TableRow>
+            <TableRow key={13}>
+              <TableCell component="th" scope="row">
+              </TableCell>
+              <TableCell align="left" sx={{whiteSpace: "nowrap"}}># of Modules:</TableCell>
+              <TableCell align="right">7</TableCell>
+            </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
+
+            {/* <Typography
               variant="body2"
               component="p"
               sx={{ textAlign: "left", marginLeft: "5px" }}
@@ -120,21 +168,15 @@ const CohortDetails = ({ data }) => {
               component="p"
               sx={{ textAlign: "left", marginLeft: "5px" }}
             >
-              Mentor: {reqCohort[0].mentorName}
-              <span style={{ marginLeft: "5px" }}>
-                <InfoTooltip />
-              </span>
+              Mentor: <span align="right">{reqCohort[0].mentorName}</span>
             </Typography>
 
             <Typography
               variant="body2"
               component="p"
-              sx={{ textAlign: "left", marginLeft: "5px" }}
+              sx={{textAlign: "left", marginLeft: "5px" }}
             >
-              Coach: {reqCohort[0].coachName}
-              <span style={{ marginLeft: "5px" }}>
-                <InfoTooltip />
-              </span>
+              Coach: <span align="right">{reqCohort[0].coachName}</span>
             </Typography>
 
             <Typography
@@ -143,7 +185,7 @@ const CohortDetails = ({ data }) => {
               sx={{ textAlign: "left", marginLeft: "5px" }}
             >
               Number of Modules:
-            </Typography>
+            </Typography> */}
           </Box>
         </Paper>
       </Box>
@@ -152,3 +194,8 @@ const CohortDetails = ({ data }) => {
 };
 
 export default CohortDetails;
+
+
+
+
+
