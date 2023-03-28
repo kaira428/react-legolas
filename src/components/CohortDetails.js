@@ -26,7 +26,6 @@ const CohortDetails = () => {
                 Cohort Details
               </Typography>
             </Box>
-
             <Box
               sx={{
                 height: "auto",
@@ -36,13 +35,9 @@ const CohortDetails = () => {
               }}
             >
               <TableContainer>
-                <Table aria-label="simple table">
+                <Table aria-label="a dense table">
                   <TableBody>
-                    {/* {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            > */}
+                  <Typography variant="body1" component="p">
                     <TableRow key={10} sx={{ whiteSpace: "nowrap" }}>
                       <TableCell component="th" scope="row"></TableCell>
                       <TableCell align="left">Total Trainees:</TableCell>
@@ -65,6 +60,7 @@ const CohortDetails = () => {
                       </TableCell>
                       <TableCell align="right"> </TableCell>
                     </TableRow>
+                    </Typography>
                   </TableBody>
                 </Table>
               </TableContainer>
@@ -112,16 +108,16 @@ const CohortDetails = () => {
             }}
           >
             <TableContainer>
-              <Table aria-label="simple table">
+              <Table aria-label="a dense table">
                 <TableBody>
-                  {/* {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            > */}
+                <Typography variant="body1" component="p">
                   <TableRow key={10} sx={{ whiteSpace: "nowrap" }}>
                     <TableCell component="th" scope="row"></TableCell>
-                    <TableCell align="left">Total Trainees:</TableCell>
+                    <TableCell align="left">
+                      
+                        Total Trainees:
+                      
+                    </TableCell>
                     <TableCell align="right">10</TableCell>
                   </TableRow>
                   <TableRow key={11}>
@@ -145,6 +141,7 @@ const CohortDetails = () => {
                     </TableCell>
                     <TableCell align="right">7</TableCell>
                   </TableRow>
+                  </Typography>
                 </TableBody>
               </Table>
             </TableContainer>

@@ -84,7 +84,7 @@ const CohortIdCard = () => {
                 })
                 .map((cohort, index) => (
                   <Typography
-                    variant="body2"
+                    variant="body1"
                     component="p"
                     sx={{ textAlign: "left", marginLeft: "5px", marginTop: "5px" }}
                     key={cohort.cohortNum}

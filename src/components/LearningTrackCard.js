@@ -24,7 +24,7 @@ const LearningTrackCard = () => {
           </Box>
           <Box
             sx={{
-              height: 190,
+              height: 200,
               width: 250,
               border: "1px solid lightgrey",
               overflow: "auto",
@@ -40,7 +40,7 @@ const LearningTrackCard = () => {
                 })
                 .map((learningTrack) => (
                   <Typography
-                    variant="body2"
+                    variant="body1"
                     component="p"
                     sx={{
                       textAlign: "left",
@@ -54,8 +54,7 @@ const LearningTrackCard = () => {
                         className={classes.linkWithOutLine}
                         to={`/pages/supervisorDashboard/${learningTrack.id}`}
                       >
-                        {" "}
-                        {learningTrack.name}{" "}
+                        {learningTrack.name}
                       </NavLink>
                     }
                   </Typography>
