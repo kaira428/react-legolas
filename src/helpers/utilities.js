@@ -28,7 +28,7 @@ export const traineeDetailsByLtIdByCohortId = (ltId, cohortId) => {
         // update total module results to required trainee object
         trainee = { ...trainee, totalModuleResult: totalModuleResult };
 
-        console.log(trainee);
+        // console.log(trainee);
         traineesWithTotalModuleResult.push(trainee);
 
         return trainee;
@@ -40,7 +40,7 @@ export const traineeDetailsByLtIdByCohortId = (ltId, cohortId) => {
       (a, b) => b.totalModuleResult - a.totalModuleResult
     );
 
-    console.log(reqTraineesData);
+    // console.log(reqTraineesData);
 
     return reqTraineesData;
   }

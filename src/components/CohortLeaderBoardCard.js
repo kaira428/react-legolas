@@ -10,17 +10,12 @@ import {
   TableRow,
   TableBody,
 } from "@mui/material";
-import React, { useContext } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
-import { DataContext } from "../App";
 import { traineeDetailsByLtIdByCohortId } from "../helpers/utilities";
 
 const CohortLeaderBoardCard = () => {
   const params = useParams();
-
-  // console.log(params);
-
-  // const { learningTrackData } = useContext(DataContext);
 
   // On initial loading of page before cohortId is selected
   if (Object.keys(params).length < 2) {
@@ -51,10 +46,11 @@ const CohortLeaderBoardCard = () => {
           Cohort Leaderboard
         </Typography>
       </Box>
-      <TableContainer component={Paper} sx={{ height: 300 }}>
+      <TableContainer component={Paper} sx={{ height: 300}}>
         <Table
           sx={{ minWidth: 500, height: "max-content" }}
           aria-label="simple table"
+          stickyHeader
         >
           <TableHead>
             <TableRow>

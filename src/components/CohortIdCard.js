@@ -7,15 +7,14 @@ import classes from "./CohortIdCard.module.css";
 const CohortIdCard = () => {
   const params = useParams();
 
-  console.log(Object.keys(params).length);
+  // console.log(Object.keys(params).length);
 
   const {
-    selectedCohortId,
     learningTrackData
   } = useDataContext();
 
-  console.log(learningTrackData);
-  console.log(selectedCohortId);
+  // console.log(learningTrackData);
+  // console.log(selectedCohortId);
 
   // On initial loading of page before cohortId is selected
   if (Object.keys(params).length < 1) {

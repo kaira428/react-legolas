@@ -16,7 +16,7 @@ import { traineeDetailsByLtIdByCohortId } from "../helpers/utilities";
 const CohortDetails = () => {
   const params = useParams();
 
-  console.log(params);
+  // console.log(params);
 
   const { learningTrackData } = useContext(DataContext);
 
