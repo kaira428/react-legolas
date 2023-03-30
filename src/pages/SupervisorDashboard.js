@@ -21,10 +21,10 @@ const SupervisorDasboard = () => {
     setLearningTrackData,
   } = useDataContext();
 
-  console.log(Object.keys(ltId).length);
-  console.log(Object.keys(cohortId));
+  // console.log(Object.keys(ltId).length);
+  // console.log(Object.keys(cohortId));
 
-  console.log(ltId);
+  // console.log(ltId);
 
   useEffect(() => {
     if (Object.keys(cohortId).length >= 1){
@@ -54,9 +54,7 @@ const SupervisorDasboard = () => {
         </Grid>
 
         <Grid item className={classes.screen3}>
-          {Object.keys(cohortId).length <= 1 && <CohortDetails data="empty" />}{" "}
-          {/* if ltId is empty */}
-          {Object.keys(cohortId).length > 1 && <CohortDetails data={courses} />}
+          <CohortDetails />
           <TraineeProgressDetails />
         </Grid>
       </Grid>

@@ -13,7 +13,7 @@ const TraineeProgressDetails = () => {
           <Paper elevation={3} sx={{ height: 1, width: 1 }}>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Typography variant="h6" component="h3">
-                Cohort Details
+                Trainee Details
               </Typography>
             </Box>
             <Box

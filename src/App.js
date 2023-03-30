@@ -12,6 +12,7 @@ function App() {
   const [learningTrackId, setLearningTrackId] = useState(0);
   const [selectedCohortId, setSelectedCohortId] = useState(0);
   const [learningTrackData, setLearningTrackData] = useState();
+  const [traineeData, setTraineeData] = useState();
 
   return (
     <DataContext.Provider
@@ -22,6 +23,8 @@ function App() {
         setSelectedCohortId,
         learningTrackData,
         setLearningTrackData,
+        traineeData,
+        setTraineeData,
       }}
     >
       <Routes>

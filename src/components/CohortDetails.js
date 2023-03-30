@@ -10,11 +10,20 @@ import { InfoTooltip } from "../helpers/ToolTip";
 import { NavLink, useParams } from "react-router-dom";
 import { DataContext } from "../App";
 import { useContext } from "react";
+import { trainees } from "../data/trainees";
+import { traineeDetailsByLtIdByCohortId } from "../helpers/utilities";
 
 const CohortDetails = () => {
   const params = useParams();
 
+  console.log(params);
+
   const { learningTrackData } = useContext(DataContext);
+
+  const traineeData = traineeDetailsByLtIdByCohortId(parseInt(params.learningTrackId), parseInt(params.cohortId));
+
+  console.log(traineeData);
+
 
   if (Object.keys(params).length < 2) {
     return (
