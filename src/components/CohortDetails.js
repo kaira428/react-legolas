@@ -20,10 +20,9 @@ const CohortDetails = () => {
 
   const { learningTrackData } = useContext(DataContext);
 
-  const traineeData = traineeDetailsByLtIdByCohortId(parseInt(params.learningTrackId), parseInt(params.cohortId));
+  // const traineeData = traineeDetailsByLtIdByCohortId(parseInt(params.learningTrackId), parseInt(params.cohortId));
 
-  console.log(traineeData);
-
+  // console.log(traineeData);
 
   if (Object.keys(params).length < 2) {
     return (

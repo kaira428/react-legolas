@@ -178,15 +178,15 @@ export const trainees = [
         cohort: 25,
         password: "",
         learningTrack: 6,
-        modules: [
-            {"Week 1": 472},
-            {"Week 2": 488},
-            {"Week 3": 420},
-            {"Week 4": 454},
-            {"Week 5": 460},
-            {"Week 6": 400},
-            {"Mock Presentation": 420}
-        ],
+        modules: {
+            "Week 1": 472,
+            "Week 2": 488,
+            "Week 3": 420,
+            "Week 4": 454,
+            "Week 5": 460,
+            "Week 6": 400,
+            "Mock Presentation": 420
+        },
         progress: 71,
     },
     {
