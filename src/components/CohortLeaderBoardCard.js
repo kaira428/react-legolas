@@ -18,19 +18,19 @@ const CohortLeaderBoardCard = () => {
   const params = useParams();
 
   // On initial loading of page before cohortId is selected
-  if (Object.keys(params).length < 2) {
-    return (
-      <Grid item sx={{ my: 5 }}>
-        <Box sx={{ height: 250, width: 500, border: "1px solid lightgrey" }}>
-          <Paper elevation={3} sx={{ height: 1, textAlign: "center" }}>
-            <Typography variant="h5" component="h3">
-              Cohort LeaderBoard
-            </Typography>
-          </Paper>
-        </Box>
-      </Grid>
-    );
-  }
+  // if (Object.keys(params).length < 2) {
+  //   return (
+  //     <Grid item sx={{ my: 5 }}>
+  //       <Box sx={{ height: 250, width: 500, border: "1px solid lightgrey" }}>
+  //         <Paper elevation={3} sx={{ height: 1, textAlign: "center" }}>
+  //           <Typography variant="h5" component="h3">
+  //             Cohort LeaderBoard
+  //           </Typography>
+  //         </Paper>
+  //       </Box>
+  //     </Grid>
+  //   );
+  // }
 
   const traineeData = traineeDetailsByLtIdByCohortId(
     parseInt(params.learningTrackId),
@@ -39,14 +39,32 @@ const CohortLeaderBoardCard = () => {
 
   // console.log(traineeData);
 
+  const showClick = (rowNum) => {
+    console.log(`Row ${rowNum} Clicked`);
+  };
+
   return (
     <>
-      <Box sx={{ textAlign: "center" }}>
+      <Paper
+        elevation={0}
+        sx={{
+          textAlign: "center",
+          border: "1px solid darkgrey",
+          backgroundColor: "lightblue",
+        }}
+      >
+        {/* <Box sx={{ textAlign: "center", border: "1px solid darkgrey" }}> */}
+
         <Typography variant="h5" component="h3">
           Cohort Leaderboard
         </Typography>
-      </Box>
-      <TableContainer component={Paper} sx={{ height: 300}}>
+
+        {/* </Box> */}
+      </Paper>
+      <TableContainer
+        component={Paper}
+        sx={{ height: 300, border: "1px solid darkgrey" }}
+      >
         <Table
           sx={{ minWidth: 500, height: "max-content" }}
           aria-label="simple table"
@@ -89,13 +107,14 @@ const CohortLeaderBoardCard = () => {
               <TableRow
                 key={index + 1}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                onClick={() => showClick(index + 1)}
               >
                 <TableCell component="th" scope="row">
                   {index + 1}
                 </TableCell>
                 <TableCell align="center">
                   <span>
-                    <Typography variant="body1" component="p">
+                    <Typography variant="body1" component="p" sx={{textDecoration: "underline"}}>
                       {trainee.firstName}
                     </Typography>
                   </span>
