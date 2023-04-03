@@ -1,5 +1,26 @@
 import { trainees } from "../data/trainees";
 
+export const getCohortIDForSelectedLtId = (ltId, ltData) => {
+  // console.log("🚀 ~ file: utilities.js:4 ~ getCohortIDForSelectedLtId ~ ltId:", ltId)
+
+  // console.log("🚀 ~ file: utilities.js:4 ~ getCohortIDForSelectedLtId ~ ltData:", ltData)
+
+  // Filter for required Learning Track based on LearningTrack ID
+  const filteredLearningTracksArray = ltData.filter(
+    (learningTrack) => learningTrack.id === ltId);
+
+  const reqSortedData = filteredLearningTracksArray[0].cohorts
+    .sort((x, y) => {
+      let a = x.cohortNum,
+        b = y.cohortNum;
+      return a - b;
+    });
+
+    // console.log("🚀 ~ file: utilities.js:18 ~ getCohortIDForSelectedLtId ~ reqSortedData:", reqSortedData)
+  
+    return reqSortedData;
+};
+    
 export const traineeDetailsByLtIdByCohortId = (ltId, cohortId) => {
   //   console.log(cohortId);
   //   console.log(typeof ltId);

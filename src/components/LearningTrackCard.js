@@ -1,10 +1,9 @@
-import { Grid, Paper, Box, Typography } from "@mui/material";
+import { Grid, Paper, Box, Typography, Link, Button } from "@mui/material";
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { useDataContext } from "../helpers/customedHooks";
-import classes from "./LearningTrackCard.module.css";
+import { ACTIONS } from "../pages/SupervisorDashboard";
 
-const LearningTrackCard = () => {
+const LearningTrackCard = (props) => {
   const { learningTrackData } = useDataContext();
 
   let learningTracks = learningTrackData;
@@ -30,7 +29,7 @@ const LearningTrackCard = () => {
               overflow: "auto",
             }}
           >
-            {/* Sort Learning Track names alphabetically before mapping */}
+            {/* sort alphabetically */}
             {learningTracks &&
               learningTracks
                 .sort((x, y) => {
@@ -39,25 +38,22 @@ const LearningTrackCard = () => {
                   return a === b ? 0 : a > b ? 1 : -1;
                 })
                 .map((learningTrack) => (
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    sx={{
-                      textAlign: "left",
-                      marginLeft: "5px",
-                      marginTop: "5px",
-                    }}
-                    key={learningTrack.id}
-                  >
-                    {
-                      <NavLink
-                        className={classes.linkWithOutLine}
-                        to={`/pages/supervisorDashboard/${learningTrack.id}`}
-                      >
-                        {learningTrack.name}
-                      </NavLink>
-                    }
-                  </Typography>
+                  <div>
+                    <Button
+                      key={learningTrack.id}
+                      onClick={() =>
+                        props.dispatch({
+                          type: ACTIONS.GET_COHORT_ID,
+                          payload: {
+                            ltId: learningTrack.id,
+                            ltData: learningTracks,
+                          },
+                        })
+                      }
+                    >
+                      {learningTrack.name}
+                    </Button>
+                  </div>
                 ))}
           </Box>
         </Paper>

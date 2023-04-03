@@ -11,23 +11,42 @@ import courses from "../data/courses";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDataContext } from "../helpers/customedHooks";
+import { useReducer } from "react";
+import { getCohortIDForSelectedLtId } from "../helpers/utilities";
 
-const SupervisorDasboard = () => {
-  const ltId = useParams();
+export const ACTIONS = {
+  GET_COHORT_ID: "get-cohort_id",
+};
+
+const reducer = (currentState, action) => {
+  switch (action.type) {
+    case ACTIONS.GET_COHORT_ID:
+      return getCohortIDForSelectedLtId(
+        action.payload.ltId,
+        action.payload.ltData
+      );
+    default:
+      return null;
+  }
+};
+
+const SupervisorDashboard = () => {
   const cohortId = useParams();
 
-  const {
-    setSelectedCohortId,
-    setLearningTrackData,
-  } = useDataContext();
+  // setup reducer
+  const [currentState, dispatch] = useReducer(reducer, []);
 
-  // console.log(Object.keys(ltId).length);
-  // console.log(Object.keys(cohortId));
+  console.log(
+    "🚀 ~ file: SupervisorDashboard.js:35 ~ SupervisorDashboard ~ currentState:",
+    currentState
+  );
 
-  // console.log(ltId);
+  const { setSelectedCohortId, setLearningTrackData } = useDataContext();
+
+  // console.log("In SupervisorDashboard.js");
 
   useEffect(() => {
-    if (Object.keys(cohortId).length >= 1){
+    if (Object.keys(cohortId).length >= 1) {
       setSelectedCohortId(cohortId);
     }
   }, []);
@@ -41,11 +60,8 @@ const SupervisorDasboard = () => {
         sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "40px" }}
       >
         <Grid item className={classes.screen1}>
-          <LearningTrackCard />
-          <CohortIdCard />
-
-          {/* {Object.keys(ltId).length === 0 && <CohortIdCard learningTracks="empty" />} 
-          {Object.keys(ltId).length !== 0 && <CohortIdCard learningTracks={courses}/>} */}
+          <LearningTrackCard dispatch={dispatch} />
+          <CohortIdCard data={currentState} />
         </Grid>
 
         <Grid item className={classes.screen2}>
@@ -62,4 +78,4 @@ const SupervisorDasboard = () => {
   );
 };
 
-export default SupervisorDasboard;
+export default SupervisorDashboard;
