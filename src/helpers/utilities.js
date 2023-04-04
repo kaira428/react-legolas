@@ -1,35 +1,36 @@
+import courses from "../data/courses";
 import { trainees } from "../data/trainees";
 
 export const getCohortIDForSelectedLtId = (ltId, ltData) => {
-  // console.log("🚀 ~ file: utilities.js:4 ~ getCohortIDForSelectedLtId ~ ltId:", ltId)
-
-  // console.log("🚀 ~ file: utilities.js:4 ~ getCohortIDForSelectedLtId ~ ltData:", ltData)
-
   // Filter for required Learning Track based on LearningTrack ID
   const filteredLearningTracksArray = ltData.filter(
-    (learningTrack) => learningTrack.id === ltId);
+    (learningTrack) => learningTrack.id === ltId
+  );
 
-  const reqSortedData = filteredLearningTracksArray[0].cohorts
-    .sort((x, y) => {
-      let a = x.cohortNum,
-        b = y.cohortNum;
-      return a - b;
-    });
+  // console.log("🚀 ~ file: utilities.js:11 ~ getCohortIDForSelectedLtId ~ filteredLearningTracksArray:", filteredLearningTracksArray)
 
-    // console.log("🚀 ~ file: utilities.js:18 ~ getCohortIDForSelectedLtId ~ reqSortedData:", reqSortedData)
-  
-    return reqSortedData;
+  const reqSortedData = filteredLearningTracksArray[0].cohorts.sort((x, y) => {
+    let a = x.cohortNum,
+      b = y.cohortNum;
+    return a - b;
+  });
+
+  // console.log("🚀 ~ file: utilities.js:18 ~ getCohortIDForSelectedLtId ~ reqSortedData:", reqSortedData)
+  const result = { data: reqSortedData, ltId: ltId };
+
+  console.log(
+    "🚀 ~ file: utilities.js:21 ~ getCohortIDForSelectedLtId ~ result:",
+    result
+  );
+
+  return result;
 };
-    
+
 export const traineeDetailsByLtIdByCohortId = (ltId, cohortId) => {
-  //   console.log(cohortId);
-  //   console.log(typeof ltId);
-  //   console.log(typeof cohortId);
+  let traineeDataWithTotalModuleResults = [];
 
-  let traineesWithTotalModuleResult = [];
-
-  if (typeof ltId === "number") {
-    const reqTrainees = trainees.filter((trainee) => {
+  // get trainees details for given ltId and cohortId
+    trainees.filter((trainee) => {
       // filter for trainees by Learning Track and Cohort IDs
       if (trainee.learningTrack === ltId && trainee.cohort === cohortId) {
         // found required trainee, then compute total module result
@@ -49,20 +50,40 @@ export const traineeDetailsByLtIdByCohortId = (ltId, cohortId) => {
         // update total module results to required trainee object
         trainee = { ...trainee, totalModuleResult: totalModuleResult };
 
-        // console.log(trainee);
-        traineesWithTotalModuleResult.push(trainee);
+        traineeDataWithTotalModuleResults = [
+          ...traineeDataWithTotalModuleResults,
+          trainee,
+        ];
 
         return trainee;
+      } else {
+        return false;
       }
     });
 
     // sort the trainees in descending order of totalModuleResult
-    const reqTraineesData = traineesWithTotalModuleResult.sort(
+    const reqTraineesData = traineeDataWithTotalModuleResults.sort(
       (a, b) => b.totalModuleResult - a.totalModuleResult
     );
+    console.log("🚀 ~ file: utilities.js:68 ~ traineeDetailsByLtIdByCohortId ~ reqTraineesData:", reqTraineesData)
 
-    // console.log(reqTraineesData);
+    const numberOfTraineesInCohort = reqTraineesData.length; //number of trainees in the required Cohort
 
-    return reqTraineesData;
-  }
+    const numberOfModulesForCohort = Object.keys(reqTraineesData[0].modules).length; //number of modules in trainee[0]
+
+    // get cohort details for given ltId and cohortId
+    const reqCohortsForGivenLtId = courses.filter(course => course.id === ltId)
+    // console.log("🚀 ~ file: utilities.js:72 ~ traineeDetailsByLtIdByCohortId ~ reqCohortsForGivenLtId:", reqCohortsForGivenLtId)
+
+    const partialCohortDetail = reqCohortsForGivenLtId[0].cohorts.filter(cohort => cohort.cohortNum === cohortId);
+    // console.log("🚀 ~ file: utilities.js:75 ~ traineeDetailsByLtIdByCohortId ~ reqCohortDetail:", reqCohortDetail[0])
+
+    const reqCohortDetail = {numberOfTraineesInCohort, numberOfModulesForCohort, partialCohortDetails: partialCohortDetail[0]};
+
+    console.log("🚀 ~ file: utilities.js:83 ~ traineeDetailsByLtIdByCohortId ~ reqCohortDetail:", reqCohortDetail);
+    
+    const result = {reqTraineesData, reqCohortDetail};
+
+    return result;
+  
 };

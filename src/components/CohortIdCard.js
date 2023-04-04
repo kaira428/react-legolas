@@ -1,15 +1,10 @@
-import { Grid, Paper, Box, Typography } from "@mui/material";
+import { Grid, Paper, Box, Typography, Button } from "@mui/material";
 import React from "react";
-import { useDataContext } from "../helpers/customedHooks";
 
 const CohortIdCard = (props) => {
-  console.log("🚀 ~ file: CohortIdCard.js:8 ~ CohortIdCard ~ props:", props.data) 
-
-  console.log("🚀 ~ file: CohortIdCard.js:24 ~ CohortIdCard ~ data:", props.data)
-
+  
   // On initial loading of page before cohortId is selected
-  if (props.data.length === 0) {
-    
+  if (props.cohortList.length === 0) {
     return (
       <Grid item sx={{ my: 8 }}>
         <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
@@ -59,22 +54,25 @@ const CohortIdCard = (props) => {
             }}
           >
             {/* Map sorted cohort IDs */}
-            {props.data
-                .sort((x, y) => {
-                  let a = x.cohortNum,
-                    b = y.cohortNum;
-                  return a - b;
-                })
-                .map((cohort, index) => (
-                  <Typography
-                    variant="body1"
-                    component="p"
-                    sx={{ textAlign: "left", marginLeft: "5px", marginTop: "5px" }}
-                    key={cohort.cohortNum}
-                  >
-                    {`Cohort ${cohort.cohortNum}`}
-                  </Typography>
-                ))}
+            {props.cohortList
+              .sort((x, y) => {
+                let a = x.cohortNum,
+                  b = y.cohortNum;
+                return a - b;
+              })
+              .map((cohort, index) => (
+              
+                <div>
+                <Button
+                  key={index}
+                  onClick={() =>
+                    props.getTraineeData(props.ltId, cohort.cohortNum)
+                  }
+                >
+                  {`Cohort ${cohort.cohortNum}`}
+                </Button>
+                </div>
+              ))}
           </Box>
         </Paper>
       </Box>

@@ -1,13 +1,11 @@
-import { Grid, Paper, Box, Typography, Link, Button } from "@mui/material";
+import { Grid, Paper, Box, Typography, Button } from "@mui/material";
 import React from "react";
-import { useDataContext } from "../helpers/customedHooks";
-import { ACTIONS } from "../pages/SupervisorDashboard";
+import courses from "../data/courses";
 
 const LearningTrackCard = (props) => {
-  const { learningTrackData } = useDataContext();
-
-  let learningTracks = learningTrackData;
-
+  let learningTracks = props.learningTrackList;
+  console.log("🚀 ~ file: LearningTrackCard.js:7 ~ LearningTrackCard ~ learningTracks:", learningTracks)
+  
   return (
     <Grid item sx={{ my: 8 }}>
       <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
@@ -29,32 +27,24 @@ const LearningTrackCard = (props) => {
               overflow: "auto",
             }}
           >
-            {/* sort alphabetically */}
-            {learningTracks &&
-              learningTracks
-                .sort((x, y) => {
-                  let a = x.name,
-                    b = y.name;
-                  return a === b ? 0 : a > b ? 1 : -1;
-                })
-                .map((learningTrack) => (
-                  <div>
-                    <Button
-                      key={learningTrack.id}
-                      onClick={() =>
-                        props.dispatch({
-                          type: ACTIONS.GET_COHORT_ID,
-                          payload: {
-                            ltId: learningTrack.id,
-                            ltData: learningTracks,
-                          },
-                        })
-                      }
-                    >
-                      {learningTrack.name}
-                    </Button>
-                  </div>
-                ))}
+            {learningTracks
+              .sort((x, y) => {
+                let a = x.name,
+                  b = y.name;
+                return a === b ? 0 : a > b ? 1 : -1;
+              })
+              .map((learningTrack) => (
+                <div>
+                  <Button
+                    key={learningTrack.id}
+                    onClick={() => props.getCohortIdList(
+                      learningTrack.id
+                    )}
+                  >
+                    {learningTrack.name}
+                  </Button>
+                </div>
+              ))}
           </Box>
         </Paper>
       </Box>

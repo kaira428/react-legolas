@@ -1,7 +1,5 @@
 import {
-  Grid,
   Paper,
-  Box,
   Typography,
   TableContainer,
   Table,
@@ -11,38 +9,9 @@ import {
   TableBody,
 } from "@mui/material";
 import React from "react";
-import { useParams } from "react-router-dom";
-import { traineeDetailsByLtIdByCohortId } from "../helpers/utilities";
 
-const CohortLeaderBoardCard = () => {
-  const params = useParams();
-
-  // On initial loading of page before cohortId is selected
-  // if (Object.keys(params).length < 2) {
-  //   return (
-  //     <Grid item sx={{ my: 5 }}>
-  //       <Box sx={{ height: 250, width: 500, border: "1px solid lightgrey" }}>
-  //         <Paper elevation={3} sx={{ height: 1, textAlign: "center" }}>
-  //           <Typography variant="h5" component="h3">
-  //             Cohort LeaderBoard
-  //           </Typography>
-  //         </Paper>
-  //       </Box>
-  //     </Grid>
-  //   );
-  // }
-
-  const traineeData = traineeDetailsByLtIdByCohortId(
-    parseInt(params.learningTrackId),
-    parseInt(params.cohortId)
-  );
-
-  // console.log(traineeData);
-
-  const showClick = (rowNum) => {
-    console.log(`Row ${rowNum} Clicked`);
-  };
-
+const CohortLeaderBoardCard = ({data}) => {
+  
   return (
     <>
       <Paper
@@ -53,13 +22,10 @@ const CohortLeaderBoardCard = () => {
           backgroundColor: "lightblue",
         }}
       >
-        {/* <Box sx={{ textAlign: "center", border: "1px solid darkgrey" }}> */}
-
         <Typography variant="h5" component="h3">
           Cohort Leaderboard
         </Typography>
 
-        {/* </Box> */}
       </Paper>
       <TableContainer
         component={Paper}
@@ -103,11 +69,10 @@ const CohortLeaderBoardCard = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {traineeData.map((trainee, index) => (
+            {data.map((trainee, index) => (
               <TableRow
                 key={index + 1}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                onClick={() => showClick(index + 1)}
               >
                 <TableCell component="th" scope="row">
                   {index + 1}
