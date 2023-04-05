@@ -7,10 +7,10 @@ import {
   TableCell,
   TableRow,
   TableBody,
-  Button,
 } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
 import React from "react";
+import { Button } from "react-bootstrap";
 
 const CohortLeaderBoardCard = ({ data, cohortDetails }) => {
   // console.log(
@@ -114,7 +114,7 @@ const CohortLeaderBoardCard = ({ data, cohortDetails }) => {
                 </TableCell>
                 <TableCell align="center">
                   <span>
-                    <Button size="small" variant="contained" onClick={() => console.log("Clicked")}>ClickMe</Button>
+                    <Button variant="primary" size="sm" onClick={() => console.log("Clicked")}>ClickMe</Button>
                   </span>
                 </TableCell>
               </TableRow>
