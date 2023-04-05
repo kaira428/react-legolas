@@ -7,11 +7,17 @@ import {
   TableCell,
   TableRow,
   TableBody,
+  Button,
 } from "@mui/material";
+import { lightGreen } from "@mui/material/colors";
 import React from "react";
 
-const CohortLeaderBoardCard = ({data}) => {
-  
+const CohortLeaderBoardCard = ({ data, cohortDetails }) => {
+  // console.log(
+  //   "🚀 ~ file: CohortLeaderBoardCard.js:14 ~ CohortLeaderBoardCard ~ cohortDetails:",
+  //   cohortDetails
+  // );
+
   return (
     <>
       <Paper
@@ -23,16 +29,17 @@ const CohortLeaderBoardCard = ({data}) => {
         }}
       >
         <Typography variant="h5" component="h3">
-          Cohort Leaderboard
+          {Object.keys(cohortDetails).length === 0
+            ? "Cohort Leaderboard"
+            : `Cohort ${cohortDetails.partialCohortDetails["cohortNum"]} Leaderboard`}
         </Typography>
-
       </Paper>
       <TableContainer
         component={Paper}
-        sx={{ height: 300, border: "1px solid darkgrey" }}
+        sx={{ height: 300, border: "1px solid darkGrey"}}
       >
         <Table
-          sx={{ minWidth: 500, height: "max-content" }}
+          sx={{ minWidth: 500, height: "max-content", backgroundColor: "lightGrey" }}
           aria-label="simple table"
           stickyHeader
         >
@@ -40,29 +47,36 @@ const CohortLeaderBoardCard = ({data}) => {
             <TableRow>
               <TableCell>
                 <span>
-                  <Typography variant="body1" component="p">
+                  <Typography variant="body1" component="h6" sx={{fontWeight: 'bold'}}>
                     #
                   </Typography>
                 </span>
               </TableCell>
               <TableCell align="center">
                 <span>
-                  <Typography variant="body1" component="p">
+                  <Typography variant="body1" component="h6" sx={{fontWeight: 'bold'}}>
                     Name
                   </Typography>
                 </span>
               </TableCell>
               <TableCell align="center">
                 <span>
-                  <Typography variant="body1" component="p">
+                  <Typography variant="body1" component="h6" sx={{fontWeight: 'bold'}}>
                     Progress
                   </Typography>
                 </span>
               </TableCell>
               <TableCell align="center">
                 <span>
-                  <Typography variant="body1" component="p">
+                  <Typography variant="body1" component="h6" sx={{fontWeight: 'bold'}}>
                     Result
+                  </Typography>
+                </span>
+              </TableCell>
+              <TableCell align="center">
+                <span>
+                  <Typography variant="body1" component="h6" sx={{fontWeight: 'bold'}}>
+                    Details
                   </Typography>
                 </span>
               </TableCell>
@@ -79,8 +93,8 @@ const CohortLeaderBoardCard = ({data}) => {
                 </TableCell>
                 <TableCell align="center">
                   <span>
-                    <Typography variant="body1" component="p" sx={{textDecoration: "underline"}}>
-                      {trainee.firstName}
+                    <Typography variant="body1" component="p">
+                      {trainee.firstName + " " + trainee.lastName}
                     </Typography>
                   </span>
                 </TableCell>
@@ -96,6 +110,11 @@ const CohortLeaderBoardCard = ({data}) => {
                     <Typography variant="body1" component="p">
                       {trainee.totalModuleResult}
                     </Typography>
+                  </span>
+                </TableCell>
+                <TableCell align="center">
+                  <span>
+                    <Button size="small" variant="contained" onClick={() => console.log("Clicked")}>ClickMe</Button>
                   </span>
                 </TableCell>
               </TableRow>

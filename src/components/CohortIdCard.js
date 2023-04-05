@@ -36,7 +36,7 @@ const CohortIdCard = (props) => {
     <Grid item sx={{ my: 8 }}>
       <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
         <Paper elevation={3} sx={{ height: 1, width: 1 }}>
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Box sx={{ display: "flex", justifyContent: "center", backgroundColor: "lightblue" }}>
             <Typography
               variant="h6"
               component="h3"
@@ -62,9 +62,8 @@ const CohortIdCard = (props) => {
               })
               .map((cohort, index) => (
               
-                <div>
+                <div key={index}>
                 <Button
-                  key={index}
                   onClick={() =>
                     props.getTraineeData(props.ltId, cohort.cohortNum)
                   }

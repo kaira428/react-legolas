@@ -69,7 +69,11 @@ export const traineeDetailsByLtIdByCohortId = (ltId, cohortId) => {
 
     const numberOfTraineesInCohort = reqTraineesData.length; //number of trainees in the required Cohort
 
-    const numberOfModulesForCohort = Object.keys(reqTraineesData[0].modules).length; //number of modules in trainee[0]
+    let numberOfModulesForCohort = 0;
+
+    if (numberOfTraineesInCohort > 0) {
+      numberOfModulesForCohort = Object.keys(reqTraineesData[0].modules).length; //number of modules in trainee[0]
+    }
 
     // get cohort details for given ltId and cohortId
     const reqCohortsForGivenLtId = courses.filter(course => course.id === ltId)
@@ -81,7 +85,7 @@ export const traineeDetailsByLtIdByCohortId = (ltId, cohortId) => {
     const reqCohortDetail = {numberOfTraineesInCohort, numberOfModulesForCohort, partialCohortDetails: partialCohortDetail[0]};
 
     console.log("🚀 ~ file: utilities.js:83 ~ traineeDetailsByLtIdByCohortId ~ reqCohortDetail:", reqCohortDetail);
-    
+
     const result = {reqTraineesData, reqCohortDetail};
 
     return result;

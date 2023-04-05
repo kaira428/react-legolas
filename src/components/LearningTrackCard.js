@@ -1,6 +1,5 @@
 import { Grid, Paper, Box, Typography, Button } from "@mui/material";
 import React from "react";
-import courses from "../data/courses";
 
 const LearningTrackCard = (props) => {
   let learningTracks = props.learningTrackList;
@@ -10,7 +9,7 @@ const LearningTrackCard = (props) => {
     <Grid item sx={{ my: 8 }}>
       <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
         <Paper elevation={3} sx={{ width: 1 }}>
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Box sx={{ display: "flex", justifyContent: "center", backgroundColor: "lightblue" }}>
             <Typography
               variant="h6"
               component="h3"
@@ -34,9 +33,8 @@ const LearningTrackCard = (props) => {
                 return a === b ? 0 : a > b ? 1 : -1;
               })
               .map((learningTrack) => (
-                <div>
+                <div key={learningTrack.id}>
                   <Button
-                    key={learningTrack.id}
                     onClick={() => props.getCohortIdList(
                       learningTrack.id
                     )}

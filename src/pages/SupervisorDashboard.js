@@ -81,7 +81,7 @@ const SupervisorDashboard = () => {
 
         <Grid item className={classes.screen2}>
           <CohortProgressChart />
-          <CohortLeaderBoardCard data={traineeData} />
+          <CohortLeaderBoardCard data={traineeData} cohortDetails={cohortDetails}/>
         </Grid>
 
         <Grid item className={classes.screen3}>
