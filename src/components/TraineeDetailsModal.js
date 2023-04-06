@@ -51,7 +51,7 @@ const TraineeDetailsModal = (props) => {
         aria-describedby="modal-modal-description"
       >
         <Modal.Header closeButton>
-          <Modal.Title>{Object.keys(traineeNameAndResults).length !== 0 ? traineeNameAndResults.fullName : ""}</Modal.Title>
+          <Modal.Title>{traineeNameAndResults.fullName}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {Object.keys(traineeNameAndResults).length !== 0 ? traineeNameAndResults.resultOfAllModules.map((module, index) => (
