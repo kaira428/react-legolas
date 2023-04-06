@@ -6,14 +6,13 @@ import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useContext } from "react";
 import { TraineeResultsContext } from "../pages/SupervisorDashboard";
-import { useEffect } from "react";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 300,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -21,10 +20,6 @@ const style = {
 };
 
 const TraineeDetailsModal = (props) => {
-  //   useEffect(() => {
-  //     props.getTraineeResults(props.traineeId);
-  //   }, [props.traineeId]);
-
   const [open, setOpen] = useState();
   const handleClose = () => setOpen(false);
 
@@ -46,7 +41,6 @@ const TraineeDetailsModal = (props) => {
 
   return (
     <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Button variant="primary" size="sm" onClick={handleOpen}>
         ClickMe
       </Button>
@@ -57,14 +51,14 @@ const TraineeDetailsModal = (props) => {
         aria-describedby="modal-modal-description"
       >
         <Modal.Header closeButton>
-          <Modal.Title>{traineeNameAndResults.fullName}</Modal.Title>
+          <Modal.Title>{Object.keys(traineeNameAndResults).length !== 0 ? traineeNameAndResults.fullName : ""}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {traineeNameAndResults.resultOfAllModules.map((module, index) => (
+          {Object.keys(traineeNameAndResults).length !== 0 ? traineeNameAndResults.resultOfAllModules.map((module, index) => (
             <div key={index}>
               <span>{`${module[0]} ==> ${module[1]}`}</span>
             </div>
-          ))}
+          )) : ""}
         </Modal.Body>
         <Modal.Footer>
           <Button size="sm" variant="secondary" onClick={handleClose}>

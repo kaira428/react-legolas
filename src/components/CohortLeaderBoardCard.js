@@ -8,9 +8,7 @@ import {
   TableRow,
   TableBody,
 } from "@mui/material";
-import { lightGreen } from "@mui/material/colors";
 import React from "react";
-import { Button } from "react-bootstrap";
 import TraineeDetailsModal from "./TraineeDetailsModal";
 
 const CohortLeaderBoardCard = ({ data, cohortDetails, getTraineeResults }) => {

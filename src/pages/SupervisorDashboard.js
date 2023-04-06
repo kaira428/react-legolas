@@ -121,7 +121,6 @@ const SupervisorDashboard = () => {
               cohortDetails={cohortDetails}
               getTraineeResults={getTraineeDetailedResultsHandler}
             />
-            {/* <TraineeDetailsModal /> */}
           </Grid>
 
           <Grid item className={classes.screen3}>
