@@ -14,15 +14,18 @@ import {
   traineeDetailsByLtIdByCohortId,
 } from "../helpers/utilities";
 import { useState } from "react";
+import TraineeDetailsModal from "../components/TraineeDetailsModal";
+
+export const TraineeResultsContext = React.createContext();
 
 const SupervisorDashboard = () => {
-  
   const [learningTracks, setLearningTracks] = useState([]);
   const [cohorts, setCohorts] = useState([]);
   const [traineeData, setTraineeData] = useState([]);
   const [ltId, setLtId] = useState(0);
   const [cohortDetails, setCohortDetails] = useState({});
-
+  const [reqTraineeResult, setReqTraineeResult] = useState({});
+  const [moduleResults, setModuleResults] = useState({});
   let cohortIdObj = {};
 
   useEffect(
@@ -45,7 +48,7 @@ const SupervisorDashboard = () => {
   const getCohortIdListHandler = (ltId) => {
     cohortIdObj = getCohortIDForSelectedLtId(ltId, courses);
     setCohorts(cohortIdObj.data);
-    setLtId(cohortIdObj.ltId)
+    setLtId(cohortIdObj.ltId);
   };
 
   console.log(
@@ -59,37 +62,75 @@ const SupervisorDashboard = () => {
     setCohortDetails(cohortTraineeData.reqCohortDetail);
   };
 
-  console.log("🚀 ~ file: SupervisorDashboard.js:63 ~ SupervisorDashboard ~ cohortDetails:", cohortDetails)
+  const getTraineeDetailedResultsHandler = (traineeId) => {
+    const reqTraineeData = traineeData.filter(
+      (trainee) => trainee.id === traineeId
+    );
+    console.log(
+      "🚀 ~ file: SupervisorDashboard.js:64 ~ getTraineeDetailedResultsHandler ~ reqTraineeData:",
+      Object.entries(reqTraineeData[0].modules)
+    );
+
+    // get trainee's name
+    const fullName = `${reqTraineeData[0].firstName} ${reqTraineeData[0].lastName}`;
+
+    // convert module results object to an array
+    const result = {fullName, resultOfAllModules: Object.entries(reqTraineeData[0].modules)};
+    console.log("🚀 ~ file: SupervisorDashboard.js:75 ~ getTraineeDetailedResultsHandler ~ result:", result);
+
+    setModuleResults(result)
+
+    setReqTraineeResult(reqTraineeData[0]);
+  };
+
+  console.log(
+    "🚀 ~ file: SupervisorDashboard.js:69 ~ getTraineeDetailedResultsHandler ~ reqTraineeResult:",
+    reqTraineeResult
+  );
+
+  console.log(
+    "🚀 ~ file: SupervisorDashboard.js:74 ~ SupervisorDashboard ~ moduleResults:",
+    moduleResults
+  );
+
+  // console.log("🚀 ~ file: SupervisorDashboard.js:63 ~ SupervisorDashboard ~ cohortDetails:", cohortDetails)
 
   return (
-    <Container sx={{ marginTop: 5 }}>
-      <Grid
-        container
-        sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "40px" }}
-      >
-        <Grid item className={classes.screen1}>
-          <LearningTrackCard
-            learningTrackList={learningTracks}
-            getCohortIdList={getCohortIdListHandler}
-          />
-          <CohortIdCard
-            cohortList={cohorts}
-            ltId={ltId}
-            getTraineeData={getCohortTraineeDetailsHandler}
-          />
-        </Grid>
+    <TraineeResultsContext.Provider value={moduleResults}>
+      <Container sx={{ marginTop: 5 }}>
+        <Grid
+          container
+          sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "40px" }}
+        >
+          <Grid item className={classes.screen1}>
+            <LearningTrackCard
+              learningTrackList={learningTracks}
+              getCohortIdList={getCohortIdListHandler}
+            />
+            <CohortIdCard
+              cohortList={cohorts}
+              ltId={ltId}
+              getTraineeData={getCohortTraineeDetailsHandler}
+            />
+          </Grid>
 
-        <Grid item className={classes.screen2}>
-          <CohortProgressChart />
-          <CohortLeaderBoardCard data={traineeData} cohortDetails={cohortDetails}/>
-        </Grid>
+          <Grid item className={classes.screen2}>
+            <CohortProgressChart />
+            <CohortLeaderBoardCard
+              data={traineeData}
+              cohortDetails={cohortDetails}
+              getTraineeResults={getTraineeDetailedResultsHandler}
+            />
+            {/* <TraineeDetailsModal /> */}
+          </Grid>
 
-        <Grid item className={classes.screen3}>
-          <CohortDetails data={cohortDetails}/>
-          <TraineeProgressDetails />
+          <Grid item className={classes.screen3}>
+            <CohortDetails data={cohortDetails} />
+            <TraineeProgressDetails />
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </TraineeResultsContext.Provider>
   );
 };
 

@@ -11,8 +11,10 @@ import {
 import { lightGreen } from "@mui/material/colors";
 import React from "react";
 import { Button } from "react-bootstrap";
+import TraineeDetailsModal from "./TraineeDetailsModal";
 
-const CohortLeaderBoardCard = ({ data, cohortDetails }) => {
+const CohortLeaderBoardCard = ({ data, cohortDetails, getTraineeResults }) => {
+  console.log("🚀 ~ file: CohortLeaderBoardCard.js:17 ~ CohortLeaderBoardCard ~ data:", data)
   // console.log(
   //   "🚀 ~ file: CohortLeaderBoardCard.js:14 ~ CohortLeaderBoardCard ~ cohortDetails:",
   //   cohortDetails
@@ -114,7 +116,7 @@ const CohortLeaderBoardCard = ({ data, cohortDetails }) => {
                 </TableCell>
                 <TableCell align="center">
                   <span>
-                    <Button variant="primary" size="sm" onClick={() => console.log("Clicked")}>ClickMe</Button>
+                    <TraineeDetailsModal traineeId={trainee.id} getTraineeResults={getTraineeResults}/>
                   </span>
                 </TableCell>
               </TableRow>

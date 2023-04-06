@@ -1,9 +1,12 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+
 import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
 import { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
+import { useContext } from "react";
+import { TraineeResultsContext } from "../pages/SupervisorDashboard";
+import { useEffect } from "react";
 
 const style = {
   position: "absolute",
@@ -17,28 +20,57 @@ const style = {
   p: 4,
 };
 
-const TraineeDetailsModal = () => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+const TraineeDetailsModal = (props) => {
+  //   useEffect(() => {
+  //     props.getTraineeResults(props.traineeId);
+  //   }, [props.traineeId]);
+
+  const [open, setOpen] = useState();
   const handleClose = () => setOpen(false);
+
+  const handleOpen = () => {
+    props.getTraineeResults(props.traineeId);
+    setOpen(true);
+  };
+
+  console.log(
+    "🚀 ~ file: TraineeDetailsModal.js:27 ~ TraineeDetailsModal ~ traineeId:",
+    props.traineeId
+  );
+
+  const traineeNameAndResults = useContext(TraineeResultsContext);
+  console.log(
+    "🚀 ~ file: TraineeDetailsModal.js:38 ~ TraineeDetailsModal ~ traineeResult:",
+    traineeNameAndResults
+  );
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      {/* <Button onClick={handleOpen}>Open modal</Button> */}
+      <Button variant="primary" size="sm" onClick={handleOpen}>
+        ClickMe
+      </Button>
       <Modal
-        open={open}
-        onClose={handleClose}
+        show={open}
+        onHide={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
+        <Modal.Header closeButton>
+          <Modal.Title>{traineeNameAndResults.fullName}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {traineeNameAndResults.resultOfAllModules.map((module, index) => (
+            <div key={index}>
+              <span>{`${module[0]} ==> ${module[1]}`}</span>
+            </div>
+          ))}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button size="sm" variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );

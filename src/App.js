@@ -3,30 +3,9 @@ import "./App.css";
 import SupervisorDashboard from "./pages/SupervisorDashboard";
 import SupervisorLanding from "./pages/SupervisorLanding";
 import Home from "./pages/Home";
-import { createContext } from "react";
-import { useState } from "react";
-
-export const DataContext = createContext();
 
 function App() {
-  const [learningTrackId, setLearningTrackId] = useState(0);
-  const [selectedCohortId, setSelectedCohortId] = useState(0);
-  const [learningTrackData, setLearningTrackData] = useState();
-  const [traineeData, setTraineeData] = useState();
-
   return (
-    <DataContext.Provider
-      value={{
-        learningTrackId,
-        setLearningTrackId,
-        selectedCohortId,
-        setSelectedCohortId,
-        learningTrackData,
-        setLearningTrackData,
-        traineeData,
-        setTraineeData,
-      }}
-    >
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pages">
@@ -41,7 +20,6 @@ function App() {
           </Route>
         </Route>
       </Routes>
-    </DataContext.Provider>
   );
 }
 
