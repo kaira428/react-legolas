@@ -15,6 +15,7 @@ import {
 } from "../helpers/utilities";
 import { useState } from "react";
 import TraineeDetailsModal from "../components/TraineeDetailsModal";
+import ReduxTestModule from "../components/ReduxTestModule";
 
 export const TraineeResultsContext = React.createContext();
 
@@ -102,6 +103,7 @@ const SupervisorDashboard = () => {
           container
           sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "40px" }}
         >
+          <ReduxTestModule />
           <Grid item className={classes.screen1}>
             <LearningTrackCard
               learningTrackList={learningTracks}

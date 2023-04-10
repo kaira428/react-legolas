@@ -6,8 +6,11 @@ export const getLtNameAndCohortIDsForChosenLtId = (ltId) => {
     const filteredLearningTracksArray = courses.filter(
       (learningTrack) => learningTrack.id === ltId
     );
+    console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:9 ~ getLtNameAndCohortIDsForChosenLtId ~ filteredLearningTracksArray:", filteredLearningTracksArray)
 
     const ltName = filteredLearningTracksArray[0].name
+    // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:12 ~ getLtNameAndCohortIDsForChosenLtId ~ filteredLearningTracksArray: cohorts", filteredLearningTracksArray[0].cohorts)
+    // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:12 ~ getLtNameAndCohortIDsForChosenLtId ~ ltName:", ltName)
   
     const reqSortedCohortIds = filteredLearningTracksArray[0].cohorts.sort((x, y) => {
       let a = x.cohortNum,

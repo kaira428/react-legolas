@@ -19,7 +19,7 @@ export const supervisorDashboardSlice = createSlice({
   reducers: {
     getLtCohortInfo: (state, action) => {
       const ltCohortListForChosenLtId = getLtNameAndCohortIDsForChosenLtId(
-        action.payload.ltId
+        action.payload
       );
 
       state.ltId = ltCohortListForChosenLtId.ltId;
