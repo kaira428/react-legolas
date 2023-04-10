@@ -1,10 +1,22 @@
 import { Grid, Paper, Box, Typography, Button } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const CohortIdCard = (props) => {
-  
+  const results = useSelector(
+    (state) => state.supervisorDashboard.supervisorDashboardObj
+  );
+  console.log(
+    "🚀 ~ file: CohortIdCard.js:8 ~ CohortIdCard ~ results.cohortIdDetailsSortedList:",
+    results.cohortIdDetailsSortedList
+  );
+  console.log(
+    "🚀 ~ file: CohortIdCard.js:10 ~ CohortIdCard ~ state.supervisorDashboardObj.ltId:",
+    results.ltId
+  );
+
   // On initial loading of page before cohortId is selected
-  if (props.cohortList.length === 0) {
+  if (results.cohortIdDetailsSortedList.length === 0) {
     return (
       <Grid item sx={{ my: 8 }}>
         <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
@@ -32,11 +44,23 @@ const CohortIdCard = (props) => {
     );
   }
 
+  const copyOfResultantArray = [...results.cohortIdDetailsSortedList];
+  // console.log(
+  //   "🚀 ~ file: CohortIdCard.js:43 ~ CohortIdCard ~ copyOfResultantArray:",
+  //   copyOfResultantArray
+  // );
+
   return (
     <Grid item sx={{ my: 8 }}>
       <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
         <Paper elevation={3} sx={{ height: 1, width: 1 }}>
-          <Box sx={{ display: "flex", justifyContent: "center", backgroundColor: "lightblue" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              backgroundColor: "lightblue",
+            }}
+          >
             <Typography
               variant="h6"
               component="h3"
@@ -54,22 +78,16 @@ const CohortIdCard = (props) => {
             }}
           >
             {/* Map sorted cohort IDs */}
-            {props.cohortList
-              .sort((x, y) => {
-                let a = x.cohortNum,
-                  b = y.cohortNum;
-                return a - b;
-              })
+            {copyOfResultantArray
               .map((cohort, index) => (
-              
                 <div key={index}>
-                <Button
-                  onClick={() =>
-                    props.getTraineeData(props.ltId, cohort.cohortNum)
-                  }
-                >
-                  {`Cohort ${cohort.cohortNum}`}
-                </Button>
+                  <Button
+                    onClick={() =>
+                      props.getTraineeData({ltId: results.ltId, cohortId: cohort.cohortNum})
+                    }
+                  >
+                    {`Cohort ${cohort.cohortNum}`}
+                  </Button>
                 </div>
               ))}
           </Box>

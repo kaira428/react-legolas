@@ -9,12 +9,13 @@ import CohortIdCard from "../components/CohortIdCard";
 import classes from "./SupervisorDashboard.module.css";
 import courses from "../data/courses";
 import { useEffect } from "react";
-import {
-  getCohortIDForSelectedLtId,
-  traineeDetailsByLtIdByCohortId,
-} from "../helpers/utilities";
+import { traineeDetailsByLtIdByCohortId } from "../helpers/utilities";
 import { useState } from "react";
-import TraineeDetailsModal from "../components/TraineeDetailsModal";
+import { useDispatch } from "react-redux";
+import {
+  getLtCohortInfo,
+  getTraineeAndCohortDetailsList,
+} from "../store/supervisorDbSlice";
 
 export const TraineeResultsContext = React.createContext();
 
@@ -26,7 +27,8 @@ const SupervisorDashboard = () => {
   const [cohortDetails, setCohortDetails] = useState({});
   const [reqTraineeResult, setReqTraineeResult] = useState({});
   const [moduleResults, setModuleResults] = useState({});
-  let cohortIdObj = {};
+
+  const dispatch = useDispatch();
 
   useEffect(
     () =>
@@ -38,62 +40,37 @@ const SupervisorDashboard = () => {
     []
   );
 
-  console.log(
-    "🚀 ~ file: SupervisorDashboard.js:58 ~ SupervisorDashboard ~ learningTracks:",
-    learningTracks
-  );
-
   // Function definitions
 
   const getCohortIdListHandler = (ltId) => {
-    cohortIdObj = getCohortIDForSelectedLtId(ltId, courses);
-    setCohorts(cohortIdObj.data);
-    setLtId(cohortIdObj.ltId);
+    dispatch(getLtCohortInfo(ltId));
   };
-
-  console.log(
-    "🚀 ~ file: SupervisorDashboard.js:61 ~ getCohortIdListHandler ~ cohorts:",
-    cohorts
-  );
 
   const getCohortTraineeDetailsHandler = (ltId, cohortId) => {
-    const cohortTraineeData = traineeDetailsByLtIdByCohortId(ltId, cohortId);
-    setTraineeData(cohortTraineeData.reqTraineesData);
-    setCohortDetails(cohortTraineeData.reqCohortDetail);
+    // const cohortTraineeData = traineeDetailsByLtIdByCohortId(ltId, cohortId);
+    // setTraineeData(cohortTraineeData.reqTraineesData);
+    // setCohortDetails(cohortTraineeData.reqCohortDetail);
+    dispatch(getTraineeAndCohortDetailsList(ltId, cohortId));
   };
 
-  const getTraineeDetailedResultsHandler = (traineeId) => {
-    const reqTraineeData = traineeData.filter(
-      (trainee) => trainee.id === traineeId
-    );
-    console.log(
-      "🚀 ~ file: SupervisorDashboard.js:64 ~ getTraineeDetailedResultsHandler ~ reqTraineeData:",
-      Object.entries(reqTraineeData[0].modules)
-    );
+  // const getTraineeDetailedResultsHandler = (traineeId) => {
+  //   const reqTraineeData = traineeData.filter(
+  //     (trainee) => trainee.id === traineeId
+  //   );
 
-    // get trainee's name
-    const fullName = `${reqTraineeData[0].firstName} ${reqTraineeData[0].lastName}`;
+  //   // get trainee's name
+  //   const fullName = `${reqTraineeData[0].firstName} ${reqTraineeData[0].lastName}`;
 
-    // convert module results object to an array
-    const result = {fullName, resultOfAllModules: Object.entries(reqTraineeData[0].modules)};
-    console.log("🚀 ~ file: SupervisorDashboard.js:75 ~ getTraineeDetailedResultsHandler ~ result:", result);
+  //   // convert module results object to an array
+  //   const result = {
+  //     fullName,
+  //     resultOfAllModules: Object.entries(reqTraineeData[0].modules),
+  //   };
 
-    setModuleResults(result)
+  //   setModuleResults(result);
 
-    setReqTraineeResult(reqTraineeData[0]);
-  };
-
-  console.log(
-    "🚀 ~ file: SupervisorDashboard.js:69 ~ getTraineeDetailedResultsHandler ~ reqTraineeResult:",
-    reqTraineeResult
-  );
-
-  console.log(
-    "🚀 ~ file: SupervisorDashboard.js:74 ~ SupervisorDashboard ~ moduleResults:",
-    moduleResults
-  );
-
-  // console.log("🚀 ~ file: SupervisorDashboard.js:63 ~ SupervisorDashboard ~ cohortDetails:", cohortDetails)
+  //   setReqTraineeResult(reqTraineeData[0]);
+  // };
 
   return (
     <TraineeResultsContext.Provider value={moduleResults}>
@@ -108,7 +85,6 @@ const SupervisorDashboard = () => {
               getCohortIdList={getCohortIdListHandler}
             />
             <CohortIdCard
-              cohortList={cohorts}
               ltId={ltId}
               getTraineeData={getCohortTraineeDetailsHandler}
             />
@@ -119,7 +95,7 @@ const SupervisorDashboard = () => {
             <CohortLeaderBoardCard
               data={traineeData}
               cohortDetails={cohortDetails}
-              getTraineeResults={getTraineeDetailedResultsHandler}
+              // getTraineeResults={getTraineeDetailedResultsHandler}
             />
           </Grid>
 

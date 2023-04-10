@@ -4,8 +4,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { useContext } from "react";
-import { TraineeResultsContext } from "../pages/SupervisorDashboard";
+
+import { useSelector } from "react-redux";
 
 const style = {
   position: "absolute",
@@ -24,20 +24,42 @@ const TraineeDetailsModal = (props) => {
   const handleClose = () => setOpen(false);
 
   const handleOpen = () => {
-    props.getTraineeResults(props.traineeId);
     setOpen(true);
   };
+
+  const results = useSelector(
+    (state) => state.supervisorDashboard.supervisorDashboardObj
+  );
+  console.log(
+    "🚀 ~ file: SupervisorDashboard.js:33 ~ SupervisorDashboard ~ results:",
+    results.traineeListForSelectedLtIdAndCohortId
+  );
 
   console.log(
     "🚀 ~ file: TraineeDetailsModal.js:27 ~ TraineeDetailsModal ~ traineeId:",
     props.traineeId
   );
 
-  const traineeNameAndResults = useContext(TraineeResultsContext);
+  const allTraineesResults =
+    results.traineeListForSelectedLtIdAndCohortId.filter(
+      (trainee) => trainee.id === props.traineeId
+    );
+
+  const traineeNameAndResults = allTraineesResults[0];
   console.log(
-    "🚀 ~ file: TraineeDetailsModal.js:38 ~ TraineeDetailsModal ~ traineeResult:",
+    "🚀 ~ file: TraineeDetailsModal.js:51 ~ TraineeDetailsModal ~ traineeNameAndResults:",
     traineeNameAndResults
   );
+
+  let moduleResultsArray = [];
+
+  if (Object.keys(traineeNameAndResults).length > 0) {
+    moduleResultsArray = Object.entries(traineeNameAndResults.modules);
+    console.log(
+      "🚀 ~ file: TraineeDetailsModal.js:53 ~ TraineeDetailsModal ~ moduleResultsArray:",
+      moduleResultsArray
+    );
+  }
 
   return (
     <div>
@@ -51,14 +73,20 @@ const TraineeDetailsModal = (props) => {
         aria-describedby="modal-modal-description"
       >
         <Modal.Header closeButton>
-          <Modal.Title>{traineeNameAndResults.fullName}</Modal.Title>
+          <Modal.Title>
+            {traineeNameAndResults.firstName +
+              " " +
+              traineeNameAndResults.lastName}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {Object.keys(traineeNameAndResults).length !== 0 ? traineeNameAndResults.resultOfAllModules.map((module, index) => (
-            <div key={index}>
-              <span>{`${module[0]} ==> ${module[1]}`}</span>
-            </div>
-          )) : ""}
+          {moduleResultsArray.length !== 0
+            ? moduleResultsArray.map((module, index) => (
+                <div key={index}>
+                  <span>{`${module[0]} ==> ${module[1]}`}</span>
+                </div>
+              ))
+            : ""}
         </Modal.Body>
         <Modal.Footer>
           <Button size="sm" variant="secondary" onClick={handleClose}>

@@ -5,12 +5,14 @@ import {
 } from "../helpers/supervisorDashboardSliceUtilities";
 
 const initialState = {
-  ltId: 0,
-  learningTrackName: "",
-  cohortIdDetailsSortedList: [],
-  examStatus: "In Progress",
-  traineeListForSelectedLtIdAndCohortId: [{}],
-  selectedCohortIdDetails: {},
+  supervisorDashboardObj: {
+    ltId: 0,
+    learningTrackName: "",
+    cohortIdDetailsSortedList: [],
+    examStatus: "In Progress",
+    traineeListForSelectedLtIdAndCohortId: [{}],
+    selectedCohortIdDetails: {},
+  },
 };
 
 export const supervisorDashboardSlice = createSlice({
@@ -22,27 +24,37 @@ export const supervisorDashboardSlice = createSlice({
         action.payload
       );
 
-      state.ltId = ltCohortListForChosenLtId.ltId;
-      state.learningTrackName = ltCohortListForChosenLtId.ltName;
-      state.cohortIdDetailsSortedList =
+      state.supervisorDashboardObj.ltId = ltCohortListForChosenLtId.ltId;
+      state.supervisorDashboardObj.learningTrackName =
+        ltCohortListForChosenLtId.ltName;
+      state.supervisorDashboardObj.cohortIdDetailsSortedList =
         ltCohortListForChosenLtId.cohortDetailsList;
     },
 
     getTraineeAndCohortDetailsList: (state, action) => {
+
+      console.log("🚀 ~ file: supervisorDbSlice.js:36 ~ action:", action.payload)
+      
       const traineeCohortDetailsResult =
         traineeDetailsBySelectedLtIdAndCohortId(
           action.payload.ltId,
           action.payload.cohortId
         );
 
-      state.traineeListForSelectedLtIdAndCohortId =
+      console.log(
+        "🚀 ~ file: supervisorDbSlice.js:35 ~ traineeCohortDetailsResult:",
+        traineeCohortDetailsResult
+      );
+
+      state.supervisorDashboardObj.traineeListForSelectedLtIdAndCohortId =
         traineeCohortDetailsResult.reqTraineesData;
-      state.selectedCohortIdDetails =
+      state.supervisorDashboardObj.selectedCohortIdDetails =
         traineeCohortDetailsResult.reqCohortDetail;
     },
   },
 });
 
-export const {getLtCohortInfo, getTraineeAndCohortDetailsList} = supervisorDashboardSlice.actions;
+export const { getLtCohortInfo, getTraineeAndCohortDetailsList } =
+  supervisorDashboardSlice.actions;
 
 export default supervisorDashboardSlice.reducer;

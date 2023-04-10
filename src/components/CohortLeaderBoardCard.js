@@ -10,13 +10,23 @@ import {
 } from "@mui/material";
 import React from "react";
 import TraineeDetailsModal from "./TraineeDetailsModal";
+import { useSelector } from "react-redux";
 
 const CohortLeaderBoardCard = ({ data, cohortDetails, getTraineeResults }) => {
-  console.log("🚀 ~ file: CohortLeaderBoardCard.js:17 ~ CohortLeaderBoardCard ~ data:", data)
-  // console.log(
-  //   "🚀 ~ file: CohortLeaderBoardCard.js:14 ~ CohortLeaderBoardCard ~ cohortDetails:",
-  //   cohortDetails
-  // );
+  const results = useSelector(
+    (state) => state.supervisorDashboard.supervisorDashboardObj
+  );
+
+  console.log(
+    "🚀 ~ file: CohortLeaderBoardCard.js:25 ~ CohortLeaderBoardCard ~ results:",
+    results.selectedCohortIdDetails
+  );
+
+  let reqData = [];
+
+  if (Object.keys(results.selectedCohortIdDetails).length > 0){
+  reqData = [...results.traineeListForSelectedLtIdAndCohortId];
+  }
 
   return (
     <>
@@ -36,10 +46,14 @@ const CohortLeaderBoardCard = ({ data, cohortDetails, getTraineeResults }) => {
       </Paper>
       <TableContainer
         component={Paper}
-        sx={{ height: 300, border: "1px solid darkGrey"}}
+        sx={{ height: 300, border: "1px solid darkGrey" }}
       >
         <Table
-          sx={{ minWidth: 500, height: "max-content", backgroundColor: "lightGrey" }}
+          sx={{
+            minWidth: 500,
+            height: "max-content",
+            backgroundColor: "lightGrey",
+          }}
           aria-label="simple table"
           stickyHeader
         >
@@ -47,35 +61,55 @@ const CohortLeaderBoardCard = ({ data, cohortDetails, getTraineeResults }) => {
             <TableRow>
               <TableCell>
                 <span>
-                  <Typography variant="body1" component="h6" sx={{fontWeight: 'bold'}}>
+                  <Typography
+                    variant="body1"
+                    component="h6"
+                    sx={{ fontWeight: "bold" }}
+                  >
                     #
                   </Typography>
                 </span>
               </TableCell>
               <TableCell align="center">
                 <span>
-                  <Typography variant="body1" component="h6" sx={{fontWeight: 'bold'}}>
+                  <Typography
+                    variant="body1"
+                    component="h6"
+                    sx={{ fontWeight: "bold" }}
+                  >
                     Name
                   </Typography>
                 </span>
               </TableCell>
               <TableCell align="center">
                 <span>
-                  <Typography variant="body1" component="h6" sx={{fontWeight: 'bold'}}>
+                  <Typography
+                    variant="body1"
+                    component="h6"
+                    sx={{ fontWeight: "bold" }}
+                  >
                     Progress
                   </Typography>
                 </span>
               </TableCell>
               <TableCell align="center">
                 <span>
-                  <Typography variant="body1" component="h6" sx={{fontWeight: 'bold'}}>
+                  <Typography
+                    variant="body1"
+                    component="h6"
+                    sx={{ fontWeight: "bold" }}
+                  >
                     Result
                   </Typography>
                 </span>
               </TableCell>
               <TableCell align="center">
                 <span>
-                  <Typography variant="body1" component="h6" sx={{fontWeight: 'bold'}}>
+                  <Typography
+                    variant="body1"
+                    component="h6"
+                    sx={{ fontWeight: "bold" }}
+                  >
                     Details
                   </Typography>
                 </span>
@@ -83,42 +117,45 @@ const CohortLeaderBoardCard = ({ data, cohortDetails, getTraineeResults }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((trainee, index) => (
-              <TableRow
-                key={index + 1}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {index + 1}
-                </TableCell>
-                <TableCell align="center">
-                  <span>
-                    <Typography variant="body1" component="p">
-                      {trainee.firstName + " " + trainee.lastName}
-                    </Typography>
-                  </span>
-                </TableCell>
-                <TableCell align="center">
-                  <span>
-                    <Typography variant="body1" component="p">
-                      {trainee.progress + "%"}
-                    </Typography>
-                  </span>
-                </TableCell>
-                <TableCell align="center">
-                  <span>
-                    <Typography variant="body1" component="p">
-                      {trainee.totalModuleResult}
-                    </Typography>
-                  </span>
-                </TableCell>
-                <TableCell align="center">
-                  <span>
-                    <TraineeDetailsModal traineeId={trainee.id} getTraineeResults={getTraineeResults}/>
-                  </span>
-                </TableCell>
-              </TableRow>
-            ))}
+            {reqData.length > 0
+              ? reqData.map((trainee, index) => (
+                  <TableRow
+                    key={index + 1}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {index + 1}
+                    </TableCell>
+                    <TableCell align="center">
+                      <span>
+                        <Typography variant="body1" component="p">
+                          {trainee.firstName + " " + trainee.lastName}
+                        </Typography>
+                      </span>
+                    </TableCell>
+                    <TableCell align="center">
+                      <span>
+                        <Typography variant="body1" component="p">
+                          {trainee.progress + "%"}
+                        </Typography>
+                      </span>
+                    </TableCell>
+                    <TableCell align="center">
+                      <span>
+                        <Typography variant="body1" component="p">
+                          {trainee.totalModuleResult}
+                        </Typography>
+                      </span>
+                    </TableCell>
+                    <TableCell align="center">
+                      <span>
+                        {/* <TraineeDetailsModal traineeId={trainee.id} getTraineeResults={getTraineeResults}/> */}
+                        <TraineeDetailsModal traineeId={trainee.id} />
+                      </span>
+                    </TableCell>
+                  </TableRow>
+                ))
+              : ""}
           </TableBody>
         </Table>
       </TableContainer>

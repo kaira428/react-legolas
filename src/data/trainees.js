@@ -15,7 +15,8 @@ export const trainees = [
             "Week 3": 420,
             "Week 4": 454,
             "Week 5": 460,
-            "Week 6": 456,
+            "Week 6": 454,
+            "Week 7": 458,
             "Mock Presentation": 0
         }
         ,
@@ -37,7 +38,8 @@ export const trainees = [
             "Week 3": 405,
             "Week 4": 484,
             "Week 5": 468,
-            "Week 6": 466,
+            "Week 6": 470,
+            "Week 7": 461,
             "Mock Presentation": 0
         },
         progress: 71,
@@ -58,7 +60,8 @@ export const trainees = [
             "Week 3": 410,
             "Week 4": 434,
             "Week 5": 442,
-            "Week 6": 447,
+            "Week 6": 448,
+            "Week 7": 446,
             "Mock Presentation": 0
         },
         progress: 71,
@@ -79,7 +82,8 @@ export const trainees = [
             "Week 3": 410,
             "Week 4": 426,
             "Week 5": 420,
-            "Week 6": 440,
+            "Week 6": 428,
+            "Week 7": 452,
             "Mock Presentation": 0
         },
         progress: 71,
@@ -100,7 +104,8 @@ export const trainees = [
             "Week 3": 380,
             "Week 4": 430,
             "Week 5": 448,
-            "Week 6": 456,
+            "Week 6": 454,
+            "Week 7": 458,
             "Mock Presentation": 0
         },
         progress: 71,

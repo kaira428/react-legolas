@@ -6,8 +6,16 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import React from "react";
+import { useSelector } from "react-redux";
 
-const CohortDetails = (props) => {
+const CohortDetails = () => {
+  const results = useSelector(
+    (state) => state.supervisorDashboard.supervisorDashboardObj
+  );
+  console.log("🚀 ~ file: CohortDetails.js:15 ~ CohortDetails ~ results:", results.selectedCohortIdDetails);
+
+  const reqResults = results.selectedCohortIdDetails;
+  
   return (
     <Grid item sx={{ my: 8 }}>
       <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
@@ -18,9 +26,9 @@ const CohortDetails = (props) => {
               component="h3"
               sx={{ textAlign: "center" }}
             >
-              {Object.keys(props.data).length === 0
+              {Object.keys(reqResults).length === 0
                 ? "Cohort Details"
-                : "Cohort " + props.data.partialCohortDetails["cohortNum"] + " Details"}
+                : "Cohort " + reqResults.partialCohortDetails["cohortNum"] + " Details"}
             </Typography>
           </Box>
 
@@ -40,25 +48,25 @@ const CohortDetails = (props) => {
                       <TableCell component="th" scope="row"></TableCell>
                       <TableCell align="left">Total Trainees:</TableCell>
                       <TableCell align="right">
-                        {props.data.numberOfTraineesInCohort}
+                        {reqResults.numberOfTraineesInCohort}
                       </TableCell>
                     </TableRow>
                     <TableRow key={11}>
                       <TableCell component="th" scope="row"></TableCell>
                       <TableCell align="left">Mentor:</TableCell>
                       <TableCell align="right">
-                        {Object.keys(props.data).length === 0
+                        {Object.keys(reqResults).length === 0
                           ? ""
-                          : props.data.partialCohortDetails["mentorName"]}
+                          : reqResults.partialCohortDetails["mentorName"]}
                       </TableCell>
                     </TableRow>
                     <TableRow key={12}>
                       <TableCell component="th" scope="row"></TableCell>
                       <TableCell align="left">Coach:</TableCell>
                       <TableCell align="right">
-                        {Object.keys(props.data).length === 0
+                        {Object.keys(reqResults).length === 0
                           ? ""
-                          : props.data.partialCohortDetails["coachName"]}
+                          : reqResults.partialCohortDetails["coachName"]}
                       </TableCell>
                     </TableRow>
                     <TableRow key={13}>
@@ -67,7 +75,7 @@ const CohortDetails = (props) => {
                         # of Modules:
                       </TableCell>
                       <TableCell align="right">
-                        {props.data.numberOfModulesForCohort}
+                        {reqResults.numberOfModulesForCohort}
                       </TableCell>
                     </TableRow>
                   </Typography>
