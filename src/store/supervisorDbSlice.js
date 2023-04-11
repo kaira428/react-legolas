@@ -33,7 +33,7 @@ export const supervisorDashboardSlice = createSlice({
 
     getTraineeAndCohortDetailsList: (state, action) => {
 
-      console.log("🚀 ~ file: supervisorDbSlice.js:36 ~ action:", action.payload)
+      // console.log("🚀 ~ file: supervisorDbSlice.js:36 ~ action:", action.payload)
       
       const traineeCohortDetailsResult =
         traineeDetailsBySelectedLtIdAndCohortId(
@@ -41,10 +41,10 @@ export const supervisorDashboardSlice = createSlice({
           action.payload.cohortId
         );
 
-      console.log(
-        "🚀 ~ file: supervisorDbSlice.js:35 ~ traineeCohortDetailsResult:",
-        traineeCohortDetailsResult
-      );
+      // console.log(
+      //   "🚀 ~ file: supervisorDbSlice.js:35 ~ traineeCohortDetailsResult:",
+      //   traineeCohortDetailsResult
+      // );
 
       state.supervisorDashboardObj.traineeListForSelectedLtIdAndCohortId =
         traineeCohortDetailsResult.reqTraineesData;
