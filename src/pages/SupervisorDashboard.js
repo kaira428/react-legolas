@@ -21,10 +21,6 @@ export const TraineeResultsContext = React.createContext();
 
 const SupervisorDashboard = () => {
   const [learningTracks, setLearningTracks] = useState([]);
-  const [traineeData, setTraineeData] = useState([]);
-  const [ltId, setLtId] = useState(0);
-  const [cohortDetails, setCohortDetails] = useState({});
-  const [moduleResults, setModuleResults] = useState({});
 
   const dispatch = useDispatch();
 
@@ -49,39 +45,35 @@ const SupervisorDashboard = () => {
   };
 
   return (
-    <TraineeResultsContext.Provider value={moduleResults}>
-      <Container sx={{ marginTop: 5 }}>
-        <Grid
-          container
-          sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "40px" }}
-        >
-          <Grid item className={classes.screen1}>
-            <LearningTrackCard
-              learningTrackList={learningTracks}
-              getCohortIdList={getCohortIdListHandler}
-            />
-            <CohortIdCard
-              ltId={ltId}
-              getTraineeData={getCohortTraineeDetailsHandler}
-            />
-          </Grid>
-
-          <Grid item className={classes.screen2}>
-            <CohortProgressChart />
-            <CohortLeaderBoardCard
-              data={traineeData}
-              cohortDetails={cohortDetails}
-              // getTraineeResults={getTraineeDetailedResultsHandler}
-            />
-          </Grid>
-
-          <Grid item className={classes.screen3}>
-            <CohortDetails data={cohortDetails} />
-            <TrainingDetails />
-          </Grid>
+    // <TraineeResultsContext.Provider value={moduleResults}>
+    <Container sx={{ marginTop: 5 }}>
+      <Grid
+        container
+        sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "40px" }}
+      >
+        <Grid item className={classes.screen1}>
+          <LearningTrackCard
+            learningTrackList={learningTracks}
+            getCohortIdList={getCohortIdListHandler}
+          />
+          <CohortIdCard
+            // ltId={ltId}
+            getTraineeData={getCohortTraineeDetailsHandler}
+          />
         </Grid>
-      </Container>
-    </TraineeResultsContext.Provider>
+
+        <Grid item className={classes.screen2}>
+          <CohortProgressChart />
+          <CohortLeaderBoardCard />
+        </Grid>
+
+        <Grid item className={classes.screen3}>
+          <CohortDetails />
+          <TrainingDetails />
+        </Grid>
+      </Grid>
+    </Container>
+    // </TraineeResultsContext.Provider>
   );
 };
 

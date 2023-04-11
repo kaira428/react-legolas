@@ -18,10 +18,10 @@ export const getCohortIDForSelectedLtId = (ltId, ltData) => {
   // console.log("🚀 ~ file: utilities.js:18 ~ getCohortIDForSelectedLtId ~ reqSortedData:", reqSortedData)
   const result = { data: reqSortedData, ltId: ltId };
 
-  console.log(
-    "🚀 ~ file: utilities.js:21 ~ getCohortIDForSelectedLtId ~ result:",
-    result
-  );
+  // console.log(
+  //   "🚀 ~ file: utilities.js:21 ~ getCohortIDForSelectedLtId ~ result:",
+  //   result
+  // );
 
   return result;
 };
@@ -65,7 +65,7 @@ export const traineeDetailsByLtIdByCohortId = (ltId, cohortId) => {
     const reqTraineesData = traineeDataWithTotalModuleResults.sort(
       (a, b) => b.totalModuleResult - a.totalModuleResult
     );
-    console.log("🚀 ~ file: utilities.js:68 ~ traineeDetailsByLtIdByCohortId ~ reqTraineesData:", reqTraineesData)
+    // console.log("🚀 ~ file: utilities.js:68 ~ traineeDetailsByLtIdByCohortId ~ reqTraineesData:", reqTraineesData)
 
     const numberOfTraineesInCohort = reqTraineesData.length; //number of trainees in the required Cohort
 
@@ -84,7 +84,7 @@ export const traineeDetailsByLtIdByCohortId = (ltId, cohortId) => {
 
     const reqCohortDetail = {numberOfTraineesInCohort, numberOfModulesForCohort, partialCohortDetails: partialCohortDetail[0]};
 
-    console.log("🚀 ~ file: utilities.js:83 ~ traineeDetailsByLtIdByCohortId ~ reqCohortDetail:", reqCohortDetail);
+    // console.log("🚀 ~ file: utilities.js:83 ~ traineeDetailsByLtIdByCohortId ~ reqCohortDetail:", reqCohortDetail);
 
     const result = {reqTraineesData, reqCohortDetail};
 

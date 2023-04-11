@@ -3,7 +3,7 @@ import React from "react";
 
 const LearningTrackCard = (props) => {
   let learningTracks = props.learningTrackList;
-  console.log("🚀 ~ file: LearningTrackCard.js:7 ~ LearningTrackCard ~ learningTracks:", learningTracks)
+  // console.log("🚀 ~ file: LearningTrackCard.js:7 ~ LearningTrackCard ~ learningTracks:", learningTracks)
   
   return (
     <Grid item sx={{ my: 8 }}>

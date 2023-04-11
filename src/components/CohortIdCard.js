@@ -6,14 +6,6 @@ const CohortIdCard = (props) => {
   const results = useSelector(
     (state) => state.supervisorDashboard.supervisorDashboardObj
   );
-  console.log(
-    "🚀 ~ file: CohortIdCard.js:8 ~ CohortIdCard ~ results.cohortIdDetailsSortedList:",
-    results.cohortIdDetailsSortedList
-  );
-  console.log(
-    "🚀 ~ file: CohortIdCard.js:10 ~ CohortIdCard ~ state.supervisorDashboardObj.ltId:",
-    results.ltId
-  );
 
   // On initial loading of page before cohortId is selected
   if (results.cohortIdDetailsSortedList.length === 0) {

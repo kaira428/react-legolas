@@ -12,20 +12,21 @@ import React from "react";
 import TraineeDetailsModal from "./TraineeDetailsModal";
 import { useSelector } from "react-redux";
 
-const CohortLeaderBoardCard = ({ data, cohortDetails, getTraineeResults }) => {
+const CohortLeaderBoardCard = () => {
   const results = useSelector(
     (state) => state.supervisorDashboard.supervisorDashboardObj
   );
 
-  console.log(
-    "🚀 ~ file: CohortLeaderBoardCard.js:25 ~ CohortLeaderBoardCard ~ results:",
-    results
-  );
+  // console.log(
+  //   "🚀 ~ file: CohortLeaderBoardCard.js:25 ~ CohortLeaderBoardCard ~ results:",
+  //   results
+  // );
 
   let reqData = [];
 
   if (Object.keys(results.selectedCohortIdDetails).length > 0) {
     reqData = [...results.traineeListForSelectedLtIdAndCohortId];
+    // console.log("🚀 ~ file: CohortLeaderBoardCard.js:29 ~ CohortLeaderBoardCard ~ reqData:", reqData)
   }
 
   return (
@@ -39,9 +40,9 @@ const CohortLeaderBoardCard = ({ data, cohortDetails, getTraineeResults }) => {
         }}
       >
         <Typography variant="h5" component="h3">
-          {Object.keys(cohortDetails).length === 0
+          {reqData.length === 0
             ? "Cohort Leaderboard"
-            : `Cohort ${cohortDetails.partialCohortDetails["cohortNum"]} Leaderboard`}
+            : `Cohort ${results.selectedCohortIdDetails.partialCohortDetails.cohortNum} Leaderboard`}
         </Typography>
       </Paper>
       <TableContainer
@@ -148,7 +149,6 @@ const CohortLeaderBoardCard = ({ data, cohortDetails, getTraineeResults }) => {
                     </TableCell>
                     <TableCell align="center">
                       <span>
-                        {/* <TraineeDetailsModal traineeId={trainee.id} getTraineeResults={getTraineeResults}/> */}
                         <TraineeDetailsModal traineeId={trainee.id} />
                       </span>
                     </TableCell>

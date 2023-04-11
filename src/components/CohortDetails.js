@@ -52,50 +52,6 @@ const CohortDetails = () => {
               overflow: "auto",
             }}
           >
-            {/* <TableContainer>
-              <Table aria-label="a dense table">
-                <TableBody>
-                  <Typography variant="body1" component="p">
-                    <TableRow key={10} sx={{ whiteSpace: "nowrap" }}>
-                      <TableCell component="th" scope="row"></TableCell>
-                      <TableCell align="left">Total Trainees:</TableCell>
-                      <TableCell align="right">
-                        {reqResults.numberOfTraineesInCohort}
-                      </TableCell>
-                    </TableRow>
-                    <TableRow key={11}>
-                      <TableCell component="th" scope="row"></TableCell>
-                      <TableCell align="left">Mentor:</TableCell>
-                      <TableCell align="right">
-                        {Object.keys(reqResults).length === 0
-                          ? ""
-                          : reqResults.partialCohortDetails["mentorName"]}
-                      </TableCell>
-                    </TableRow>
-                    <TableRow key={12}>
-                      <TableCell component="th" scope="row"></TableCell>
-                      <TableCell align="left">Coach:</TableCell>
-                      <TableCell align="right">
-                        {Object.keys(reqResults).length === 0
-                          ? ""
-                          : reqResults.partialCohortDetails["coachName"]}
-                      </TableCell>
-                    </TableRow>
-                    <TableRow key={13}>
-                      <TableCell component="th" scope="row"></TableCell>
-                      <TableCell align="left" sx={{ whiteSpace: "nowrap" }}>
-                        # of Modules:
-                      </TableCell>
-                      <TableCell align="right">
-                        {reqResults.numberOfModulesForCohort}
-                      </TableCell>
-                    </TableRow>
-                  </Typography>
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Box> */}
-
             <Table>
               <tbody>
                 <tr>
