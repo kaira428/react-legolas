@@ -171,8 +171,8 @@ const courses = [
             },
             {
                 "cohortNum": 25,
-                "startDate": "20-03-2022",
-                "endDate": "20-05-2022",
+                "startDate": "20-02-2023",
+                "endDate": "10-04-2023",
                 "mentorName": "Thendral",
                 "coachName": "Ben",
                 "country": "Philippines"

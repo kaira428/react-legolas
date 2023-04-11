@@ -19,13 +19,13 @@ const CohortLeaderBoardCard = ({ data, cohortDetails, getTraineeResults }) => {
 
   console.log(
     "🚀 ~ file: CohortLeaderBoardCard.js:25 ~ CohortLeaderBoardCard ~ results:",
-    results.selectedCohortIdDetails
+    results
   );
 
   let reqData = [];
 
-  if (Object.keys(results.selectedCohortIdDetails).length > 0){
-  reqData = [...results.traineeListForSelectedLtIdAndCohortId];
+  if (Object.keys(results.selectedCohortIdDetails).length > 0) {
+    reqData = [...results.traineeListForSelectedLtIdAndCohortId];
   }
 
   return (
@@ -52,7 +52,6 @@ const CohortLeaderBoardCard = ({ data, cohortDetails, getTraineeResults }) => {
           sx={{
             minWidth: 500,
             height: "max-content",
-            backgroundColor: "lightGrey",
           }}
           aria-label="simple table"
           stickyHeader
