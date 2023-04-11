@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import {
   getLtCohortInfo,
   getTraineeAndCohortDetailsList,
+  resetSupervisorDashboardSlice,
 } from "../store/supervisorDbSlice";
 
 export const TraineeResultsContext = React.createContext();
@@ -39,6 +40,7 @@ const SupervisorDashboard = () => {
 
   // Function definitions
   const getCohortIdListHandler = (ltId) => {
+    dispatch(resetSupervisorDashboardSlice());
     dispatch(getLtCohortInfo(ltId));
   };
 

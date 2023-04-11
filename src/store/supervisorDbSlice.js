@@ -51,10 +51,12 @@ export const supervisorDashboardSlice = createSlice({
       state.supervisorDashboardObj.selectedCohortIdDetails =
         traineeCohortDetailsResult.reqCohortDetail;
     },
+
+    resetSupervisorDashboardSlice: () => initialState,
   },
 });
 
-export const { getLtCohortInfo, getTraineeAndCohortDetailsList } =
+export const { getLtCohortInfo, getTraineeAndCohortDetailsList, resetSupervisorDashboardSlice } =
   supervisorDashboardSlice.actions;
 
 export default supervisorDashboardSlice.reducer;
