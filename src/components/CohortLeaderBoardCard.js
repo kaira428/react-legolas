@@ -47,7 +47,7 @@ const CohortLeaderBoardCard = () => {
       </Paper>
       <TableContainer
         component={Paper}
-        sx={{ height: 300, border: "1px solid darkGrey" }}
+        sx={{ height: 350, border: "1px solid darkGrey" }}
       >
         <Table
           sx={{
