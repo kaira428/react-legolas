@@ -8,6 +8,7 @@ export const trainees = [
         phone: "+63 12345678",
         cohort: 9,
         password: "",
+        status: "Active",
         learningTrack: 1,
         modules: {
             "Week 1": 472,
@@ -17,7 +18,7 @@ export const trainees = [
             "Week 5": 460,
             "Week 6": 454,
             "Week 7": 458,
-            "Mock Presentation": 0
+            "Mock Presentation": null
         }
         ,
         progress: 71,
@@ -31,6 +32,7 @@ export const trainees = [
         phone: "+63 12345678",
         cohort: 9,
         password: "",
+        status: "Active",
         learningTrack: 1,
         modules: {
             "Week 1": 424,
@@ -40,7 +42,7 @@ export const trainees = [
             "Week 5": 468,
             "Week 6": 470,
             "Week 7": 461,
-            "Mock Presentation": 0
+            "Mock Presentation": null
         },
         progress: 71,
     },
@@ -53,6 +55,7 @@ export const trainees = [
         phone: "+63 12345678",
         cohort: 9,
         password: "",
+        status: "Active",
         learningTrack: 1,
         modules: {
             "Week 1": 426,
@@ -62,7 +65,7 @@ export const trainees = [
             "Week 5": 442,
             "Week 6": 448,
             "Week 7": 446,
-            "Mock Presentation": 0
+            "Mock Presentation": null
         },
         progress: 71,
     },
@@ -75,6 +78,7 @@ export const trainees = [
         phone: "+63 12345678",
         cohort: 9,
         password: "",
+        status: "Active",
         learningTrack: 1,
         modules: {
             "Week 1": 430,
@@ -84,7 +88,7 @@ export const trainees = [
             "Week 5": 420,
             "Week 6": 428,
             "Week 7": 452,
-            "Mock Presentation": 0
+            "Mock Presentation": null
         },
         progress: 71,
     },
@@ -97,6 +101,7 @@ export const trainees = [
         phone: "+63 12345678",
         cohort: 9,
         password: "",
+        status: "Active",
         learningTrack: 1,
         modules: {
             "Week 1": 424,
@@ -106,7 +111,7 @@ export const trainees = [
             "Week 5": 448,
             "Week 6": 454,
             "Week 7": 458,
-            "Mock Presentation": 0
+            "Mock Presentation": null
         },
         progress: 71,
     },
@@ -119,6 +124,7 @@ export const trainees = [
         phone: "+63 12345678",
         cohort: 9,
         password: "",
+        status: "InActive",
         learningTrack: 1,
         modules: {
             "Week 1": 396,
@@ -140,6 +146,7 @@ export const trainees = [
         phone: "+65 12345678",
         cohort: 29,
         password: "",
+        status: "Active",
         learningTrack: 6,
         modules: {
             "Week 1": 472,
@@ -161,15 +168,16 @@ export const trainees = [
         phone: "+65 12345678",
         cohort: 29,
         password: "",
+        status: "InActive",
         learningTrack: 6,
         modules: {
             "Week 1": 472,
             "Week 2": 488,
             "Week 3": 420,
-            "Week 4": 454,
-            "Week 5": 460,
-            "Week 6": 450,
-            "Mock Presentation": 410
+            "Week 4": null,
+            "Week 5": null,
+            "Week 6": null,
+            "Mock Presentation": null
         },
         progress: 71,
     },
@@ -182,6 +190,7 @@ export const trainees = [
         phone: "+65 12345678",
         cohort: 25,
         password: "",
+        status: "Active",
         learningTrack: 6,
         modules: {
             "Week 1": 472,
@@ -203,6 +212,7 @@ export const trainees = [
         phone: "+65 12345678",
         cohort: 29,
         password: "",
+        status: "Active",
         learningTrack: 6,
         modules: {
             "Week 1": 472,
@@ -224,15 +234,16 @@ export const trainees = [
         phone: "+65 12345678",
         cohort: 25,
         password: "",
+        status: "InActive",
         learningTrack: 6,
         modules: {
             "Week 1": 472,
             "Week 2": 488,
             "Week 3": 420,
             "Week 4": 454,
-            "Week 5": 460,
-            "Week 6": 450,
-            "Mock Presentation": 440
+            "Week 5": null,
+            "Week 6": null,
+            "Mock Presentation": null
         },
         progress: 71,
     },
@@ -245,6 +256,7 @@ export const trainees = [
         phone: "+65 12345678",
         cohort: 25,
         password: "",
+        status: "Active",
         learningTrack: 6,
         modules: {
             "Week 1": 472,

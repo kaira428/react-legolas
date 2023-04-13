@@ -10,8 +10,9 @@ const initialState = {
     learningTrackName: "",
     cohortIdDetailsSortedList: [],
     examStatus: "In Progress",
-    traineeListForSelectedLtIdAndCohortId: [{}],
+    traineeListForSelectedLtIdAndCohortId: [],
     selectedCohortIdDetails: {},
+    selectedCohortsProgress: [],
   },
 };
 
@@ -29,12 +30,13 @@ export const supervisorDashboardSlice = createSlice({
         ltCohortListForChosenLtId.ltName;
       state.supervisorDashboardObj.cohortIdDetailsSortedList =
         ltCohortListForChosenLtId.cohortDetailsList;
+      state.supervisorDashboardObj.selectedCohortsProgress =
+        ltCohortListForChosenLtId.cohortsProgress;
     },
 
     getTraineeAndCohortDetailsList: (state, action) => {
-
       // console.log("🚀 ~ file: supervisorDbSlice.js:36 ~ action:", action.payload)
-      
+
       const traineeCohortDetailsResult =
         traineeDetailsBySelectedLtIdAndCohortId(
           action.payload.ltId,
@@ -56,7 +58,10 @@ export const supervisorDashboardSlice = createSlice({
   },
 });
 
-export const { getLtCohortInfo, getTraineeAndCohortDetailsList, resetSupervisorDashboardSlice } =
-  supervisorDashboardSlice.actions;
+export const {
+  getLtCohortInfo,
+  getTraineeAndCohortDetailsList,
+  resetSupervisorDashboardSlice,
+} = supervisorDashboardSlice.actions;
 
 export default supervisorDashboardSlice.reducer;
