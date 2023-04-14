@@ -146,7 +146,7 @@ export const trainees = [
         phone: "+65 12345678",
         cohort: 29,
         password: "",
-        status: "Active",
+        status: "In Progress",
         learningTrack: 6,
         modules: {
             "Week 1": 472,
@@ -154,8 +154,8 @@ export const trainees = [
             "Week 3": 420,
             "Week 4": 454,
             "Week 5": 460,
-            "Week 6": 0,
-            "Mock Presentation": 0
+            "Week 6": null,
+            "Mock Presentation": null
         },
         progress: 71,
     },
@@ -190,7 +190,7 @@ export const trainees = [
         phone: "+65 12345678",
         cohort: 25,
         password: "",
-        status: "Active",
+        status: "In Progress",
         learningTrack: 6,
         modules: {
             "Week 1": 472,
@@ -198,8 +198,8 @@ export const trainees = [
             "Week 3": 420,
             "Week 4": 454,
             "Week 5": 460,
-            "Week 6": 400,
-            "Mock Presentation": 420
+            "Week 6": null,
+            "Mock Presentation": null
         },
         progress: 71,
     },
@@ -212,7 +212,7 @@ export const trainees = [
         phone: "+65 12345678",
         cohort: 29,
         password: "",
-        status: "Active",
+        status: "In Progress",
         learningTrack: 6,
         modules: {
             "Week 1": 472,
@@ -220,8 +220,8 @@ export const trainees = [
             "Week 3": 420,
             "Week 4": 454,
             "Week 5": 460,
-            "Week 6": 430,
-            "Mock Presentation": 410
+            "Week 6": null,
+            "Mock Presentation": null
         },
         progress: 71,
     },
@@ -256,7 +256,7 @@ export const trainees = [
         phone: "+65 12345678",
         cohort: 25,
         password: "",
-        status: "Active",
+        status: "In Progress",
         learningTrack: 6,
         modules: {
             "Week 1": 472,
@@ -264,8 +264,8 @@ export const trainees = [
             "Week 3": 420,
             "Week 4": 454,
             "Week 5": 460,
-            "Week 6": 425,
-            "Mock Presentation": 420
+            "Week 6": null,
+            "Mock Presentation": null
         },
         progress: 71,
     },

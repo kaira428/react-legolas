@@ -16,6 +16,7 @@ const TraineeDetailsModal = (props) => {
   const results = useSelector(
     (state) => state.supervisorDashboard.supervisorDashboardObj
   );
+  // console.log("🚀 ~ file: TraineeDetailsModal.js:19 ~ TraineeDetailsModal ~ results:", results)
 
   const allTraineesResults =
     results.traineeListForSelectedLtIdAndCohortId.filter(
@@ -23,7 +24,8 @@ const TraineeDetailsModal = (props) => {
     );
 
   const traineeNameAndResults = allTraineesResults[0];
- 
+  // console.log("🚀 ~ file: TraineeDetailsModal.js:27 ~ TraineeDetailsModal ~ traineeNameAndResults:", traineeNameAndResults)
+
   let moduleResultsArray = [];
 
   if (Object.keys(traineeNameAndResults).length > 0) {
@@ -44,7 +46,14 @@ const TraineeDetailsModal = (props) => {
         aria-describedby="modal-modal-description"
         centered
       >
-        <Modal.Header closeButton style={{ backgroundColor: "orange" }}>
+        <Modal.Header
+          closeButton
+          style={
+            traineeNameAndResults.status !== "InActive"
+              ? { backgroundColor: "orange" }
+              : { backgroundColor: "lightgrey" }
+          }
+        >
           <Modal.Title>
             {traineeNameAndResults.firstName +
               " " +
@@ -71,6 +80,18 @@ const TraineeDetailsModal = (props) => {
                   </tr>
                 ))
               : ""}
+            <br />
+            <tr>
+              <td colspan={2} style={{ color: "blue", fontWeight: "bold" }}>
+                Training Status:
+              </td>
+              <td
+                colSpan={2}
+                style={{ textAlign: "center", fontWeight: "bold" }}
+              >
+                {traineeNameAndResults.status}
+              </td>
+            </tr>
           </Table>
         </Modal.Body>
         <Modal.Footer>

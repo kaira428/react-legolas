@@ -123,7 +123,7 @@ const computeCohortProgress = (reqCohortIdObj, traineeData) => {
 
   reqCohortIdObj.forEach((cohort) => {
     let found = traineeData.find((trainee) => {
-      return trainee.cohort === cohort.cohortNum && trainee.status === "Active";
+      return trainee.cohort === cohort.cohortNum && (trainee.status !== "InActive");
     });
 
     reqTraineeArray.push([cohort.cohortNum, found]);
