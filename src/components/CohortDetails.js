@@ -46,7 +46,6 @@ const CohortDetails = () => {
 
           <Box
             sx={{
-              height: "auto",
               width: 250,
               border: "1px solid lightgrey",
               overflow: "auto",

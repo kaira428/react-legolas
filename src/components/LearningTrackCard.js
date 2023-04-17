@@ -20,7 +20,7 @@ const LearningTrackCard = (props) => {
           </Box>
           <Box
             sx={{
-              height: 200,
+              height: 180,
               width: 250,
               border: "1px solid lightgrey",
               overflow: "auto",

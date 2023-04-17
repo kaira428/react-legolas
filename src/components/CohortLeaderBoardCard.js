@@ -128,7 +128,7 @@ const CohortLeaderBoardCard = () => {
                     </TableCell>
                     <TableCell align="center">
                       <span>
-                        <Typography variant="body1" component="p">
+                        <Typography variant="body1" component="p" sx={trainee.status === "InActive" ? {backgroundColor: "grey"} : ""}>
                           {trainee.firstName + " " + trainee.lastName}
                         </Typography>
                       </span>

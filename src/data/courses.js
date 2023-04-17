@@ -155,9 +155,9 @@ const courses = [
         "cohorts": [
             {
                 "cohortNum": 29,
-                "startDate": "20-03-2022",
-                "endDate": "20-05-2022",
-                "mentorName": "Thendral",
+                "startDate": "20-02-2022",
+                "endDate": "13-04-2022",
+                "mentorName": "WK",
                 "coachName": "Benny",
                 "country": "Philippines"
             },
