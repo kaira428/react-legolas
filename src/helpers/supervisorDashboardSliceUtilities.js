@@ -51,8 +51,6 @@ export const traineeDetailsBySelectedLtIdAndCohortId = (ltId, cohortId) => {
       // gather all module results for the identified trainee
       const moduleResults = Object.values(trainee.modules);
 
-      // console.log(moduleResults);
-
       // compute total score for each of the trainees
       const totalModuleResult = moduleResults.reduce(
         (accumulator, moduleResult, index) => {

@@ -75,7 +75,7 @@ const TraineeDetailsModal = (props) => {
                       colSpan={2}
                       style={{ textAlign: "center", fontWeight: "bold" }}
                     >
-                      {module[1]}
+                      {parseFloat(module[1]).toFixed(2)}
                     </td>
                   </tr>
                 ))

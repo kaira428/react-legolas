@@ -7,7 +7,7 @@ const CohortProgressChart = () => {
   const results = useSelector(
     (state) => state.supervisorDashboard.supervisorDashboardObj
   );
-  console.log("🚀 ~ file: CohortProgressChart.js:10 ~ CohortProgressChart ~ results:", results)
+  // console.log("🚀 ~ file: CohortProgressChart.js:10 ~ CohortProgressChart ~ results:", results)
 
   return (
     <Grid item sx={{ my: 5 }}>

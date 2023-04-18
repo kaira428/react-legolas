@@ -163,8 +163,8 @@ const courses = [
             },
             {
                 "cohortNum": 30,
-                "startDate": "20-02-2022",
-                "endDate": "13-04-2022",
+                "startDate": "20-02-2023",
+                "endDate": "13-04-2023",
                 "mentorName": "WK",
                 "coachName": "Benny",
                 "country": "Philippines"

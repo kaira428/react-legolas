@@ -7,7 +7,7 @@ const TrainingDetails = () => {
   const results = useSelector(
     (state) => state.supervisorDashboard.supervisorDashboardObj
   );
-  console.log("🚀 ~ file: TrainingDetails.js:10 ~ TrainingDetails ~ results:", results)
+  // console.log("🚀 ~ file: TrainingDetails.js:10 ~ TrainingDetails ~ results:", results)
 
   const objectLength = Object.keys(results.selectedCohortIdDetails).length;
 
