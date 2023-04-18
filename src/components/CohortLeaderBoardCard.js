@@ -136,7 +136,7 @@ const CohortLeaderBoardCard = () => {
                     <TableCell align="center">
                       <span>
                         <Typography variant="body1" component="p">
-                          {trainee.progress + "%"}
+                          {trainee.progress === "Withdrawn" ? trainee.progress : trainee.progress + "%"}
                         </Typography>
                       </span>
                     </TableCell>

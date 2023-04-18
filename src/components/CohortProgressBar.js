@@ -8,7 +8,7 @@ function CohortProgressBar() {
   const reqObj = useSelector(state => state.supervisorDashboard.supervisorDashboardObj);
   
   const progressData = reqObj.selectedCohortsProgress;
-  console.log("🚀 ~ file: CohortProgressBar.js:11 ~ CohortProgressBar ~ progressData:", progressData)
+  // console.log("🚀 ~ file: CohortProgressBar.js:11 ~ CohortProgressBar ~ progressData:", progressData)
 
   return (
     <>

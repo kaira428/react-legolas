@@ -9,7 +9,7 @@ const initialState = {
     ltId: 0,
     learningTrackName: "",
     cohortIdDetailsSortedList: [],
-    examStatus: "In Progress",
+    trainingStatus: "In Progress",
     traineeListForSelectedLtIdAndCohortId: [],
     selectedCohortIdDetails: {},
     selectedCohortsProgress: [],
@@ -52,6 +52,8 @@ export const supervisorDashboardSlice = createSlice({
         traineeCohortDetailsResult.reqTraineesData;
       state.supervisorDashboardObj.selectedCohortIdDetails =
         traineeCohortDetailsResult.reqCohortDetail;
+      state.supervisorDashboardObj.trainingStatus =
+        traineeCohortDetailsResult.trainingStatus;
     },
 
     resetSupervisorDashboardSlice: () => initialState,

@@ -27,11 +27,9 @@ const CohortProgressChart = () => {
         </Typography>
       </Paper>
       <Box sx={{ height: 200, width: 550, border: "1px solid darkgrey", overflowY: "scroll"}}>
-        {/* <Paper elevation={3} sx={{ height: 1, textAlign: "center" }}> */}
           <Box sx={{ m: 3 }}>
             <CohortProgressBar />
           </Box>
-        {/* </Paper> */}
       </Box>
     </Grid>
   );

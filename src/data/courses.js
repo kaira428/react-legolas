@@ -162,6 +162,14 @@ const courses = [
                 "country": "Philippines"
             },
             {
+                "cohortNum": 30,
+                "startDate": "20-02-2022",
+                "endDate": "13-04-2022",
+                "mentorName": "WK",
+                "coachName": "Benny",
+                "country": "Philippines"
+            },
+            {
                 "cohortNum": 28,
                 "startDate": "20-03-2022",
                 "endDate": "20-05-2022",

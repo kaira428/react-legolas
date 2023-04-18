@@ -22,12 +22,12 @@ export const getLtNameAndCohortIDsForChosenLtId = (ltId) => {
 
   // compute cohort progress from list in reqSortedCohortIds
   const cohortsProgress = computeCohortProgress(reqSortedCohortIds, trainees);
-  
+
   const result = {
     cohortDetailsList: reqSortedCohortIds,
     ltName: ltName,
     ltId: ltId,
-    cohortsProgress: cohortsProgress
+    cohortsProgress: cohortsProgress,
   };
 
   // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:21 ~ getLtNameAndCohortIDsForChosenLtId ~ result:", result);
@@ -37,6 +37,7 @@ export const getLtNameAndCohortIDsForChosenLtId = (ltId) => {
 
 export const traineeDetailsBySelectedLtIdAndCohortId = (ltId, cohortId) => {
   let traineeDataWithTotalModuleResults = [];
+  let trainingStatus = "In Progress";
 
   // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:31 ~ traineeDetailsBySelectedLtIdAndCohortId ~ ltId:", ltId)
   // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:31 ~ traineeDetailsBySelectedLtIdAndCohortId ~ cohortId:", cohortId)
@@ -59,8 +60,42 @@ export const traineeDetailsBySelectedLtIdAndCohortId = (ltId, cohortId) => {
         }
       );
 
+      // compute trainee training progress status (either 'In Progress' or 'Completed' or 'Withdrawn')
+
+      if (trainee.status === "InActive") {
+        trainee.progress = "Withdrawn";
+      } else {
+        const modulesArray = Object.entries(trainee.modules);
+        // console.log(
+        //   "🚀 ~ file: supervisorDashboardSliceUtilities.js:69 ~ trainees.filter ~ modulesArray:",
+        //   modulesArray
+        // );
+
+        // check if all modules are completed; ie result in module > 0
+        const trainingCompleted = modulesArray.every((module) => module[1] > 0);
+        // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:73 ~ trainees.filter ~ trainingCompleted:", trainingCompleted)
+
+        let numberOfCompletedModules = 0;
+
+        if (trainingCompleted) {
+          trainee.progress = 100;
+          trainingStatus = "Completed";
+        } else {
+          modulesArray.forEach((module) => {
+            if (module[1] > 0) {
+              numberOfCompletedModules += 1;
+            }
+
+            trainee.progress = (
+              (numberOfCompletedModules / modulesArray.length) *
+              100
+            ).toFixed(0);
+          });
+        }
+      }
+
       // update total module results to required trainee object
-      trainee = { ...trainee, totalModuleResult: totalModuleResult };
+      trainee = { ...trainee, totalModuleResult: totalModuleResult.toFixed(1) };
 
       traineeDataWithTotalModuleResults = [
         ...traineeDataWithTotalModuleResults,
@@ -102,72 +137,55 @@ export const traineeDetailsBySelectedLtIdAndCohortId = (ltId, cohortId) => {
     partialCohortDetails: partialCohortDetail[0],
   };
 
-  // console.log("🚀 ~ file: utilities.js:83 ~ traineeDetailsByLtIdByCohortId ~ reqCohortDetail:", reqCohortDetail);
+  // console.log("🚀 ~ file: utilities.js:138 ~ traineeDetailsByLtIdByCohortId ~ reqCohortDetail:", reqCohortDetail);
+  // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:139 ~ traineeDetailsBySelectedLtIdAndCohortId ~ reqTraineesData:", reqTraineesData)
 
-  const result = { reqTraineesData, reqCohortDetail };
+  const result = { reqTraineesData, reqCohortDetail, trainingStatus };
 
   return result;
 };
 
 const computeCohortProgress = (reqCohortIdObj, traineeData) => {
-  // console.log(
-  //   "🚀 ~ file: supervisorDashboardSliceUtilities.js:106 ~ computeCohortProgress ~ traineeData:",
-  //   traineeData
-  // );
-  // console.log(
-  //   "🚀 ~ file: supervisorDashboardSliceUtilities.js:107 ~ computeCohortProgress ~ reqCohortIdObj:",
-  //   reqCohortIdObj
-  // );
-
   let reqTraineeArray = [];
 
   reqCohortIdObj.forEach((cohort) => {
     let found = traineeData.find((trainee) => {
-      return trainee.cohort === cohort.cohortNum && (trainee.status !== "InActive");
+      return (
+        trainee.cohort === cohort.cohortNum && trainee.status !== "InActive"
+      );
     });
 
     reqTraineeArray.push([cohort.cohortNum, found]);
   });
 
-  // console.log(
-  //   "🚀 ~ file: supervisorDashboardSliceUtilities.js:118 ~ computeCohortProgress ~ reqTraineeArray:",
-  //   reqTraineeArray
-  // );
-
   // compute cohort progress
 
-  let progressData = reqTraineeArray.map(trainee => {
-    console.log(trainee[0], trainee[1])
+  let progressData = reqTraineeArray.map((trainee) => {
+    console.log(trainee[0], trainee[1]);
     let progress = 0;
 
     if (trainee[1] === undefined) {
       // console.log("Undefined trainee data: " + trainee);
-      return [trainee[0], progress]
+      return [trainee[0], progress];
     } else {
       // find number of completed module
       const moduleArray = Object.entries(trainee[1].modules);
 
       const numberOfCompletedModule = moduleArray.reduce((accum, module) => {
         if (module[1] > 0) {
-          return accum + 1; 
+          return accum + 1;
         }
 
-        return accum
-      }, 0)
+        return accum;
+      }, 0);
 
-      progress = ((numberOfCompletedModule / moduleArray.length) * 100).toFixed(1);
+      progress = ((numberOfCompletedModule / moduleArray.length) * 100).toFixed(
+        0
+      );
 
-      return [trainee[0], parseInt(progress)]
-      
-      // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:157 ~ numberOfCompletedModule ~ numberOfCompletedModule:", numberOfCompletedModule)
-      // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:149 ~ progressData ~ moduleArray:", moduleArray)
-      // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:162 ~ progressData ~ progress:", progress)
+      return [trainee[0], parseInt(progress)];
     }
-    
-  })
-  console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:146 ~ progressData ~ progressData:", progressData)
-
-  // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:127 ~ computeCohortProgress ~ numOfModules:", numOfModules)
+  });
 
   return progressData;
 };

@@ -7,6 +7,7 @@ const TrainingDetails = () => {
   const results = useSelector(
     (state) => state.supervisorDashboard.supervisorDashboardObj
   );
+  console.log("🚀 ~ file: TrainingDetails.js:10 ~ TrainingDetails ~ results:", results)
 
   const objectLength = Object.keys(results.selectedCohortIdDetails).length;
 
@@ -46,12 +47,12 @@ const TrainingDetails = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td colSpan={2}>Exam Status:</td>
+                    <td colSpan={2}>Training Status:</td>
                     <td
                       colSpan={2}
                       style={{ textAlign: "center", fontWeight: "bold" }}
                     >
-                      {results.examStatus}
+                      {results.trainingStatus}
                     </td>
                   </tr>
                   <tr>
@@ -115,7 +116,7 @@ const TrainingDetails = () => {
                     <td colSpan={2}>Learning Track:</td>
                   </tr>
                   <tr>
-                    <td colSpan={2}>Exam Status:</td>
+                    <td colSpan={2}>Training Status:</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>Start Date:</td>
