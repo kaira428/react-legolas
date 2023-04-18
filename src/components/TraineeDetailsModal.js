@@ -32,6 +32,8 @@ const TraineeDetailsModal = (props) => {
     moduleResultsArray = Object.entries(traineeNameAndResults.modules);
   }
 
+  console.log("🚀 ~ file: TraineeDetailsModal.js:33 ~ TraineeDetailsModal ~ moduleResultsArray:", moduleResultsArray)
+
   return (
     <div>
       <Button variant="primary" size="sm" onClick={handleOpen}>
@@ -73,9 +75,9 @@ const TraineeDetailsModal = (props) => {
                     </td>
                     <td
                       colSpan={2}
-                      style={{ textAlign: "center", fontWeight: "bold" }}
+                      style={{ textAlign: "right", fontWeight: "bold" }}
                     >
-                      {parseFloat(module[1]).toFixed(2)}
+                      {module[1] === null ? "-" : parseFloat(module[1]).toFixed(2)}
                     </td>
                   </tr>
                 ))
@@ -87,7 +89,7 @@ const TraineeDetailsModal = (props) => {
               </td>
               <td
                 colSpan={2}
-                style={{ textAlign: "center", fontWeight: "bold" }}
+                style={{ textAlign: "right", fontWeight: "bold" }}
               >
                 {traineeNameAndResults.status}
               </td>
