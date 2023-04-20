@@ -59,7 +59,7 @@ const CohortLeaderBoardCard = () => {
         >
           <TableHead>
             <TableRow>
-              <TableCell>
+              <TableCell align="center" >
                 <span>
                   <Typography
                     variant="body1"
@@ -123,8 +123,8 @@ const CohortLeaderBoardCard = () => {
                     key={index + 1}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
-                      {index + 1}
+                    <TableCell align="center" component="th" scope="row">
+                      {index + 1 <= 3 ? <img width="40" height="40" src={`/images/${index + 1}.png`} alt="awards"/> : index + 1}
                     </TableCell>
                     <TableCell align="center">
                       <span>
