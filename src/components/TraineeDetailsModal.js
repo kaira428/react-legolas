@@ -32,8 +32,6 @@ const TraineeDetailsModal = (props) => {
     moduleResultsArray = Object.entries(traineeNameAndResults.modules);
   }
 
-  console.log("🚀 ~ file: TraineeDetailsModal.js:33 ~ TraineeDetailsModal ~ moduleResultsArray:", moduleResultsArray)
-
   return (
     <div>
       <Button variant="primary" size="sm" onClick={handleOpen}>
@@ -63,7 +61,7 @@ const TraineeDetailsModal = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Table>
+          <Table bordered>
             {moduleResultsArray.length !== 0
               ? moduleResultsArray.map((module, index) => (
                   <tr key={index}>
@@ -85,7 +83,7 @@ const TraineeDetailsModal = (props) => {
             <br />
             <tr>
               <td colspan={2} style={{ color: "blue", fontWeight: "bold" }}>
-                Training Status:
+                Trainee Status:
               </td>
               <td
                 colSpan={2}

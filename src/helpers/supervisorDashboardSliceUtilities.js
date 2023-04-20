@@ -159,7 +159,7 @@ const computeCohortProgress = (reqCohortIdObj, traineeData) => {
   // compute cohort progress
 
   let progressData = reqTraineeArray.map((trainee) => {
-    console.log(trainee[0], trainee[1]);
+    // console.log(trainee[0], trainee[1]);
     let progress = 0;
 
     if (trainee[1] === undefined) {

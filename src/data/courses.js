@@ -61,7 +61,7 @@ const courses = [
     },
     {
         "id": 3,
-        "name": "DevOps Developer",
+        "name": "ReactJS",
         "cohorts": [
             {
                 "cohortNum": 16,
@@ -151,12 +151,12 @@ const courses = [
     },
     {
         "id": 6,
-        "name": "React JS",
+        "name": "DevOps Developer",
         "cohorts": [
             {
                 "cohortNum": 29,
-                "startDate": "20-02-2022",
-                "endDate": "13-04-2022",
+                "startDate": "20-02-2023",
+                "endDate": "13-04-2023",
                 "mentorName": "WK",
                 "coachName": "Benny",
                 "country": "Philippines"
@@ -171,11 +171,11 @@ const courses = [
             },
             {
                 "cohortNum": 28,
-                "startDate": "20-03-2022",
-                "endDate": "20-05-2022",
-                "mentorName": "HB",
-                "coachName": "Ben",
-                "country": "Singapore"
+                "startDate": "16-01-2023",
+                "endDate": "03-03-2023",
+                "mentorName": "WK",
+                "coachName": "Benny",
+                "country": "Philippines"
             },
             {
                 "cohortNum": 25,
