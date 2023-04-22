@@ -7,7 +7,7 @@ import TrainingDetails from "../components/TrainingDetails";
 import LearningTrackCard from "../components/LearningTrackCard";
 import CohortIdCard from "../components/CohortIdCard";
 import classes from "./SupervisorDashboard.module.css";
-import courses from "../data/courses";
+// import courses from "../data/courses";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -16,23 +16,45 @@ import {
   getTraineeAndCohortDetailsList,
   resetSupervisorDashboardSlice,
 } from "../store/supervisorDbSlice";
+import { getAllLearningTracks } from "../mongodb_serverless/getAllLearningTracks";
+import { Spinner } from "react-bootstrap";
 
 export const TraineeResultsContext = React.createContext();
 
 const SupervisorDashboard = () => {
   const [learningTracks, setLearningTracks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
 
-  useEffect(
-    () =>
+  // useEffect(
+  //   () => {
+  //     setLearningTracks(
+  //       courses.map((course) => {
+  //         return { id: course.id, name: course.name };
+  //       })
+  //     );
+  //   },
+  //   []
+  // );
+
+  useEffect(() => {
+    setIsLoading(true);
+    // function to get list of all learning tracks from MongoDB
+    const getListOfLearningTracks = async () => {
+      const courses = await getAllLearningTracks();
+      // console.log("🚀 ~ file: SupervisorDashboard.js:43 ~ getListOfLearningTracks ~ data:", data)
+
       setLearningTracks(
         courses.map((course) => {
           return { id: course.id, name: course.name };
         })
-      ),
-    []
-  );
+      );
+
+      setIsLoading(false);
+    };
+    getListOfLearningTracks();
+  }, []);
 
   // Function definitions
   const getCohortIdListHandler = (ltId) => {
@@ -64,6 +86,17 @@ const SupervisorDashboard = () => {
 
         <Grid item className={classes.screen2}>
           <CohortProgressChart />
+          {/* {isLoading && <Spinner animation="border" variant="primary" />} */}
+          {isLoading && (
+            <div class="d-flex justify-content-center">
+              <div
+                class="spinner-border text-primary"
+                style={{ width: "3rem", height: "3rem" }}
+                role="status"
+              >
+              </div>
+            </div>
+          )}
           <CohortLeaderBoardCard />
         </Grid>
 
