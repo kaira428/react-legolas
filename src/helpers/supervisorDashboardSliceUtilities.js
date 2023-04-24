@@ -1,24 +1,12 @@
 import courses from "../data/courses";
 import { trainees } from "../data/trainees";
 
-export const getLtNameAndCohortIDsForChosenLtId = (ltId) => {
-  // Filter for required Learning Track based on LearningTrack ID
-  const filteredLearningTracksArray = courses.filter(
-    (learningTrack) => learningTrack.id === ltId
-  );
-  // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:9 ~ getLtNameAndCohortIDsForChosenLtId ~ filteredLearningTracksArray:", filteredLearningTracksArray)
+export const getLtNameAndCohortIDsForChosenLtId = (
+  selectedLearningTrackInfo
+) => {
+  const ltName = selectedLearningTrackInfo.name;
 
-  const ltName = filteredLearningTracksArray[0].name;
-  // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:12 ~ getLtNameAndCohortIDsForChosenLtId ~ filteredLearningTracksArray: cohorts", filteredLearningTracksArray[0].cohorts)
-  // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:12 ~ getLtNameAndCohortIDsForChosenLtId ~ ltName:", ltName)
-
-  filteredLearningTracksArray[0].cohorts.sort((x, y) => {
-    let a = x.cohortNum,
-      b = y.cohortNum;
-    return a - b;
-  });
-
-  const reqSortedCohortIds = [...filteredLearningTracksArray[0].cohorts];
+  const reqSortedCohortIds = [...selectedLearningTrackInfo.cohorts];
 
   // compute cohort progress from list in reqSortedCohortIds
   const cohortsProgress = computeCohortProgress(reqSortedCohortIds, trainees);
@@ -26,11 +14,9 @@ export const getLtNameAndCohortIDsForChosenLtId = (ltId) => {
   const result = {
     cohortDetailsList: reqSortedCohortIds,
     ltName: ltName,
-    ltId: ltId,
+    ltId: selectedLearningTrackInfo._id,
     cohortsProgress: cohortsProgress,
   };
-
-  // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:21 ~ getLtNameAndCohortIDsForChosenLtId ~ result:", result);
 
   return result;
 };
@@ -38,9 +24,6 @@ export const getLtNameAndCohortIDsForChosenLtId = (ltId) => {
 export const traineeDetailsBySelectedLtIdAndCohortId = (ltId, cohortId) => {
   let traineeDataWithTotalModuleResults = [];
   let trainingStatus = "In Progress";
-
-  // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:31 ~ traineeDetailsBySelectedLtIdAndCohortId ~ ltId:", ltId)
-  // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:31 ~ traineeDetailsBySelectedLtIdAndCohortId ~ cohortId:", cohortId)
 
   // get trainees details for given ltId and cohortId
   trainees.filter((trainee) => {

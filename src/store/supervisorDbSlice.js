@@ -3,22 +3,26 @@ import {
   getLtNameAndCohortIDsForChosenLtId,
   traineeDetailsBySelectedLtIdAndCohortId,
 } from "../helpers/supervisorDashboardSliceUtilities";
+import { getAllLearningTracksThunk } from "./features/getAllLearningTracksThunk";
 
+const supervisorDashboardObj = {
+  ltId: 0,
+  learningTrackName: "",
+  cohortIdDetailsSortedList: [],
+  trainingStatus: "In Progress",
+  traineeListForSelectedLtIdAndCohortId: [],
+  selectedCohortIdDetails: {},
+  selectedCohortsProgress: [],
+};
 const initialState = {
-  supervisorDashboardObj: {
-    ltId: 0,
-    learningTrackName: "",
-    cohortIdDetailsSortedList: [],
-    trainingStatus: "In Progress",
-    traineeListForSelectedLtIdAndCohortId: [],
-    selectedCohortIdDetails: {},
-    selectedCohortsProgress: [],
-  },
+  isLoading: false,
+  allLearningTracks: [],
+  supervisorDashboardObj: supervisorDashboardObj
 };
 
 export const supervisorDashboardSlice = createSlice({
   name: "supervisorDashboard",
-  initialState,
+  initialState: initialState,
   reducers: {
     getLtCohortInfo: (state, action) => {
       const ltCohortListForChosenLtId = getLtNameAndCohortIDsForChosenLtId(
@@ -56,7 +60,34 @@ export const supervisorDashboardSlice = createSlice({
         traineeCohortDetailsResult.trainingStatus;
     },
 
-    resetSupervisorDashboardSlice: () => initialState,
+    resetSupervisorDashboardSlice: () => (initialState.supervisorDashboardObj = {...supervisorDashboardObj}),
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getAllLearningTracksThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllLearningTracksThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+
+        // duplicate the action.payload
+        const tempArray = [...action.payload];
+
+        // sort the cohorts array in ascending order
+        tempArray.forEach((cohort) =>
+          cohort.cohorts.sort((a, b) => a.cohortNum - b.cohortNum)
+        );
+
+        state.allLearningTracks = [...tempArray];
+        // console.log("🚀 ~ file: supervisorDbSlice.js:71 ~ allLearningTracks:", state.allLearningTracks)
+
+        // console.log(
+        //   "🚀 ~ file: supervisorDbSlice.js:74 ~ allLearningTracks:",
+        //   action.payload)
+      })
+      .addCase(getAllLearningTracksThunk.rejected, (state) => {
+        state.isLoading = false;
+      });
   },
 });
 

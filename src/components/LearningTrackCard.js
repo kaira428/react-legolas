@@ -3,7 +3,7 @@ import React from "react";
 
 const LearningTrackCard = (props) => {
   let learningTracks = props.learningTrackList;
-  // console.log("🚀 ~ file: LearningTrackCard.js:7 ~ LearningTrackCard ~ learningTracks:", learningTracks)
+  console.log("🚀 ~ file: LearningTrackCard.js:7 ~ LearningTrackCard ~ learningTracks:", learningTracks)
   
   return (
     <Grid item sx={{ my: 8 }}>
@@ -27,16 +27,11 @@ const LearningTrackCard = (props) => {
             }}
           >
             {learningTracks
-              .sort((x, y) => {
-                let a = x.name,
-                  b = y.name;
-                return a === b ? 0 : a > b ? 1 : -1;
-              })
               .map((learningTrack) => (
-                <div key={learningTrack.id}>
+                <div key={learningTrack._id}>
                   <Button
                     onClick={() => props.getCohortIdList(
-                      learningTrack.id
+                      learningTrack._id
                     )}
                   >
                     {learningTrack.name}

@@ -9,60 +9,40 @@ import CohortIdCard from "../components/CohortIdCard";
 import classes from "./SupervisorDashboard.module.css";
 // import courses from "../data/courses";
 import { useEffect } from "react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getLtCohortInfo,
   getTraineeAndCohortDetailsList,
   resetSupervisorDashboardSlice,
 } from "../store/supervisorDbSlice";
-import { getAllLearningTracks } from "../mongodb_serverless/getAllLearningTracks";
-import { Spinner } from "react-bootstrap";
+import { getAllLearningTracksThunk } from "../store/features/getAllLearningTracksThunk";
 
 export const TraineeResultsContext = React.createContext();
 
 const SupervisorDashboard = () => {
-  const [learningTracks, setLearningTracks] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
-
-  // useEffect(
-  //   () => {
-  //     setLearningTracks(
-  //       courses.map((course) => {
-  //         return { id: course.id, name: course.name };
-  //       })
-  //     );
-  //   },
-  //   []
-  // );
+  const allLearningTracksInfo = useSelector(
+    (state) => state.supervisorDashboard.allLearningTracks
+  );
+  const isLoading = useSelector((state) => state.supervisorDashboard.isLoading);
 
   useEffect(() => {
-    setIsLoading(true);
-    // function to get list of all learning tracks from MongoDB
-    const getListOfLearningTracks = async () => {
-      const courses = await getAllLearningTracks();
-      // console.log("🚀 ~ file: SupervisorDashboard.js:43 ~ getListOfLearningTracks ~ data:", data)
-
-      setLearningTracks(
-        courses.map((course) => {
-          return { id: course.id, name: course.name };
-        })
-      );
-
-      setIsLoading(false);
-    };
-    getListOfLearningTracks();
+    dispatch(getAllLearningTracksThunk());
   }, []);
 
   // Function definitions
   const getCohortIdListHandler = (ltId) => {
-    dispatch(resetSupervisorDashboardSlice());
-    dispatch(getLtCohortInfo(ltId));
+    // dispatch(resetSupervisorDashboardSlice());
+
+    const result = allLearningTracksInfo.find((lt) => lt._id === ltId);
+  
+    dispatch(getLtCohortInfo(result));
   };
+    
 
   const getCohortTraineeDetailsHandler = (ltId, cohortId) => {
+    console.log("ltId: " + ltId);
     dispatch(getTraineeAndCohortDetailsList(ltId, cohortId));
   };
 
@@ -75,7 +55,7 @@ const SupervisorDashboard = () => {
       >
         <Grid item className={classes.screen1}>
           <LearningTrackCard
-            learningTrackList={learningTracks}
+            learningTrackList={allLearningTracksInfo}
             getCohortIdList={getCohortIdListHandler}
           />
           <CohortIdCard
@@ -86,15 +66,13 @@ const SupervisorDashboard = () => {
 
         <Grid item className={classes.screen2}>
           <CohortProgressChart />
-          {/* {isLoading && <Spinner animation="border" variant="primary" />} */}
           {isLoading && (
             <div class="d-flex justify-content-center">
               <div
                 class="spinner-border text-primary"
                 style={{ width: "5rem", height: "5rem" }}
                 role="status"
-              >
-              </div>
+              ></div>
             </div>
           )}
           <CohortLeaderBoardCard />
