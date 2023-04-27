@@ -39,6 +39,8 @@ const CohortIdCard = (props) => {
   }
 
   const copyOfResultantArray = [...results.cohortIdDetailsSortedList];
+  const ltId = results.ltId;
+
   // console.log(
   //   "🚀 ~ file: CohortIdCard.js:43 ~ CohortIdCard ~ copyOfResultantArray:",
   //   copyOfResultantArray
@@ -77,7 +79,7 @@ const CohortIdCard = (props) => {
                 <div key={index}>
                   <Button
                     onClick={() =>
-                      props.getTraineeData({ltId: results.ltId, cohortId: cohort.cohortNum})
+                      props.getTraineeData(ltId, cohort.cohortNum)
                     }
                   >
                     {`Cohort ${cohort.cohortNum}`}

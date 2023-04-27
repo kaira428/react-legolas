@@ -4,6 +4,7 @@ import {
   traineeDetailsBySelectedLtIdAndCohortId,
 } from "../helpers/supervisorDashboardSliceUtilities";
 import { getAllLearningTracksThunk } from "./features/getAllLearningTracksThunk";
+import { getSelectedCohortTraineesThunk } from "./features/getSelectedCohortTraineesThunk";
 
 const supervisorDashboardObj = {
   ltId: 0,
@@ -39,28 +40,32 @@ export const supervisorDashboardSlice = createSlice({
     },
 
     getTraineeAndCohortDetailsList: (state, action) => {
-      // console.log("🚀 ~ file: supervisorDbSlice.js:36 ~ action:", action.payload)
+      console.log("🚀 ~ file: supervisorDbSlice.js:43 ~ action:", action.payload);
 
       const traineeCohortDetailsResult =
         traineeDetailsBySelectedLtIdAndCohortId(
           action.payload.ltId,
-          action.payload.cohortId
+          action.payload.cohortId,
+          action.payload.traineeList
         );
 
-      // console.log(
-      //   "🚀 ~ file: supervisorDbSlice.js:35 ~ traineeCohortDetailsResult:",
-      //   traineeCohortDetailsResult
-      // );
-
-      state.supervisorDashboardObj.traineeListForSelectedLtIdAndCohortId =
-        traineeCohortDetailsResult.reqTraineesData;
       state.supervisorDashboardObj.selectedCohortIdDetails =
         traineeCohortDetailsResult.reqCohortDetail;
       state.supervisorDashboardObj.trainingStatus =
         traineeCohortDetailsResult.trainingStatus;
     },
 
-    resetSupervisorDashboardSlice: () => (initialState.supervisorDashboardObj = {...supervisorDashboardObj}),
+    // resetSupervisorDashboardSlice: () => supervisorDashboardObj,
+
+    // resetSupervisorDashboardSlice: () => {
+    //   initialState.supervisorDashboardObj.ltId = 0;
+    //   initialState.supervisorDashboardObj.learningTrackName = "";
+    //   initialState.supervisorDashboardObj.cohortIdDetailsSortedList = [];
+    //   initialState.supervisorDashboardObj.trainingStatus = "In Progress";
+    //   initialState.supervisorDashboardObj.traineeListForSelectedLtIdAndCohortId = [];
+    //   initialState.supervisorDashboardObj.selectedCohortIdDetails = {};
+    //   initialState.supervisorDashboardObj.selectedCohortsProgress = [];
+    // }
   },
   extraReducers: (builder) => {
     builder
@@ -68,7 +73,6 @@ export const supervisorDashboardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getAllLearningTracksThunk.fulfilled, (state, action) => {
-        state.isLoading = false;
 
         // duplicate the action.payload
         const tempArray = [...action.payload];
@@ -79,15 +83,26 @@ export const supervisorDashboardSlice = createSlice({
         );
 
         state.allLearningTracks = [...tempArray];
-        // console.log("🚀 ~ file: supervisorDbSlice.js:71 ~ allLearningTracks:", state.allLearningTracks)
 
-        // console.log(
-        //   "🚀 ~ file: supervisorDbSlice.js:74 ~ allLearningTracks:",
-        //   action.payload)
+        state.isLoading = false;
       })
       .addCase(getAllLearningTracksThunk.rejected, (state) => {
         state.isLoading = false;
-      });
+      })
+      .addCase(getSelectedCohortTraineesThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getSelectedCohortTraineesThunk.fulfilled, (state, action) => {
+
+        state.supervisorDashboardObj.trainingStatus =action.payload.trainingStatus;
+        state.supervisorDashboardObj.traineeListForSelectedLtIdAndCohortId = action.payload.traineeDataWithTotalModuleResults;
+        state.supervisorDashboardObj.selectedCohortIdDetails = action.payload.reqCohortDetail;
+
+        state.isLoading = false;
+      })
+      .addCase(getSelectedCohortTraineesThunk.rejected, (state) => {
+        state.isLoading = false;
+      })
   },
 });
 

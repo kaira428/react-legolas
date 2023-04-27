@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import React from 'react'
 import { getAllLearningTracks } from '../../mongodb_serverless/getAllLearningTracks'
-import axios from 'axios';
 
 export const getAllLearningTracksThunk = createAsyncThunk(
     "supervisorDashboard/getAllLearningTracksThunk",

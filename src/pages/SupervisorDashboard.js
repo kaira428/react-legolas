@@ -16,16 +16,27 @@ import {
   resetSupervisorDashboardSlice,
 } from "../store/supervisorDbSlice";
 import { getAllLearningTracksThunk } from "../store/features/getAllLearningTracksThunk";
+import { getSelectedCohortTraineesThunk } from "../store/features/getSelectedCohortTraineesThunk";
 
 export const TraineeResultsContext = React.createContext();
 
 const SupervisorDashboard = () => {
-
   const dispatch = useDispatch();
   const allLearningTracksInfo = useSelector(
     (state) => state.supervisorDashboard.allLearningTracks
   );
   const isLoading = useSelector((state) => state.supervisorDashboard.isLoading);
+
+  const selectedCohortTraineesData = useSelector(
+    (state) =>
+      state.supervisorDashboard.supervisorDashboardObj
+        .traineeListForSelectedLtIdAndCohortId
+  );
+
+  const selectedCohortDetails = useSelector(
+    (state) =>
+      state.supervisorDashboard.supervisorDashboardObj.cohortIdDetailsSortedList
+  );
 
   useEffect(() => {
     dispatch(getAllLearningTracksThunk());
@@ -36,14 +47,22 @@ const SupervisorDashboard = () => {
     // dispatch(resetSupervisorDashboardSlice());
 
     const result = allLearningTracksInfo.find((lt) => lt._id === ltId);
-  
-    dispatch(getLtCohortInfo(result));
-  };
-    
+    // console.log("🚀 ~ file: SupervisorDashboard.js:42 ~ getCohortIdListHandler ~ result:", result)
 
-  const getCohortTraineeDetailsHandler = (ltId, cohortId) => {
-    console.log("ltId: " + ltId);
-    dispatch(getTraineeAndCohortDetailsList(ltId, cohortId));
+    dispatch(getLtCohortInfo(result));
+
+    // console.log("🚀 ~ file: SupervisorDashboard.js:48 ~ SupervisorDashboard ~ selectedCohortDetails:", selectedCohortDetails)
+  };
+
+  const getCohortTraineeDetailsHandler = async (ltId, cohortId) => {
+    console.log("cohortId: " + cohortId);
+    dispatch(getSelectedCohortTraineesThunk({ cohortNum: cohortId }));
+
+    const traineeList = [...selectedCohortTraineesData];
+    console.log(
+      "🚀 ~ file: SupervisorDashboard.js:54 ~ getCohortTraineeDetailsHandler ~ traineeList:",
+      traineeList
+    );
   };
 
   return (

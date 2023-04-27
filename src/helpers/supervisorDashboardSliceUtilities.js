@@ -1,4 +1,3 @@
-import courses from "../data/courses";
 import { trainees } from "../data/trainees";
 
 export const getLtNameAndCohortIDsForChosenLtId = (
@@ -21,15 +20,15 @@ export const getLtNameAndCohortIDsForChosenLtId = (
   return result;
 };
 
-export const traineeDetailsBySelectedLtIdAndCohortId = (ltId, cohortId) => {
+// export const traineeDetailsBySelectedLtIdAndCohortId = (ltId, cohortId, trainees) => {
+export const traineeDetailsBySelectedLtIdAndCohortId = (data) => {
   let traineeDataWithTotalModuleResults = [];
   let trainingStatus = "In Progress";
 
+  let traineeList = [...data];;
+
   // get trainees details for given ltId and cohortId
-  trainees.filter((trainee) => {
-    // filter for trainees by Learning Track and Cohort IDs
-    if (trainee.learningTrack === ltId && trainee.cohort === cohortId) {
-      // found required trainee, then compute total module result
+  traineeList.filter((trainee) => {
 
       // gather all module results for the identified trainee
       const moduleResults = Object.values(trainee.modules);
@@ -40,22 +39,15 @@ export const traineeDetailsBySelectedLtIdAndCohortId = (ltId, cohortId) => {
           return accumulator + moduleResult;
         }
       );
-
       // compute trainee training progress status (either 'In Progress' or 'Completed' or 'Withdrawn')
 
       if (trainee.status === "InActive") {
         trainee.progress = "Withdrawn";
       } else {
         const modulesArray = Object.entries(trainee.modules);
-        // console.log(
-        //   "🚀 ~ file: supervisorDashboardSliceUtilities.js:69 ~ trainees.filter ~ modulesArray:",
-        //   modulesArray
-        // );
 
         // check if all modules are completed; ie result in module > 0
         const trainingCompleted = modulesArray.every((module) => module[1] > 0);
-        // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:73 ~ trainees.filter ~ trainingCompleted:", trainingCompleted)
-
         let numberOfCompletedModules = 0;
 
         if (trainingCompleted) {
@@ -84,44 +76,34 @@ export const traineeDetailsBySelectedLtIdAndCohortId = (ltId, cohortId) => {
       ];
 
       return trainee;
-    } else {
-      return false;
-    }
+    // } else {
+    //   return false;
+    // }
   });
 
   // sort the trainees in descending order of totalModuleResult
-  const reqTraineesData = traineeDataWithTotalModuleResults.sort(
+  traineeDataWithTotalModuleResults.sort(
     (a, b) => b.totalModuleResult - a.totalModuleResult
   );
-  // console.log("🚀 ~ file: utilities.js:68 ~ traineeDetailsByLtIdByCohortId ~ reqTraineesData:", reqTraineesData)
-
-  const numberOfTraineesInCohort = reqTraineesData.length; //number of trainees in the required Cohort
+  const numberOfTraineesInCohort = traineeDataWithTotalModuleResults.length; //number of trainees in the required Cohort
 
   let numberOfModulesForCohort = 0;
 
   if (numberOfTraineesInCohort > 0) {
-    numberOfModulesForCohort = Object.keys(reqTraineesData[0].modules).length; //number of modules in trainee[0]
+    numberOfModulesForCohort = Object.keys(traineeDataWithTotalModuleResults[0].modules).length; //number of modules in trainee[0]
   }
 
   // get cohort details for given ltId and cohortId
-  const reqCohortsForGivenLtId = courses.filter((course) => course.id === ltId);
-  // console.log("🚀 ~ file: utilities.js:72 ~ traineeDetailsByLtIdByCohortId ~ reqCohortsForGivenLtId:", reqCohortsForGivenLtId)
-
-  const partialCohortDetail = reqCohortsForGivenLtId[0].cohorts.filter(
-    (cohort) => cohort.cohortNum === cohortId
-  );
-  // console.log("🚀 ~ file: utilities.js:75 ~ traineeDetailsByLtIdByCohortId ~ reqCohortDetail:", reqCohortDetail[0])
-
+  // const reqCohortsForGivenLtId = courses.filter((course) => course.id === ltId);
+  // const partialCohortDetail = reqCohortsForGivenLtId[0].cohorts.filter(
+  //   (cohort) => cohort.cohortNum === cohortId
+  // );
   const reqCohortDetail = {
     numberOfTraineesInCohort,
     numberOfModulesForCohort,
-    partialCohortDetails: partialCohortDetail[0],
+    // partialCohortDetails: partialCohortDetail[0],
   };
-
-  // console.log("🚀 ~ file: utilities.js:138 ~ traineeDetailsByLtIdByCohortId ~ reqCohortDetail:", reqCohortDetail);
-  // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:139 ~ traineeDetailsBySelectedLtIdAndCohortId ~ reqTraineesData:", reqTraineesData)
-
-  const result = { reqTraineesData, reqCohortDetail, trainingStatus };
+  const result = { traineeDataWithTotalModuleResults, reqCohortDetail, trainingStatus };
 
   return result;
 };

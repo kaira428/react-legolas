@@ -17,14 +17,14 @@ const CohortLeaderBoardCard = () => {
     (state) => state.supervisorDashboard.supervisorDashboardObj
   );
 
-  // console.log(
-  //   "🚀 ~ file: CohortLeaderBoardCard.js:25 ~ CohortLeaderBoardCard ~ results:",
-  //   results
-  // );
+  console.log(
+    "🚀 ~ file: CohortLeaderBoardCard.js:25 ~ CohortLeaderBoardCard ~ results:",
+    results
+  );
 
   let reqData = [];
 
-  if (Object.keys(results.selectedCohortIdDetails).length > 0) {
+  if (Object.keys(results.traineeListForSelectedLtIdAndCohortId).length > 0) {
     reqData = [...results.traineeListForSelectedLtIdAndCohortId];
     // console.log("🚀 ~ file: CohortLeaderBoardCard.js:29 ~ CohortLeaderBoardCard ~ reqData:", reqData)
   }
@@ -42,7 +42,8 @@ const CohortLeaderBoardCard = () => {
         <Typography variant="h5" component="h3">
           {reqData.length === 0
             ? "Cohort Leaderboard"
-            : `Cohort ${results.selectedCohortIdDetails.partialCohortDetails.cohortNum} Leaderboard`}
+            : `Cohort ${results.traineeListForSelectedLtIdAndCohortId
+              [0].cohort} Leaderboard`}
         </Typography>
       </Paper>
       <TableContainer

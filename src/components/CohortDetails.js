@@ -1,10 +1,4 @@
 import { Grid, Paper, Box, Typography } from "@mui/material";
-// import Table from "@mui/material/Table";
-// import TableBody from "@mui/material/TableBody";
-// import TableCell from "@mui/material/TableCell";
-// import TableContainer from "@mui/material/TableContainer";
-// import TableHead from "@mui/material/TableHead";
-// import TableRow from "@mui/material/TableRow";
 import React from "react";
 import { useSelector } from "react-redux";
 import Table from "react-bootstrap/Table";
@@ -18,7 +12,19 @@ const CohortDetails = () => {
   //   results.selectedCohortIdDetails
   // );
 
-  const reqResults = results.selectedCohortIdDetails;
+  const cohortList = results.cohortIdDetailsSortedList;
+  // console.log("🚀 ~ file: CohortDetails.js:16 ~ CohortDetails ~ cohortList:", cohortList)
+  const trainee = results.traineeListForSelectedLtIdAndCohortId[0]; //first element in trainee list for the identified cohort
+  // console.log("🚀 ~ file: CohortDetails.js:18 ~ CohortDetails ~ trainee:", trainee)
+  // console.log("🚀 ~ file: CohortDetails.js:18 ~ CohortDetails ~ results:", results)
+
+  // get selected cohort details; like coach and mentor names
+  // const reqResults = cohortList.find((cohort) => cohort.cohortNum === trainee.cohort);
+  // console.log("🚀 ~ file: CohortDetails.js:20 ~ CohortDetails ~ reqResults:", reqResults)
+
+  const reqResults = {};
+
+  const numModulesNumTrainees = results.selectedCohortIdDetails;
 
   return (
     <Grid item sx={{ my: 8 }}>
@@ -59,7 +65,7 @@ const CohortDetails = () => {
                     colSpan={2}
                     style={{ textAlign: "center", fontWeight: "bold" }}
                   >
-                    {reqResults.numberOfTraineesInCohort}
+                    {numModulesNumTrainees.numberOfTraineesInCohort}
                   </td>
                 </tr>
                 <tr>
@@ -70,7 +76,7 @@ const CohortDetails = () => {
                   >
                     {Object.keys(reqResults).length === 0
                       ? ""
-                      : reqResults.partialCohortDetails["mentorName"]}
+                      : "reqResults.mentorName"}
                   </td>
                 </tr>
                 <tr>
@@ -81,7 +87,7 @@ const CohortDetails = () => {
                   >
                     {Object.keys(reqResults).length === 0
                       ? ""
-                      : reqResults.partialCohortDetails["coachName"]}
+                      : "reqResults.coachName"}
                   </td>
                 </tr>
                 <tr>
@@ -90,7 +96,7 @@ const CohortDetails = () => {
                     colSpan={2}
                     style={{ textAlign: "center", fontWeight: "bold" }}
                   >
-                    {reqResults.numberOfModulesForCohort}
+                    {numModulesNumTrainees.numberOfModulesForCohort}
                   </td>
                 </tr>
               </tbody>
