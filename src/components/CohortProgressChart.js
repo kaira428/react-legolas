@@ -4,9 +4,12 @@ import CohortProgressBar from "./CohortProgressBar";
 import { useSelector } from "react-redux";
 
 const CohortProgressChart = () => {
-  const results = useSelector(
-    (state) => state.supervisorDashboard.supervisorDashboardObj
+  
+  const ltName = useSelector(
+    (state) => state.supervisorDashboard.selectedLtName
   );
+
+
   // console.log("🚀 ~ file: CohortProgressChart.js:10 ~ CohortProgressChart ~ results:", results)
 
   return (
@@ -23,7 +26,7 @@ const CohortProgressChart = () => {
           Cohort Progress Chart
         </Typography>
         <Typography variant="body1" component="h6">
-          {results.learningTrackName && `(${results.learningTrackName})`}
+          {ltName && `(${ltName})`}
         </Typography>
       </Paper>
       <Box sx={{ height: 200, width: 550, border: "1px solid darkgrey", overflowY: "scroll"}}>

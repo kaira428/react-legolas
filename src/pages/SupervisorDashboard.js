@@ -72,7 +72,7 @@ const SupervisorDashboard = () => {
           />
         </Grid>
 
-        {/* <Grid item className={classes.screen2}>
+         <Grid item className={classes.screen2}>
           <CohortProgressChart />
           {isLoading && (
             <div class="d-flex justify-content-center">
@@ -83,9 +83,9 @@ const SupervisorDashboard = () => {
               ></div>
             </div>
           )}
-          <CohortLeaderBoardCard />
+          {/* <CohortLeaderBoardCard /> */}
         </Grid>
-
+{/*
         <Grid item className={classes.screen3}>
           <CohortDetails />
           <TrainingDetails />

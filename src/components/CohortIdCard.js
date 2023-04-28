@@ -7,6 +7,10 @@ const CohortIdCard = (props) => {
     (state) => state.supervisorDashboard.listOfCohortNumbers
   );
 
+  const onClickHandler = (cohortNumber) => {
+    console.log("🚀 ~ file: CohortIdCard.js:11 ~ onClickHandler ~ cohortNumber:", cohortNumber)    
+  }
+
   return (
     <Grid item sx={{ my: 8 }}>
       <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
@@ -38,7 +42,7 @@ const CohortIdCard = (props) => {
               /* Map sorted cohort IDs */
               cohortIdForSelectedLtId.map((cohort, index) => (
                 <div key={index}>
-                  <Button>{`Cohort ${cohort.cohortNum}`}</Button>
+                  <Button onClick = {() => onClickHandler(cohort.cohortNum)}>{`Cohort ${cohort.cohortNum}`}</Button>
                 </div>
               ))
             }
