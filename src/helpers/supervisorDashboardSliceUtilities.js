@@ -3,6 +3,8 @@ import { trainees } from "../data/trainees";
 export const getLtNameAndCohortIDsForChosenLtId = (
   selectedLearningTrackInfo
 ) => {
+  console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:6 ~ selectedLearningTrackInfo:", selectedLearningTrackInfo)
+  
   const ltName = selectedLearningTrackInfo.name;
 
   const reqSortedCohortIds = [...selectedLearningTrackInfo.cohorts];

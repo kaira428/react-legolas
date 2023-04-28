@@ -18,56 +18,45 @@ import {
 import { getAllLearningTracksThunk } from "../store/features/getAllLearningTracksThunk";
 import { getSelectedCohortTraineesThunk } from "../store/features/getSelectedCohortTraineesThunk";
 
-export const TraineeResultsContext = React.createContext();
-
 const SupervisorDashboard = () => {
+  // setup React hooks
   const dispatch = useDispatch();
   const allLearningTracksInfo = useSelector(
-    (state) => state.supervisorDashboard.allLearningTracks
+    (state) => state.supervisorDashboard.listOfLearningTracks
   );
   const isLoading = useSelector((state) => state.supervisorDashboard.isLoading);
 
   const selectedCohortTraineesData = useSelector(
     (state) =>
-      state.supervisorDashboard.supervisorDashboardObj
-        .traineeListForSelectedLtIdAndCohortId
+      state.supervisorDashboard.listOfTraineeForSelectedCohortNumber
   );
 
   const selectedCohortDetails = useSelector(
     (state) =>
-      state.supervisorDashboard.supervisorDashboardObj.cohortIdDetailsSortedList
+      state.supervisorDashboard.cohortDetailsForSelectedCohortNumber
   );
+
+  // Function definitions
+
+  const getCohortTraineeDetailsHandler = async (ltId, cohortId) => {
+    // console.log("cohortId: " + cohortId);
+    dispatch(getSelectedCohortTraineesThunk({ cohortNum: cohortId }));
+
+    const traineeList = [...selectedCohortTraineesData];
+    // console.log(
+    //   "🚀 ~ file: SupervisorDashboard.js:54 ~ getCohortTraineeDetailsHandler ~ traineeList:",
+    //   traineeList
+    // );
+  };
 
   useEffect(() => {
     dispatch(getAllLearningTracksThunk());
   }, []);
 
-  // Function definitions
-  const getCohortIdListHandler = (ltId) => {
-    // dispatch(resetSupervisorDashboardSlice());
-
-    const result = allLearningTracksInfo.find((lt) => lt._id === ltId);
-    // console.log("🚀 ~ file: SupervisorDashboard.js:42 ~ getCohortIdListHandler ~ result:", result)
-
-    dispatch(getLtCohortInfo(result));
-
-    // console.log("🚀 ~ file: SupervisorDashboard.js:48 ~ SupervisorDashboard ~ selectedCohortDetails:", selectedCohortDetails)
-  };
-
-  const getCohortTraineeDetailsHandler = async (ltId, cohortId) => {
-    console.log("cohortId: " + cohortId);
-    dispatch(getSelectedCohortTraineesThunk({ cohortNum: cohortId }));
-
-    const traineeList = [...selectedCohortTraineesData];
-    console.log(
-      "🚀 ~ file: SupervisorDashboard.js:54 ~ getCohortTraineeDetailsHandler ~ traineeList:",
-      traineeList
-    );
-  };
-
   return (
     // <TraineeResultsContext.Provider value={moduleResults}>
-    <Container sx={{ marginTop: 5 }}>
+    
+   <Container sx={{ marginTop: 5 }}>
       <Grid
         container
         sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "40px" }}
@@ -75,15 +64,15 @@ const SupervisorDashboard = () => {
         <Grid item className={classes.screen1}>
           <LearningTrackCard
             learningTrackList={allLearningTracksInfo}
-            getCohortIdList={getCohortIdListHandler}
+            // getCohortIdList={getCohortIdListHandler}
           />
           <CohortIdCard
             // ltId={ltId}
-            getTraineeData={getCohortTraineeDetailsHandler}
+            // getTraineeData={getCohortTraineeDetailsHandler}
           />
         </Grid>
 
-        <Grid item className={classes.screen2}>
+        {/* <Grid item className={classes.screen2}>
           <CohortProgressChart />
           {isLoading && (
             <div class="d-flex justify-content-center">
@@ -100,11 +89,11 @@ const SupervisorDashboard = () => {
         <Grid item className={classes.screen3}>
           <CohortDetails />
           <TrainingDetails />
-        </Grid>
+        </Grid> */}
       </Grid>
     </Container>
     // </TraineeResultsContext.Provider>
-  );
+    );
 };
 
 export default SupervisorDashboard;

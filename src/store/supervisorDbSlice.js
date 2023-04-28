@@ -5,43 +5,41 @@ import {
 } from "../helpers/supervisorDashboardSliceUtilities";
 import { getAllLearningTracksThunk } from "./features/getAllLearningTracksThunk";
 import { getSelectedCohortTraineesThunk } from "./features/getSelectedCohortTraineesThunk";
+import { getSelectedTraineesForSelectedLtIdThunk } from "./features/getSelectedTraineesForSelectedLtIdThunk";
 
-const supervisorDashboardObj = {
-  ltId: 0,
-  learningTrackName: "",
-  cohortIdDetailsSortedList: [],
-  trainingStatus: "In Progress",
-  traineeListForSelectedLtIdAndCohortId: [],
-  selectedCohortIdDetails: {},
-  selectedCohortsProgress: [],
-};
 const initialState = {
   isLoading: false,
-  allLearningTracks: [],
-  supervisorDashboardObj: supervisorDashboardObj
+  listOfLearningTracks: [],
+  selectedLtId: 0,
+  selectedLtName: "",
+  listOfCohortNumbers: [],
+  cohortTrainingStatus: "In Progress",
+  listOfTraineesForSelectedLtId: [],
+  listOfTraineesForSelectedCohortNumber: [],
+  cohortDetailsForSelectedCohortNumber: {},
+  listOfCohortsProgressForSelectedLtId: [],
+  selectedCohortNumber: 0
 };
 
 export const supervisorDashboardSlice = createSlice({
   name: "supervisorDashboard",
-  initialState: initialState,
+  initialState,
   reducers: {
     getLtCohortInfo: (state, action) => {
       const ltCohortListForChosenLtId = getLtNameAndCohortIDsForChosenLtId(
         action.payload
       );
 
-      state.supervisorDashboardObj.ltId = ltCohortListForChosenLtId.ltId;
-      state.supervisorDashboardObj.learningTrackName =
+      state.selectedLtId = ltCohortListForChosenLtId.ltId;
+      state.selectedLtName =
         ltCohortListForChosenLtId.ltName;
-      state.supervisorDashboardObj.cohortIdDetailsSortedList =
+      state.listOfCohortNumbers =
         ltCohortListForChosenLtId.cohortDetailsList;
-      state.supervisorDashboardObj.selectedCohortsProgress =
+      state.listOfCohortsProgressForSelectedLtId =
         ltCohortListForChosenLtId.cohortsProgress;
     },
 
     getTraineeAndCohortDetailsList: (state, action) => {
-      console.log("🚀 ~ file: supervisorDbSlice.js:43 ~ action:", action.payload);
-
       const traineeCohortDetailsResult =
         traineeDetailsBySelectedLtIdAndCohortId(
           action.payload.ltId,
@@ -55,17 +53,7 @@ export const supervisorDashboardSlice = createSlice({
         traineeCohortDetailsResult.trainingStatus;
     },
 
-    // resetSupervisorDashboardSlice: () => supervisorDashboardObj,
-
-    // resetSupervisorDashboardSlice: () => {
-    //   initialState.supervisorDashboardObj.ltId = 0;
-    //   initialState.supervisorDashboardObj.learningTrackName = "";
-    //   initialState.supervisorDashboardObj.cohortIdDetailsSortedList = [];
-    //   initialState.supervisorDashboardObj.trainingStatus = "In Progress";
-    //   initialState.supervisorDashboardObj.traineeListForSelectedLtIdAndCohortId = [];
-    //   initialState.supervisorDashboardObj.selectedCohortIdDetails = {};
-    //   initialState.supervisorDashboardObj.selectedCohortsProgress = [];
-    // }
+    resetSupervisorDashboardSlice: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -74,15 +62,7 @@ export const supervisorDashboardSlice = createSlice({
       })
       .addCase(getAllLearningTracksThunk.fulfilled, (state, action) => {
 
-        // duplicate the action.payload
-        const tempArray = [...action.payload];
-
-        // sort the cohorts array in ascending order
-        tempArray.forEach((cohort) =>
-          cohort.cohorts.sort((a, b) => a.cohortNum - b.cohortNum)
-        );
-
-        state.allLearningTracks = [...tempArray];
+        state.listOfLearningTracks = action.payload;
 
         state.isLoading = false;
       })
@@ -103,6 +83,17 @@ export const supervisorDashboardSlice = createSlice({
       .addCase(getSelectedCohortTraineesThunk.rejected, (state) => {
         state.isLoading = false;
       })
+      .addCase(getSelectedTraineesForSelectedLtIdThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getSelectedTraineesForSelectedLtIdThunk.fulfilled, (state, action) => {
+        state.listOfTraineesForSelectedLtId = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getSelectedTraineesForSelectedLtIdThunk.rejected, (state) => {
+        state.isLoading = false;
+      })
+      
   },
 });
 
