@@ -22,7 +22,97 @@ const CohortLeaderBoardCard = () => {
     results
   );
 
-  const reqData = [...results];
+  if (!Array.isArray(results)) {
+    return (
+      <>
+        <Paper
+          elevation={0}
+          sx={{
+            textAlign: "center",
+            border: "1px solid darkgrey",
+            backgroundColor: "lightblue",
+          }}
+        >
+          <Typography variant="h5" component="h3">          
+              "Cohort Leaderboard"
+          </Typography>
+        </Paper>
+        <TableContainer
+          component={Paper}
+          sx={{ height: 350, border: "1px solid darkGrey" }}
+        >
+          <Table
+            sx={{
+              minWidth: 500,
+              height: "max-content",
+            }}
+            aria-label="simple table"
+            stickyHeader
+          >
+            <TableHead>
+              <TableRow>
+                <TableCell align="center" >
+                  <span>
+                    <Typography
+                      variant="body1"
+                      component="h6"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      #
+                    </Typography>
+                  </span>
+                </TableCell>
+                <TableCell align="center">
+                  <span>
+                    <Typography
+                      variant="body1"
+                      component="h6"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      Name
+                    </Typography>
+                  </span>
+                </TableCell>
+                <TableCell align="center">
+                  <span>
+                    <Typography
+                      variant="body1"
+                      component="h6"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      Progress
+                    </Typography>
+                  </span>
+                </TableCell>
+                <TableCell align="center">
+                  <span>
+                    <Typography
+                      variant="body1"
+                      component="h6"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      Result
+                    </Typography>
+                  </span>
+                </TableCell>
+                <TableCell align="center">
+                  <span>
+                    <Typography
+                      variant="body1"
+                      component="h6"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      Details
+                    </Typography>
+                  </span>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+          </Table>
+        </TableContainer>
+      </>
+    );
+  }
 
   return (
     <>
@@ -35,7 +125,7 @@ const CohortLeaderBoardCard = () => {
         }}
       >
         <Typography variant="h5" component="h3">
-          {reqData.length === 0
+          {results.length === 0
             ? "Cohort Leaderboard"
             : `Cohort ${results[0].cohort} Leaderboard`}
         </Typography>
@@ -112,8 +202,8 @@ const CohortLeaderBoardCard = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {reqData.length > 0
-              ? reqData.map((trainee, index) => (
+            {results.length > 0
+              ? results.map((trainee, index) => (
                   <TableRow
                     key={index + 1}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
