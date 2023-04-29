@@ -234,7 +234,7 @@ const CohortLeaderBoardCard = () => {
                     </TableCell>
                     <TableCell align="center">
                       <span>
-                        {/* <TraineeDetailsModal traineeId={trainee.id} /> */}
+                        <TraineeDetailsModal traineeId={trainee._id} />
                       </span>
                     </TableCell>
                   </TableRow>

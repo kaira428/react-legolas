@@ -20,7 +20,7 @@ const TraineeDetailsModal = (props) => {
 
   const allTraineesResults =
     results.traineeListForSelectedLtIdAndCohortId.filter(
-      (trainee) => trainee.id === props.traineeId
+      (trainee) => (trainee._id).toString() === (props.traineeId).toString()
     );
 
   const traineeNameAndResults = allTraineesResults[0];
