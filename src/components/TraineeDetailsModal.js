@@ -14,7 +14,7 @@ const TraineeDetailsModal = (props) => {
   };
 
   const results = useSelector(
-    (state) => state.supervisorDashboard.supervisorDashboardObj
+    (state) => state.supervisorDashboard
   );
   // console.log("🚀 ~ file: TraineeDetailsModal.js:19 ~ TraineeDetailsModal ~ results:", results)
 

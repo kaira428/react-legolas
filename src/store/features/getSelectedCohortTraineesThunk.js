@@ -7,6 +7,9 @@ export const getSelectedCohortTraineesThunk = createAsyncThunk(
   "supervisorDashboard/getSelectedCohortTraineesThunk",
   async ({cohortNum}, thunkAPI) => {
     console.log("🚀 ~ file: getSelectedCohortTraineesThunk.js:8 ~ cohortNum:", cohortNum)
+
+    console.log(thunkAPI.getState());
+    
     try {
       const data = await getCohortTraineesForSelectedCohortNum(cohortNum);
       console.log("🚀 ~ file: getSelectedCohortTraineesThunk.js:12 ~ data:", data)

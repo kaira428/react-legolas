@@ -83,7 +83,7 @@ const SupervisorDashboard = () => {
               ></div>
             </div>
           )}
-          {/* <CohortLeaderBoardCard /> */}
+          <CohortLeaderBoardCard />
         </Grid>
 {/*
         <Grid item className={classes.screen3}>

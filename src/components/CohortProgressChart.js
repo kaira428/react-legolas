@@ -9,9 +9,6 @@ const CohortProgressChart = () => {
     (state) => state.supervisorDashboard.selectedLtName
   );
 
-
-  // console.log("🚀 ~ file: CohortProgressChart.js:10 ~ CohortProgressChart ~ results:", results)
-
   return (
     <Grid item sx={{ my: 5 }}>
       <Paper

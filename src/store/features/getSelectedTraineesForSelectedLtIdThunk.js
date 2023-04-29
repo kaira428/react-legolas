@@ -4,9 +4,9 @@ import { getAllTraineesForSelectedLtId } from "../../mongodb_serverless/getAllTr
 export const getSelectedTraineesForSelectedLtIdThunk = createAsyncThunk(
     "supervisorDashboard/getSelectedTraineesForSelectedLtIdThunk",
     async({ltId}, thunkAPI) => {
-        console.log("🚀 ~ file: getSelectedTraineesForSelectedLtIdThunk.js:7 ~ async ~ ltId:", ltId)
+        // console.log("🚀 ~ file: getSelectedTraineesForSelectedLtIdThunk.js:7 ~ async ~ ltId:", ltId)
         
-        console.log("🚀 ~ file: getSelectedTraineesForSelectedLtIdThunk.js:7 ~ async ~ thunkAPI.getState:", thunkAPI.getState());
+        // console.log("🚀 ~ file: getSelectedTraineesForSelectedLtIdThunk.js:7 ~ async ~ thunkAPI.getState:", thunkAPI.getState());
 
         try {            
             const data = await getAllTraineesForSelectedLtId(ltId);

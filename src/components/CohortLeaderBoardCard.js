@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 
 const CohortLeaderBoardCard = () => {
   const results = useSelector(
-    (state) => state.supervisorDashboard.supervisorDashboardObj
+    (state) => state.supervisorDashboard.traineeListForSelectedLtIdAndCohortId
   );
 
   console.log(
@@ -22,12 +22,7 @@ const CohortLeaderBoardCard = () => {
     results
   );
 
-  let reqData = [];
-
-  if (Object.keys(results.traineeListForSelectedLtIdAndCohortId).length > 0) {
-    reqData = [...results.traineeListForSelectedLtIdAndCohortId];
-    // console.log("🚀 ~ file: CohortLeaderBoardCard.js:29 ~ CohortLeaderBoardCard ~ reqData:", reqData)
-  }
+  const reqData = [...results];
 
   return (
     <>
@@ -42,8 +37,7 @@ const CohortLeaderBoardCard = () => {
         <Typography variant="h5" component="h3">
           {reqData.length === 0
             ? "Cohort Leaderboard"
-            : `Cohort ${results.traineeListForSelectedLtIdAndCohortId
-              [0].cohort} Leaderboard`}
+            : `Cohort ${results[0].cohort} Leaderboard`}
         </Typography>
       </Paper>
       <TableContainer
@@ -150,7 +144,7 @@ const CohortLeaderBoardCard = () => {
                     </TableCell>
                     <TableCell align="center">
                       <span>
-                        <TraineeDetailsModal traineeId={trainee.id} />
+                        {/* <TraineeDetailsModal traineeId={trainee.id} /> */}
                       </span>
                     </TableCell>
                   </TableRow>

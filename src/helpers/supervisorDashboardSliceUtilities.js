@@ -22,7 +22,6 @@ export const getLtNameAndCohortIDsForChosenLtId = (
   return result;
 };
 
-// export const traineeDetailsBySelectedLtIdAndCohortId = (ltId, cohortId, trainees) => {
 export const traineeDetailsBySelectedLtIdAndCohortId = (data) => {
   let traineeDataWithTotalModuleResults = [];
   let trainingStatus = "In Progress";

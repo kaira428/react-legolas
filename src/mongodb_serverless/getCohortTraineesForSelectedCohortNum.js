@@ -20,6 +20,7 @@ export async function getCohortTraineesForSelectedCohortNum(cohortNum) {
     );
 
     return cohortTrainees;
+    
   } catch (error) {
     console.error(error);
     return;

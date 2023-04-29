@@ -74,11 +74,12 @@ export const supervisorDashboardSlice = createSlice({
       })
       .addCase(getSelectedCohortTraineesThunk.fulfilled, (state, action) => {
 
-        state.supervisorDashboardObj.trainingStatus =action.payload.trainingStatus;
-        state.supervisorDashboardObj.traineeListForSelectedLtIdAndCohortId = action.payload.traineeDataWithTotalModuleResults;
-        state.supervisorDashboardObj.selectedCohortIdDetails = action.payload.reqCohortDetail;
+        state.trainingStatus =action.payload.trainingStatus;
+        state.traineeListForSelectedLtIdAndCohortId = action.payload.traineeDataWithTotalModuleResults;
+        state.selectedCohortIdDetails = action.payload.reqCohortDetail;
 
         state.isLoading = false;
+
       })
       .addCase(getSelectedCohortTraineesThunk.rejected, (state) => {
         state.isLoading = false;
