@@ -18,7 +18,7 @@ const initialState = {
   listOfTraineesForSelectedCohortNumber: [],
   cohortDetailsForSelectedCohortNumber: {},
   listOfCohortsProgressForSelectedLtId: [],
-  selectedCohortNumber: 0
+  selectedCohortNumber: 0,
 };
 
 export const supervisorDashboardSlice = createSlice({
@@ -27,14 +27,13 @@ export const supervisorDashboardSlice = createSlice({
   reducers: {
     getLtCohortInfo: (state, action) => {
       const ltCohortListForChosenLtId = getLtNameAndCohortIDsForChosenLtId(
-        action.payload
+        action.payload.resultForSelectedLt,
+        action.payload.selectedLtTraineeData
       );
 
       state.selectedLtId = ltCohortListForChosenLtId.ltId;
-      state.selectedLtName =
-        ltCohortListForChosenLtId.ltName;
-      state.listOfCohortNumbers =
-        ltCohortListForChosenLtId.cohortDetailsList;
+      state.selectedLtName = ltCohortListForChosenLtId.ltName;
+      state.listOfCohortNumbers = ltCohortListForChosenLtId.cohortDetailsList;
       state.listOfCohortsProgressForSelectedLtId =
         ltCohortListForChosenLtId.cohortsProgress;
     },
@@ -47,13 +46,22 @@ export const supervisorDashboardSlice = createSlice({
           action.payload.traineeList
         );
 
-      state.supervisorDashboardObj.selectedCohortIdDetails =
+      state.cohortDetailsForSelectedCohortNumber =
         traineeCohortDetailsResult.reqCohortDetail;
-      state.supervisorDashboardObj.trainingStatus =
-        traineeCohortDetailsResult.trainingStatus;
+      state.cohortTrainingStatus = traineeCohortDetailsResult.trainingStatus;
     },
 
-    resetSupervisorDashboardSlice: () => initialState,
+    resetSupervisorDashboardSlice: (state) => 
+    {
+      state.initialState = 
+      {
+        ...initialState,
+        listOfCohortNumbers: [],
+        listOfCohortsProgressForSelectedLtId: [],
+        listOfTraineesForSelectedCohortNumber: [],
+        listOfTraineesForSelectedLtId: [],
+      };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -61,7 +69,6 @@ export const supervisorDashboardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getAllLearningTracksThunk.fulfilled, (state, action) => {
-
         state.listOfLearningTracks = action.payload;
 
         state.isLoading = false;
@@ -73,13 +80,12 @@ export const supervisorDashboardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getSelectedCohortTraineesThunk.fulfilled, (state, action) => {
-
-        state.trainingStatus =action.payload.trainingStatus;
-        state.traineeListForSelectedLtIdAndCohortId = action.payload.traineeDataWithTotalModuleResults;
+        state.trainingStatus = action.payload.trainingStatus;
+        state.traineeListForSelectedLtIdAndCohortId =
+          action.payload.traineeDataWithTotalModuleResults;
         state.selectedCohortIdDetails = action.payload.reqCohortDetail;
 
         state.isLoading = false;
-
       })
       .addCase(getSelectedCohortTraineesThunk.rejected, (state) => {
         state.isLoading = false;
@@ -87,14 +93,17 @@ export const supervisorDashboardSlice = createSlice({
       .addCase(getSelectedTraineesForSelectedLtIdThunk.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getSelectedTraineesForSelectedLtIdThunk.fulfilled, (state, action) => {
-        state.listOfTraineesForSelectedLtId = action.payload;
-        state.isLoading = false;
-      })
+      .addCase(
+        getSelectedTraineesForSelectedLtIdThunk.fulfilled,
+        (state, action) => {
+          state.listOfTraineesForSelectedLtId = action.payload;
+          state.traineeListForSelectedLtIdAndCohortId = [];
+          state.isLoading = false;
+        }
+      )
       .addCase(getSelectedTraineesForSelectedLtIdThunk.rejected, (state) => {
         state.isLoading = false;
-      })
-      
+      });
   },
 });
 
@@ -102,6 +111,7 @@ export const {
   getLtCohortInfo,
   getTraineeAndCohortDetailsList,
   resetSupervisorDashboardSlice,
+  resetSupervisorDashboardSliceLeaderBoard,
 } = supervisorDashboardSlice.actions;
 
 export default supervisorDashboardSlice.reducer;

@@ -17,11 +17,6 @@ const CohortLeaderBoardCard = () => {
     (state) => state.supervisorDashboard.traineeListForSelectedLtIdAndCohortId
   );
 
-  console.log(
-    "🚀 ~ file: CohortLeaderBoardCard.js:25 ~ CohortLeaderBoardCard ~ results:",
-    results
-  );
-
   if (!Array.isArray(results)) {
     return (
       <>
@@ -33,8 +28,8 @@ const CohortLeaderBoardCard = () => {
             backgroundColor: "lightblue",
           }}
         >
-          <Typography variant="h5" component="h3">          
-              "Cohort Leaderboard"
+          <Typography variant="h5" component="h3">
+            "Cohort Leaderboard"
           </Typography>
         </Paper>
         <TableContainer
@@ -51,7 +46,7 @@ const CohortLeaderBoardCard = () => {
           >
             <TableHead>
               <TableRow>
-                <TableCell align="center" >
+                <TableCell align="center">
                   <span>
                     <Typography
                       variant="body1"
@@ -144,7 +139,7 @@ const CohortLeaderBoardCard = () => {
         >
           <TableHead>
             <TableRow>
-              <TableCell align="center" >
+              <TableCell align="center">
                 <span>
                   <Typography
                     variant="body1"
@@ -201,6 +196,7 @@ const CohortLeaderBoardCard = () => {
               </TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
             {results.length > 0
               ? results.map((trainee, index) => (
@@ -209,11 +205,28 @@ const CohortLeaderBoardCard = () => {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell align="center" component="th" scope="row">
-                      {index + 1 <= 3 ? <img width="40" height="40" src={`/images/${index + 1}.png`} alt="awards"/> : index + 1}
+                      {index + 1 <= 3 ? (
+                        <img
+                          width="40"
+                          height="40"
+                          src={`/images/${index + 1}.png`}
+                          alt="awards"
+                        />
+                      ) : (
+                        index + 1
+                      )}
                     </TableCell>
                     <TableCell align="center">
                       <span>
-                        <Typography variant="body1" component="p" sx={trainee.status === "InActive" ? {backgroundColor: "grey"} : ""}>
+                        <Typography
+                          variant="body1"
+                          component="p"
+                          sx={
+                            trainee.status === "InActive"
+                              ? { backgroundColor: "grey" }
+                              : ""
+                          }
+                        >
                           {trainee.firstName + " " + trainee.lastName}
                         </Typography>
                       </span>
@@ -221,7 +234,9 @@ const CohortLeaderBoardCard = () => {
                     <TableCell align="center">
                       <span>
                         <Typography variant="body1" component="p">
-                          {trainee.progress === "Withdrawn" ? trainee.progress : trainee.progress + "%"}
+                          {trainee.progress === "Withdrawn"
+                            ? trainee.progress
+                            : trainee.progress + "%"}
                         </Typography>
                       </span>
                     </TableCell>
@@ -242,7 +257,8 @@ const CohortLeaderBoardCard = () => {
               : ""}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer>{" "}
+      : ""
     </>
   );
 };

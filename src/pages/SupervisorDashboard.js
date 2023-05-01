@@ -26,28 +26,28 @@ const SupervisorDashboard = () => {
   );
   const isLoading = useSelector((state) => state.supervisorDashboard.isLoading);
 
-  const selectedCohortTraineesData = useSelector(
-    (state) =>
-      state.supervisorDashboard.listOfTraineeForSelectedCohortNumber
-  );
+  // const selectedCohortTraineesData = useSelector(
+  //   (state) =>
+  //     state.supervisorDashboard.listOfTraineeForSelectedCohortNumber
+  // );
 
-  const selectedCohortDetails = useSelector(
-    (state) =>
-      state.supervisorDashboard.cohortDetailsForSelectedCohortNumber
-  );
+  // const selectedCohortDetails = useSelector(
+  //   (state) =>
+  //     state.supervisorDashboard.cohortDetailsForSelectedCohortNumber
+  // );
 
   // Function definitions
 
-  const getCohortTraineeDetailsHandler = async (ltId, cohortId) => {
-    // console.log("cohortId: " + cohortId);
-    dispatch(getSelectedCohortTraineesThunk({ cohortNum: cohortId }));
+  // const getCohortTraineeDetailsHandler = async (ltId, cohortId) => {
+  //   // console.log("cohortId: " + cohortId);
+  //   dispatch(getSelectedCohortTraineesThunk({ cohortNum: cohortId }));
 
-    const traineeList = [...selectedCohortTraineesData];
-    // console.log(
-    //   "🚀 ~ file: SupervisorDashboard.js:54 ~ getCohortTraineeDetailsHandler ~ traineeList:",
-    //   traineeList
-    // );
-  };
+  //   const traineeList = [...selectedCohortTraineesData];
+  //   // console.log(
+  //   //   "🚀 ~ file: SupervisorDashboard.js:54 ~ getCohortTraineeDetailsHandler ~ traineeList:",
+  //   //   traineeList
+  //   // );
+  // };
 
   useEffect(() => {
     dispatch(getAllLearningTracksThunk());

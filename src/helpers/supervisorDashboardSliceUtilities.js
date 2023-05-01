@@ -1,9 +1,8 @@
-import { trainees } from "../data/trainees";
-
 export const getLtNameAndCohortIDsForChosenLtId = (
-  selectedLearningTrackInfo
+  selectedLearningTrackInfo, trainees
 ) => {
-  console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:6 ~ selectedLearningTrackInfo:", selectedLearningTrackInfo)
+  // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:6 ~ trainees:", trainees)
+  // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:7 ~ selectedLearningTrackInfo:", selectedLearningTrackInfo)
   
   const ltName = selectedLearningTrackInfo.name;
 
@@ -104,7 +103,7 @@ export const traineeDetailsBySelectedLtIdAndCohortId = (data) => {
     numberOfModulesForCohort,
     // partialCohortDetails: partialCohortDetail[0],
   };
-  const result = { traineeDataWithTotalModuleResults, reqCohortDetail, trainingStatus };
+  const result = { traineeDataWithTotalModuleResults, reqCohortDetail, trainingStatus};
 
   return result;
 };

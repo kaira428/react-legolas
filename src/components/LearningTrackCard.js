@@ -1,6 +1,6 @@
 import { Grid, Paper, Box, Typography, Button } from "@mui/material";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   getLtCohortInfo,
   getTraineeAndCohortDetailsList,
@@ -11,45 +11,12 @@ import { getSelectedTraineesForSelectedLtIdThunk } from "../store/features/getSe
 const LearningTrackCard = (props) => {
   const dispatch = useDispatch();
 
-  const selectedLtTraineeData = useSelector(
-    (state) => state.supervisorDashboard.listOfTraineesForSelectedLtId
-  );
-
-  console.log(
-    "🚀 ~ file: LearningTrackCard.js:15 ~ LearningTrackCard ~ selectedLtTraineeData:",
-    selectedLtTraineeData
-  );
-
   const learningTracks = props.learningTrackList;
-  console.log(
-    "🚀 ~ file: LearningTrackCard.js:10 ~ LearningTrackCard ~ listOfLearningTracks:",
-    learningTracks
-  );
-
-  // function definition
-  const getCohortIdListHandler = (ltName) => {
-    // console.log("🚀 ~ file: LearningTrackCard.js:19 ~ getCohortIdListHandler ~ ltId:", ltId)
-    // dispatch(resetSupervisorDashboardSlice());
-
-    const result = learningTracks.find((lt) => lt.name === ltName);
-    // console.log(
-    //   "🚀 ~ file: SupervisorDashboard.js:27 ~ getCohortIdListHandler ~ result:",
-    //   result
-    // );
-
-    dispatch(getLtCohortInfo(result));
-  };
 
   const clickHandler = (ltId) => {
+    // dispatch(resetSupervisorDashboardSlice());
     // get all trainees for selected ltId
     dispatch(getSelectedTraineesForSelectedLtIdThunk({ ltId }));
-
-    // console.log(
-    //   "🚀 ~ file: LearningTrackCard.js:35 ~ LearningTrackCard ~ selectedLtTraineeData:",
-    //   selectedLtTraineeData
-    // );
-
-    getCohortIdListHandler(ltId);
   };
 
   return (
