@@ -10,8 +10,7 @@ export const getSelectedCohortTraineesThunk = createAsyncThunk(
     try {
       const data = await getCohortTraineesForSelectedCohortNum(cohortNum);
 
-      const leaderboardTraineeDetails =
-        traineeDetailsBySelectedLtIdAndCohortId(data);
+      const leaderboardTraineeDetails = traineeDetailsBySelectedLtIdAndCohortId(data);
 
       const selectedCohortInfo = thunkAPI
         .getState()

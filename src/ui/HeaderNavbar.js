@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const HeaderNavbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-accent">
+    <nav className="navbar navbar-expand-lg navbar-light" style={{backgroundColor: "#F1E6C8"}}>
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           <img
