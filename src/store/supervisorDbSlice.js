@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   getLtNameAndCohortIDsForChosenLtId,
-  traineeDetailsBySelectedLtIdAndCohortId,
 } from "../helpers/supervisorDashboardSliceUtilities";
 import { getAllLearningTracksThunk } from "./features/getAllLearningTracksThunk";
 import { getSelectedCohortTraineesThunk } from "./features/getSelectedCohortTraineesThunk";
@@ -18,7 +17,8 @@ const initialState = {
   listOfTraineesForSelectedCohortNumber: [],
   cohortDetailsForSelectedCohortNumber: {},
   listOfCohortsProgressForSelectedLtId: [],
-  numTraineesNumModules: {}
+  numTraineesNumModules: {},
+  trainingStatus: ""
 };
 
 export const supervisorDashboardSlice = createSlice({
@@ -38,24 +38,12 @@ export const supervisorDashboardSlice = createSlice({
         ltCohortListForChosenLtId.cohortsProgress;
     },
 
-    // getTraineeAndCohortDetailsList: (state, action) => {
-    //   const traineeCohortDetailsResult =
-    //     traineeDetailsBySelectedLtIdAndCohortId(
-    //       action.payload.ltId,
-    //       action.payload.cohortId,
-    //       action.payload.traineeList
-    //     );
-
-    //   state.cohortDetailsForSelectedCohortNumber =
-    //     traineeCohortDetailsResult.reqCohortDetail;
-    //   state.cohortTrainingStatus = traineeCohortDetailsResult.trainingStatus;
-    // },
-
     resetSupervisorDashboardSlice: (state) => 
     {
       state.listOfTraineesForSelectedCohortNumber = [];
       state.numTraineesNumModules = {};
       state.cohortDetailsForSelectedCohortNumber = {};
+      state.trainingStatus ="";
     },
   },
   extraReducers: (builder) => {

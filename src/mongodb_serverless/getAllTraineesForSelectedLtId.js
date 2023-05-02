@@ -1,7 +1,6 @@
 import { connectToMongDB } from "./connectToMongoDB";
 
 export async function getAllTraineesForSelectedLtId(ltId) {
-  console.log("🚀 ~ file: getAllTraineesForSelectedLtId.js:4 ~ getAllTraineesForSelectedLtId ~ ltId:", ltId)
   
   let user;
  
@@ -11,7 +10,6 @@ export async function getAllTraineesForSelectedLtId(ltId) {
     const allTraineesForLtId = await user.functions.getSelectedLtIdTrainees(
       ltId
     );
-    console.log("🚀 ~ file: getAllTraineesForSelectedLtId.js:13 ~ getAllTraineesForSelectedLtId ~ allTraineesForLtId:", allTraineesForLtId)
 
     return allTraineesForLtId;
 

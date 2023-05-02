@@ -9,7 +9,6 @@ const CohortDetails = () => {
   );
 
   const cohortInfo = result.cohortDetailsForSelectedCohortNumber;
-  // console.log("🚀 ~ file: CohortDetails.js:16 ~ CohortDetails ~ cohortList:", cohortInfo)
 
   const numModulesNumTrainees = result.numTraineesNumModules;
 
@@ -39,8 +38,8 @@ const CohortDetails = () => {
 
           <Box
             sx={{
+              height: 230,
               width: 250,
-              height: 200,
               border: "1px solid lightgrey",
               overflow: "auto",
             }}

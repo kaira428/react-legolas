@@ -26,7 +26,7 @@ const CohortProgressChart = () => {
           {ltName && `(${ltName})`}
         </Typography>
       </Paper>
-      <Box sx={{ height: 200, width: 550, border: "1px solid darkgrey", overflowY: "scroll"}}>
+      <Box sx={{ height: 230, width: 550, border: "1px solid darkgrey", overflowY: "scroll"}}>
           <Box sx={{ m: 3 }}>
             <CohortProgressBar />
           </Box>

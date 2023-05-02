@@ -2,8 +2,6 @@ export const getLtNameAndCohortIDsForChosenLtId = (
   selectedLearningTrackInfo,
   trainees
 ) => {
-  // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:6 ~ trainees:", trainees)
-  // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:7 ~ selectedLearningTrackInfo:", selectedLearningTrackInfo)
 
   const ltName = selectedLearningTrackInfo.name;
 
@@ -27,10 +25,6 @@ export const traineeDetailsBySelectedLtIdAndCohortId = (data) => {
   let trainingStatus = "In Progress";
 
   let traineeList = [...data];
-  // console.log(
-  //   "🚀 ~ file: supervisorDashboardSliceUtilities.js:29 ~ traineeDetailsBySelectedLtIdAndCohortId ~ traineeList:",
-  //   traineeList
-  // );
 
   // get trainees details for given ltId and cohortId
   traineeList.filter((trainee) => {
@@ -43,8 +37,8 @@ export const traineeDetailsBySelectedLtIdAndCohortId = (data) => {
         return accumulator + moduleResult;
       }
     );
+    
     // compute trainee training progress status (either 'In Progress' or 'Completed' or 'Withdrawn')
-
     if (trainee.status === "InActive") {
       trainee.progress = "Withdrawn";
     } else {
@@ -80,9 +74,6 @@ export const traineeDetailsBySelectedLtIdAndCohortId = (data) => {
     ];
 
     return trainee;
-    // } else {
-    //   return false;
-    // }
   });
 
   // sort the trainees in descending order of totalModuleResult

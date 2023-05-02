@@ -7,16 +7,10 @@ import TrainingDetails from "../components/TrainingDetails";
 import LearningTrackCard from "../components/LearningTrackCard";
 import CohortIdCard from "../components/CohortIdCard";
 import classes from "./SupervisorDashboard.module.css";
-// import courses from "../data/courses";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getLtCohortInfo,
-  getTraineeAndCohortDetailsList,
-  resetSupervisorDashboardSlice,
-} from "../store/supervisorDbSlice";
+
 import { getAllLearningTracksThunk } from "../store/features/getAllLearningTracksThunk";
-import { getSelectedCohortTraineesThunk } from "../store/features/getSelectedCohortTraineesThunk";
 
 const SupervisorDashboard = () => {
   // setup React hooks
@@ -26,35 +20,11 @@ const SupervisorDashboard = () => {
   );
   const isLoading = useSelector((state) => state.supervisorDashboard.isLoading);
 
-  // const selectedCohortTraineesData = useSelector(
-  //   (state) =>
-  //     state.supervisorDashboard.listOfTraineeForSelectedCohortNumber
-  // );
-
-  // const selectedCohortDetails = useSelector(
-  //   (state) =>
-  //     state.supervisorDashboard.cohortDetailsForSelectedCohortNumber
-  // );
-
-  // Function definitions
-
-  // const getCohortTraineeDetailsHandler = async (ltId, cohortId) => {
-  //   // console.log("cohortId: " + cohortId);
-  //   dispatch(getSelectedCohortTraineesThunk({ cohortNum: cohortId }));
-
-  //   const traineeList = [...selectedCohortTraineesData];
-  //   // console.log(
-  //   //   "🚀 ~ file: SupervisorDashboard.js:54 ~ getCohortTraineeDetailsHandler ~ traineeList:",
-  //   //   traineeList
-  //   // );
-  // };
-
   useEffect(() => {
     dispatch(getAllLearningTracksThunk());
   }, []);
 
   return (
-    // <TraineeResultsContext.Provider value={moduleResults}>
     
    <Container sx={{ marginTop: 5 }}>
       <Grid
@@ -84,11 +54,10 @@ const SupervisorDashboard = () => {
 
         <Grid item className={classes.screen3}>
           <CohortDetails />
-          {/* <TrainingDetails /> */}
+          <TrainingDetails />
         </Grid>
       </Grid>
     </Container>
-    // </TraineeResultsContext.Provider>
     );
 };
 

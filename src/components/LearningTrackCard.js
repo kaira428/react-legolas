@@ -1,9 +1,7 @@
 import { Grid, Paper, Box, Typography, Button } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import {
-  getLtCohortInfo,
-  getTraineeAndCohortDetailsList,
   resetSupervisorDashboardSlice,
 } from "../store/supervisorDbSlice";
 import { getSelectedTraineesForSelectedLtIdThunk } from "../store/features/getSelectedTraineesForSelectedLtIdThunk";
@@ -40,7 +38,7 @@ const LearningTrackCard = (props) => {
           </Box>
           <Box
             sx={{
-              height: 200,
+              height: 230,
               width: 250,
               border: "1px solid lightgrey",
               overflow: "auto",

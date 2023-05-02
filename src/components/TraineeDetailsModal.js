@@ -16,7 +16,6 @@ const TraineeDetailsModal = (props) => {
   const results = useSelector(
     (state) => state.supervisorDashboard
   );
-  // console.log("🚀 ~ file: TraineeDetailsModal.js:19 ~ TraineeDetailsModal ~ results:", results)
 
   const allTraineesResults =
     results.listOfTraineesForSelectedCohortNumber.filter(
@@ -24,7 +23,6 @@ const TraineeDetailsModal = (props) => {
     );
 
   const traineeNameAndResults = allTraineesResults[0];
-  // console.log("🚀 ~ file: TraineeDetailsModal.js:27 ~ TraineeDetailsModal ~ traineeNameAndResults:", traineeNameAndResults)
 
   let moduleResultsArray = [];
 

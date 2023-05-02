@@ -4,12 +4,11 @@ import Table from "react-bootstrap/Table";
 import { useSelector } from "react-redux";
 
 const TrainingDetails = () => {
-  const results = useSelector(
-    (state) => state.supervisorDashboard.supervisorDashboardObj
+  const result = useSelector(
+    (state) => state.supervisorDashboard
   );
-  // console.log("🚀 ~ file: TrainingDetails.js:10 ~ TrainingDetails ~ results:", results)
 
-  const objectLength = Object.keys(results.selectedCohortIdDetails).length;
+  const objectLength = Object.keys(result.cohortDetailsForSelectedCohortNumber).length;
 
   if (objectLength > 0) {
     return (
@@ -29,7 +28,7 @@ const TrainingDetails = () => {
             </Box>
             <Box
               sx={{
-                height: "auto",
+                height: 230,
                 width: 250,
                 border: "1px solid lightgrey",
                 overflow: "auto",
@@ -43,7 +42,7 @@ const TrainingDetails = () => {
                       colSpan={2}
                       style={{ textAlign: "center", fontWeight: "bold" }}
                     >
-                      {results.learningTrackName}
+                      {result.selectedLtName}
                     </td>
                   </tr>
                   <tr>
@@ -52,7 +51,7 @@ const TrainingDetails = () => {
                       colSpan={2}
                       style={{ textAlign: "center", fontWeight: "bold" }}
                     >
-                      {results.trainingStatus}
+                      {result.trainingStatus}
                     </td>
                   </tr>
                   <tr>
@@ -62,8 +61,7 @@ const TrainingDetails = () => {
                       style={{ textAlign: "center", fontWeight: "bold" }}
                     >
                       {
-                        results.selectedCohortIdDetails.partialCohortDetails
-                          .startDate
+                        result.cohortDetailsForSelectedCohortNumber.startDate
                       }
                     </td>
                   </tr>
@@ -74,8 +72,7 @@ const TrainingDetails = () => {
                       style={{ textAlign: "center", fontWeight: "bold" }}
                     >
                       {
-                        results.selectedCohortIdDetails.partialCohortDetails
-                          .endDate
+                        result.cohortDetailsForSelectedCohortNumber.endDate
                       }
                     </td>
                   </tr>
