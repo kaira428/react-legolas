@@ -4,27 +4,14 @@ import { useSelector } from "react-redux";
 import Table from "react-bootstrap/Table";
 
 const CohortDetails = () => {
-  const results = useSelector(
-    (state) => state.supervisorDashboard.supervisorDashboardObj
+  const result = useSelector(
+    (state) => state.supervisorDashboard
   );
-  // console.log(
-  //   "🚀 ~ file: CohortDetails.js:15 ~ CohortDetails ~ results:",
-  //   results.selectedCohortIdDetails
-  // );
 
-  const cohortList = results.cohortIdDetailsSortedList;
-  // console.log("🚀 ~ file: CohortDetails.js:16 ~ CohortDetails ~ cohortList:", cohortList)
-  const trainee = results.traineeListForSelectedLtIdAndCohortId[0]; //first element in trainee list for the identified cohort
-  // console.log("🚀 ~ file: CohortDetails.js:18 ~ CohortDetails ~ trainee:", trainee)
-  // console.log("🚀 ~ file: CohortDetails.js:18 ~ CohortDetails ~ results:", results)
+  const cohortInfo = result.cohortDetailsForSelectedCohortNumber;
+  // console.log("🚀 ~ file: CohortDetails.js:16 ~ CohortDetails ~ cohortList:", cohortInfo)
 
-  // get selected cohort details; like coach and mentor names
-  // const reqResults = cohortList.find((cohort) => cohort.cohortNum === trainee.cohort);
-  // console.log("🚀 ~ file: CohortDetails.js:20 ~ CohortDetails ~ reqResults:", reqResults)
-
-  const reqResults = {};
-
-  const numModulesNumTrainees = results.selectedCohortIdDetails;
+  const numModulesNumTrainees = result.numTraineesNumModules;
 
   return (
     <Grid item sx={{ my: 8 }}>
@@ -42,10 +29,10 @@ const CohortDetails = () => {
               component="h3"
               sx={{ textAlign: "center" }}
             >
-              {Object.keys(reqResults).length === 0
+              {Object.keys(cohortInfo).length === 0
                 ? "Cohort Details"
                 : "Cohort " +
-                  reqResults.partialCohortDetails["cohortNum"] +
+                  cohortInfo.cohortNum +
                   " Details"}
             </Typography>
           </Box>
@@ -53,6 +40,7 @@ const CohortDetails = () => {
           <Box
             sx={{
               width: 250,
+              height: 200,
               border: "1px solid lightgrey",
               overflow: "auto",
             }}
@@ -74,9 +62,9 @@ const CohortDetails = () => {
                     colSpan={2}
                     style={{ textAlign: "center", fontWeight: "bold" }}
                   >
-                    {Object.keys(reqResults).length === 0
+                    {Object.keys(cohortInfo).length === 0
                       ? ""
-                      : "reqResults.mentorName"}
+                      : cohortInfo.mentorName}
                   </td>
                 </tr>
                 <tr>
@@ -85,9 +73,9 @@ const CohortDetails = () => {
                     colSpan={2}
                     style={{ textAlign: "center", fontWeight: "bold" }}
                   >
-                    {Object.keys(reqResults).length === 0
+                    {Object.keys(cohortInfo).length === 0
                       ? ""
-                      : "reqResults.coachName"}
+                      : cohortInfo.coachName}
                   </td>
                 </tr>
                 <tr>
@@ -97,6 +85,15 @@ const CohortDetails = () => {
                     style={{ textAlign: "center", fontWeight: "bold" }}
                   >
                     {numModulesNumTrainees.numberOfModulesForCohort}
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan={2}>Country:</td>
+                  <td
+                    colSpan={2}
+                    style={{ textAlign: "center", fontWeight: "bold" }}
+                  >
+                    {cohortInfo.country}
                   </td>
                 </tr>
               </tbody>

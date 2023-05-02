@@ -18,7 +18,7 @@ const initialState = {
   listOfTraineesForSelectedCohortNumber: [],
   cohortDetailsForSelectedCohortNumber: {},
   listOfCohortsProgressForSelectedLtId: [],
-  selectedCohortNumber: 0,
+  numTraineesNumModules: {}
 };
 
 export const supervisorDashboardSlice = createSlice({
@@ -38,29 +38,24 @@ export const supervisorDashboardSlice = createSlice({
         ltCohortListForChosenLtId.cohortsProgress;
     },
 
-    getTraineeAndCohortDetailsList: (state, action) => {
-      const traineeCohortDetailsResult =
-        traineeDetailsBySelectedLtIdAndCohortId(
-          action.payload.ltId,
-          action.payload.cohortId,
-          action.payload.traineeList
-        );
+    // getTraineeAndCohortDetailsList: (state, action) => {
+    //   const traineeCohortDetailsResult =
+    //     traineeDetailsBySelectedLtIdAndCohortId(
+    //       action.payload.ltId,
+    //       action.payload.cohortId,
+    //       action.payload.traineeList
+    //     );
 
-      state.cohortDetailsForSelectedCohortNumber =
-        traineeCohortDetailsResult.reqCohortDetail;
-      state.cohortTrainingStatus = traineeCohortDetailsResult.trainingStatus;
-    },
+    //   state.cohortDetailsForSelectedCohortNumber =
+    //     traineeCohortDetailsResult.reqCohortDetail;
+    //   state.cohortTrainingStatus = traineeCohortDetailsResult.trainingStatus;
+    // },
 
     resetSupervisorDashboardSlice: (state) => 
     {
-      state.initialState = 
-      {
-        ...initialState,
-        listOfCohortNumbers: [],
-        listOfCohortsProgressForSelectedLtId: [],
-        listOfTraineesForSelectedCohortNumber: [],
-        listOfTraineesForSelectedLtId: [],
-      };
+      state.listOfTraineesForSelectedCohortNumber = [];
+      state.numTraineesNumModules = {};
+      state.cohortDetailsForSelectedCohortNumber = {};
     },
   },
   extraReducers: (builder) => {
@@ -80,10 +75,11 @@ export const supervisorDashboardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getSelectedCohortTraineesThunk.fulfilled, (state, action) => {
-        state.trainingStatus = action.payload.trainingStatus;
-        state.traineeListForSelectedLtIdAndCohortId =
-          action.payload.traineeDataWithTotalModuleResults;
-        state.selectedCohortIdDetails = action.payload.reqCohortDetail;
+        state.trainingStatus = action.payload.leaderboardTraineeDetails.trainingStatus;
+        state.listOfTraineesForSelectedCohortNumber =
+          action.payload.leaderboardTraineeDetails.traineeDataWithTotalModuleResults;
+        state.numTraineesNumModules = action.payload.leaderboardTraineeDetails.numTraineesNumModules;
+        state.cohortDetailsForSelectedCohortNumber = action.payload.selectedCohortInfo;
 
         state.isLoading = false;
       })
@@ -97,7 +93,6 @@ export const supervisorDashboardSlice = createSlice({
         getSelectedTraineesForSelectedLtIdThunk.fulfilled,
         (state, action) => {
           state.listOfTraineesForSelectedLtId = action.payload;
-          state.traineeListForSelectedLtIdAndCohortId = [];
           state.isLoading = false;
         }
       )

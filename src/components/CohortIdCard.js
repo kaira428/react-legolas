@@ -10,23 +10,14 @@ const CohortIdCard = (props) => {
     (state) => state.supervisorDashboard.listOfCohortNumbers
   );
 
-  const isLoading = useSelector((state) => state.supervisorDashboard.isLoading);
-
-  // const listOfTraineesForSelectedLtId = useSelector(state => state.supervisorDashboard.traineeListForSelectedLtIdAndCohortId);
-  // console.log("🚀 ~ file: CohortIdCard.js:12 ~ CohortIdCard ~ listOfTraineesForSelectedLtId:", listOfTraineesForSelectedLtId)
-
   const onClickHandler = (cohortNum) => {
-    console.log(
-      "🚀 ~ file: CohortIdCard.js:15 ~ onClickHandler ~ cohortNumber:",
-      cohortNum
-    );
     // get list of trainees in selected cohortNumber
     dispatch(getSelectedCohortTraineesThunk({ cohortNum }));
   };
 
   return (
     <Grid item sx={{ my: 8 }}>
-      {!isLoading ? (
+      
         <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
           <Paper elevation={3} sx={{ height: 1, width: 1 }}>
             <Box
@@ -65,35 +56,6 @@ const CohortIdCard = (props) => {
             </Box>
           </Paper>
         </Box>
-      ) : (
-        <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
-          <Paper elevation={3} sx={{ height: 1, width: 1 }}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                backgroundColor: "lightblue",
-              }}
-            >
-              <Typography
-                variant="h6"
-                component="h3"
-                sx={{ textAlign: "center" }}
-              >
-                Cohort ID
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                height: 230,
-                width: 250,
-                border: "1px solid lightgrey",
-                overflow: "auto",
-              }}
-            ></Box>
-          </Paper>
-        </Box>
-      )}
     </Grid>
   );
 };

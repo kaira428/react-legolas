@@ -64,12 +64,8 @@ const SupervisorDashboard = () => {
         <Grid item className={classes.screen1}>
           <LearningTrackCard
             learningTrackList={allLearningTracksInfo}
-            // getCohortIdList={getCohortIdListHandler}
           />
-          <CohortIdCard
-            // ltId={ltId}
-            // getTraineeData={getCohortTraineeDetailsHandler}
-          />
+          <CohortIdCard/>
         </Grid>
 
          <Grid item className={classes.screen2}>
@@ -85,11 +81,11 @@ const SupervisorDashboard = () => {
           )}
           <CohortLeaderBoardCard />
         </Grid>
-{/*
+
         <Grid item className={classes.screen3}>
           <CohortDetails />
-          <TrainingDetails />
-        </Grid> */}
+          {/* <TrainingDetails /> */}
+        </Grid>
       </Grid>
     </Container>
     // </TraineeResultsContext.Provider>

@@ -14,8 +14,9 @@ import { useSelector } from "react-redux";
 
 const CohortLeaderBoardCard = () => {
   const results = useSelector(
-    (state) => state.supervisorDashboard.traineeListForSelectedLtIdAndCohortId
+    (state) => state.supervisorDashboard.listOfTraineesForSelectedCohortNumber
   );
+  console.log("🚀 ~ file: CohortLeaderBoardCard.js:19 ~ CohortLeaderBoardCard ~ results:", results)
 
   if (!Array.isArray(results)) {
     return (

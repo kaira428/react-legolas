@@ -14,7 +14,7 @@ const LearningTrackCard = (props) => {
   const learningTracks = props.learningTrackList;
 
   const clickHandler = (ltId) => {
-    // dispatch(resetSupervisorDashboardSlice());
+    dispatch(resetSupervisorDashboardSlice());
     // get all trainees for selected ltId
     dispatch(getSelectedTraineesForSelectedLtIdThunk({ ltId }));
   };
@@ -40,7 +40,7 @@ const LearningTrackCard = (props) => {
           </Box>
           <Box
             sx={{
-              height: 180,
+              height: 200,
               width: 250,
               border: "1px solid lightgrey",
               overflow: "auto",

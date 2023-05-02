@@ -19,7 +19,7 @@ const TraineeDetailsModal = (props) => {
   // console.log("🚀 ~ file: TraineeDetailsModal.js:19 ~ TraineeDetailsModal ~ results:", results)
 
   const allTraineesResults =
-    results.traineeListForSelectedLtIdAndCohortId.filter(
+    results.listOfTraineesForSelectedCohortNumber.filter(
       (trainee) => (trainee._id).toString() === (props.traineeId).toString()
     );
 

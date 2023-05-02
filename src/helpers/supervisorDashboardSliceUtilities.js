@@ -1,9 +1,10 @@
 export const getLtNameAndCohortIDsForChosenLtId = (
-  selectedLearningTrackInfo, trainees
+  selectedLearningTrackInfo,
+  trainees
 ) => {
   // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:6 ~ trainees:", trainees)
   // console.log("🚀 ~ file: supervisorDashboardSliceUtilities.js:7 ~ selectedLearningTrackInfo:", selectedLearningTrackInfo)
-  
+
   const ltName = selectedLearningTrackInfo.name;
 
   const reqSortedCohortIds = [...selectedLearningTrackInfo.cohorts];
@@ -25,57 +26,60 @@ export const traineeDetailsBySelectedLtIdAndCohortId = (data) => {
   let traineeDataWithTotalModuleResults = [];
   let trainingStatus = "In Progress";
 
-  let traineeList = [...data];;
+  let traineeList = [...data];
+  // console.log(
+  //   "🚀 ~ file: supervisorDashboardSliceUtilities.js:29 ~ traineeDetailsBySelectedLtIdAndCohortId ~ traineeList:",
+  //   traineeList
+  // );
 
   // get trainees details for given ltId and cohortId
   traineeList.filter((trainee) => {
+    // gather all module results for the identified trainee
+    const moduleResults = Object.values(trainee.modules);
 
-      // gather all module results for the identified trainee
-      const moduleResults = Object.values(trainee.modules);
-
-      // compute total score for each of the trainees
-      const totalModuleResult = moduleResults.reduce(
-        (accumulator, moduleResult, index) => {
-          return accumulator + moduleResult;
-        }
-      );
-      // compute trainee training progress status (either 'In Progress' or 'Completed' or 'Withdrawn')
-
-      if (trainee.status === "InActive") {
-        trainee.progress = "Withdrawn";
-      } else {
-        const modulesArray = Object.entries(trainee.modules);
-
-        // check if all modules are completed; ie result in module > 0
-        const trainingCompleted = modulesArray.every((module) => module[1] > 0);
-        let numberOfCompletedModules = 0;
-
-        if (trainingCompleted) {
-          trainee.progress = 100;
-          trainingStatus = "Completed";
-        } else {
-          modulesArray.forEach((module) => {
-            if (module[1] > 0) {
-              numberOfCompletedModules += 1;
-            }
-
-            trainee.progress = (
-              (numberOfCompletedModules / modulesArray.length) *
-              100
-            ).toFixed(0);
-          });
-        }
+    // compute total score for each of the trainees
+    const totalModuleResult = moduleResults.reduce(
+      (accumulator, moduleResult, index) => {
+        return accumulator + moduleResult;
       }
+    );
+    // compute trainee training progress status (either 'In Progress' or 'Completed' or 'Withdrawn')
 
-      // update total module results to required trainee object
-      trainee = { ...trainee, totalModuleResult: totalModuleResult.toFixed(1) };
+    if (trainee.status === "InActive") {
+      trainee.progress = "Withdrawn";
+    } else {
+      const modulesArray = Object.entries(trainee.modules);
 
-      traineeDataWithTotalModuleResults = [
-        ...traineeDataWithTotalModuleResults,
-        trainee,
-      ];
+      // check if all modules are completed; ie result in module > 0
+      const trainingCompleted = modulesArray.every((module) => module[1] > 0);
+      let numberOfCompletedModules = 0;
 
-      return trainee;
+      if (trainingCompleted) {
+        trainee.progress = 100;
+        trainingStatus = "Completed";
+      } else {
+        modulesArray.forEach((module) => {
+          if (module[1] > 0) {
+            numberOfCompletedModules += 1;
+          }
+
+          trainee.progress = (
+            (numberOfCompletedModules / modulesArray.length) *
+            100
+          ).toFixed(0);
+        });
+      }
+    }
+
+    // update total module results to required trainee object
+    trainee = { ...trainee, totalModuleResult: totalModuleResult.toFixed(1) };
+
+    traineeDataWithTotalModuleResults = [
+      ...traineeDataWithTotalModuleResults,
+      trainee,
+    ];
+
+    return trainee;
     // } else {
     //   return false;
     // }
@@ -90,20 +94,21 @@ export const traineeDetailsBySelectedLtIdAndCohortId = (data) => {
   let numberOfModulesForCohort = 0;
 
   if (numberOfTraineesInCohort > 0) {
-    numberOfModulesForCohort = Object.keys(traineeDataWithTotalModuleResults[0].modules).length; //number of modules in trainee[0]
+    numberOfModulesForCohort = Object.keys(
+      traineeDataWithTotalModuleResults[0].modules
+    ).length; //number of modules in trainee[0]
   }
 
-  // get cohort details for given ltId and cohortId
-  // const reqCohortsForGivenLtId = courses.filter((course) => course.id === ltId);
-  // const partialCohortDetail = reqCohortsForGivenLtId[0].cohorts.filter(
-  //   (cohort) => cohort.cohortNum === cohortId
-  // );
-  const reqCohortDetail = {
+  const numTraineesNumModules = {
     numberOfTraineesInCohort,
     numberOfModulesForCohort,
-    // partialCohortDetails: partialCohortDetail[0],
   };
-  const result = { traineeDataWithTotalModuleResults, reqCohortDetail, trainingStatus};
+
+  const result = {
+    traineeDataWithTotalModuleResults,
+    numTraineesNumModules,
+    trainingStatus,
+  };
 
   return result;
 };
