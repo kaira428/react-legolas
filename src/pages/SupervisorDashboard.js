@@ -29,7 +29,7 @@ const SupervisorDashboard = () => {
    <Container sx={{ marginTop: 5 }}>
       <Grid
         container
-        sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "40px" }}
+        sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "30px" }}
       >
         <Grid item className={classes.screen1}>
           <LearningTrackCard

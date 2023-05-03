@@ -10,7 +10,7 @@ const CohortProgressChart = () => {
   );
 
   return (
-    <Grid item sx={{ my: 5 }}>
+    <Grid item sx={{ my: 3 }}>
       <Paper
         elevation={0}
         sx={{
@@ -26,8 +26,8 @@ const CohortProgressChart = () => {
           {ltName && `(${ltName})`}
         </Typography>
       </Paper>
-      <Box sx={{ height: 230, width: 550, border: "1px solid darkgrey", overflowY: "scroll"}}>
-          <Box sx={{ m: 3 }}>
+      <Box sx={{ height: 230, minWidth: 500, border: "1px solid darkgrey", overflowY: "scroll"}}>
+          <Box sx={{ m: 1 }}>
             <CohortProgressBar />
           </Box>
       </Box>
