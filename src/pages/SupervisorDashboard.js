@@ -20,30 +20,28 @@ const SupervisorDashboard = () => {
   );
   const isLoading = useSelector((state) => state.supervisorDashboard.isLoading);
 
-  useEffect(() => {
+  if (allLearningTracksInfo.length === 0) {
+    // load LT list from DB is list is empty
     dispatch(getAllLearningTracksThunk());
-  }, []);
+  }
 
   return (
-    
-   <Container sx={{ marginTop: 5 }}>
+    <Container sx={{ marginTop: 5 }}>
       <Grid
         container
         sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "30px" }}
       >
         <Grid item className={classes.screen1}>
-          <LearningTrackCard
-            learningTrackList={allLearningTracksInfo}
-          />
-          <CohortIdCard/>
+          <LearningTrackCard learningTrackList={allLearningTracksInfo} />
+          <CohortIdCard />
         </Grid>
 
-         <Grid item className={classes.screen2}>
+        <Grid item className={classes.screen2}>
           <CohortProgressChart />
           {isLoading && (
-            <div class="d-flex justify-content-center">
+            <div className="d-flex justify-content-center">
               <div
-                class="spinner-border text-primary"
+                className="spinner-border text-primary"
                 style={{ width: "5rem", height: "5rem" }}
                 role="status"
               ></div>
@@ -58,7 +56,7 @@ const SupervisorDashboard = () => {
         </Grid>
       </Grid>
     </Container>
-    );
+  );
 };
 
 export default SupervisorDashboard;

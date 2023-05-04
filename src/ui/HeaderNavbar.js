@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 
 const HeaderNavbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light" style={{backgroundColor: "#F1E6C8"}}>
+    <nav
+      className="navbar navbar-expand-lg navbar-light"
+      style={{ backgroundColor: "#F1E6C8" }}
+    >
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           <img
@@ -41,9 +44,9 @@ const HeaderNavbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Pricing
-              </a>
+              <Link className="nav-link" to="/pages/createLearningTrackForm">
+                LT Form
+              </Link>
             </li>
             <li className="nav-item dropdown">
               <a

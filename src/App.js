@@ -3,6 +3,7 @@ import "./App.css";
 import SupervisorDashboard from "./pages/SupervisorDashboard";
 import SupervisorLanding from "./pages/SupervisorLanding";
 import Home from "./pages/Home";
+import CreateLearningTrackForm from "./pages/CreateLearningTrackForm";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/pages">
           <Route index element={<SupervisorLanding />} />
           <Route path="supervisorLanding" element={<SupervisorLanding />} />
+          <Route path="createLearningTrackForm" element={<CreateLearningTrackForm />} />
           <Route path="supervisorDashboard" element={<SupervisorDashboard />}>
             <Route path=":learningTrackId" element={<SupervisorDashboard />} />
             <Route
