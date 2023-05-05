@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  getLtNameAndCohortIDsForChosenLtId,
-} from "../helpers/supervisorDashboardSliceUtilities";
+import { getLtNameAndCohortIDsForChosenLtId } from "../helpers/supervisorDashboardSliceUtilities";
 import { getAllLearningTracksThunk } from "./features/getAllLearningTracksThunk";
 import { getSelectedCohortTraineesThunk } from "./features/getSelectedCohortTraineesThunk";
 import { getSelectedTraineesForSelectedLtIdThunk } from "./features/getSelectedTraineesForSelectedLtIdThunk";
+import { getAllCoachesAndMentorsThunk } from "./features/getAllCoachesAndMentorsThunk";
 
 const initialState = {
   isLoading: false,
@@ -18,7 +17,8 @@ const initialState = {
   cohortDetailsForSelectedCohortNumber: {},
   listOfCohortsProgressForSelectedLtId: [],
   numTraineesNumModules: {},
-  trainingStatus: ""
+  trainingStatus: "",
+  listOfCoachesAndMentors: [],
 };
 
 export const supervisorDashboardSlice = createSlice({
@@ -38,12 +38,11 @@ export const supervisorDashboardSlice = createSlice({
         ltCohortListForChosenLtId.cohortsProgress;
     },
 
-    resetSupervisorDashboardSlice: (state) => 
-    {
+    resetSupervisorDashboardSlice: (state) => {
       state.listOfTraineesForSelectedCohortNumber = [];
       state.numTraineesNumModules = {};
       state.cohortDetailsForSelectedCohortNumber = {};
-      state.trainingStatus ="";
+      state.trainingStatus = "";
     },
   },
   extraReducers: (builder) => {
@@ -63,11 +62,14 @@ export const supervisorDashboardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getSelectedCohortTraineesThunk.fulfilled, (state, action) => {
-        state.trainingStatus = action.payload.leaderboardTraineeDetails.trainingStatus;
+        state.trainingStatus =
+          action.payload.leaderboardTraineeDetails.trainingStatus;
         state.listOfTraineesForSelectedCohortNumber =
           action.payload.leaderboardTraineeDetails.traineeDataWithTotalModuleResults;
-        state.numTraineesNumModules = action.payload.leaderboardTraineeDetails.numTraineesNumModules;
-        state.cohortDetailsForSelectedCohortNumber = action.payload.selectedCohortInfo;
+        state.numTraineesNumModules =
+          action.payload.leaderboardTraineeDetails.numTraineesNumModules;
+        state.cohortDetailsForSelectedCohortNumber =
+          action.payload.selectedCohortInfo;
 
         state.isLoading = false;
       })
@@ -85,6 +87,16 @@ export const supervisorDashboardSlice = createSlice({
         }
       )
       .addCase(getSelectedTraineesForSelectedLtIdThunk.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(getAllCoachesAndMentorsThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllCoachesAndMentorsThunk.fulfilled, (state, action) => {
+        state.listOfCoachesAndMentors = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getAllCoachesAndMentorsThunk.rejected, (state) => {
         state.isLoading = false;
       });
   },
