@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
   Container,
@@ -24,14 +24,14 @@ const CreateLearningTrackForm = () => {
   const [mentorName, setMentorName] = useState("");
   const [disableCohortNumberSubmitBtn, setDisableCohortNumberSubmitBtn] =
     useState(false);
+  const [disableCohortDetailSubmitBtn, setDisableCohortDetailSubmitBtn] =
+    useState(true);
 
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
 
   const inputLtRef = useRef("");
   const inputCohortNumberRef = useRef(0);
-  const inputCohortStartDateRef = useRef();
-  const inputCohortEndDateRef = useRef();
 
   const dispatch = useDispatch();
 
@@ -70,7 +70,7 @@ const CreateLearningTrackForm = () => {
       alert("Learning Track Name Exist. Please re-enter new LT Name");
     } else {
       console.log(enteredLtName);
-      setNewLtName(enteredLtName)
+      setNewLtName(enteredLtName);
       setDisableSubmitBtn(true);
     }
   };
@@ -79,10 +79,6 @@ const CreateLearningTrackForm = () => {
     event.preventDefault();
 
     const cohortNumber = parseInt(inputCohortNumberRef.current.value);
-    console.log(
-      "🚀 ~ file: CreateLearningTrackForm.js:50 ~ onSubmitCohortHandler ~ cohortNumber:",
-      cohortNumber
-    );
 
     // check if cohort number has been used
     const ltWhereCohortNumberExist = learningTrackList.find((lt) =>
@@ -118,26 +114,47 @@ const CreateLearningTrackForm = () => {
   const onSubmitCohortDetailsHandler = (event) => {
     event.preventDefault();
 
-    setStartDate(inputCohortStartDateRef.current.value);
-    setEndDate(inputCohortEndDateRef.current.value);
+    const newLearningTrack = {
+      name: newLtName,
+      cohorts: [{ cohortNum, startDate, endDate, mentorName, coachName }],
+    };
+    console.log("🚀 ~ file: CreateLearningTrackForm.js:125 ~ onSubmitCohortDetailsHandler ~ newLearningTrack:", newLearningTrack);
 
-    const newLearningTrack = {name: newLtName, cohorts: [{cohortNum, startDate, endDate, mentorName, coachName}]}
+    setDisableCohortDetailSubmitBtn(true);
+
   };
 
   const handleCoachChange = (event) => {
     event.preventDefault();
-
+    
     setCoachName(event.target.value);
     console.log(coachName);
   };
 
   const handleMentorChange = (event) => {
     event.preventDefault();
-
+    
     setMentorName(event.target.value);
   };
 
+  const startDateHandler = (event) => {
+    event.preventDefault();
+    
+    setStartDate(event.target.value);
+  };
 
+  const endDateHandler = (event) => {
+    event.preventDefault();
+
+    setEndDate(event.target.value);
+  };
+
+  useEffect(() => {
+    if (startDate && endDate && mentorName && coachName) {
+      setDisableCohortDetailSubmitBtn(false);
+    }
+
+  }, [startDate, endDate, mentorName, coachName])
 
   return (
     <Container
@@ -293,18 +310,20 @@ const CreateLearningTrackForm = () => {
                       </label>
                       <input
                         type="date"
-                        ref={inputCohortStartDateRef}
+                        value={startDate}
                         className="form-control"
                         id="cohortStartDate"
+                        onChange={startDateHandler}
                       />
                     </div>
                     <div style={{ margin: "0px 15px" }}>
                       <label htmlFor="cohortEndDate">Cohort End Date:</label>
                       <input
                         type="date"
-                        ref={inputCohortEndDateRef}
+                        value={endDate}
                         className="form-control"
                         id="cohortEndDate"
+                        onChange={endDateHandler}
                       />
                     </div>
                   </Box>
@@ -348,7 +367,7 @@ const CreateLearningTrackForm = () => {
                           label="Mentor Name"
                           onChange={handleMentorChange}
                         >
-                           {listOfMentors.map((mentor, index) => (
+                          {listOfMentors.map((mentor, index) => (
                             <MenuItem key={index} value={mentor}>
                               {mentor}
                             </MenuItem>
@@ -359,7 +378,7 @@ const CreateLearningTrackForm = () => {
                   </Box>
 
                   <div style={{ textAlign: "center", marginBottom: "25px" }}>
-                    <Button type="submit" variant="success" size="sm">
+                    <Button type="submit" variant="success" size="sm" disabled={disableCohortDetailSubmitBtn}>
                       Submit
                     </Button>
                   </div>
