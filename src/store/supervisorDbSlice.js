@@ -18,7 +18,8 @@ const initialState = {
   listOfCohortsProgressForSelectedLtId: [],
   numTraineesNumModules: {},
   trainingStatus: "",
-  listOfCoachesAndMentors: [],
+  listOfCoaches: [],
+  listOfMentors: [],
 };
 
 export const supervisorDashboardSlice = createSlice({
@@ -93,7 +94,19 @@ export const supervisorDashboardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getAllCoachesAndMentorsThunk.fulfilled, (state, action) => {
-        state.listOfCoachesAndMentors = action.payload;
+
+        action.payload.forEach(list => {
+          if (list.hasOwnProperty('coaches')) {
+            const pre_sortedListOfCoaches = [...list.coaches]
+            state.listOfCoaches = pre_sortedListOfCoaches.sort();
+          }
+  
+          if (list.hasOwnProperty('mentors')) {
+            const pre_sortedListOfMentors = [...list.mentors]
+            state.listOfMentors = pre_sortedListOfMentors.sort();
+          }        
+        })
+        
         state.isLoading = false;
       })
       .addCase(getAllCoachesAndMentorsThunk.rejected, (state) => {

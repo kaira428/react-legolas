@@ -13,22 +13,25 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getAllLearningTracksThunk } from "../store/features/getAllLearningTracksThunk";
 import classes from "./CreateLearningTrackForm.module.css";
-import { Alert, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { getAllCoachesAndMentorsThunk } from "../store/features/getAllCoachesAndMentorsThunk";
 
 const CreateLearningTrackForm = () => {
+  const [newLtName, setNewLtName] = useState();
+  const [cohortNum, setCohortNum] = useState();
   const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
   const [coachName, setCoachName] = useState("");
   const [mentorName, setMentorName] = useState("");
   const [disableCohortNumberSubmitBtn, setDisableCohortNumberSubmitBtn] =
     useState(false);
 
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+
   const inputLtRef = useRef("");
   const inputCohortNumberRef = useRef(0);
   const inputCohortStartDateRef = useRef();
   const inputCohortEndDateRef = useRef();
-  const inputCoachNameRef = useRef();
-  const inputMentorNameRef = useRef();
 
   const dispatch = useDispatch();
 
@@ -37,8 +40,12 @@ const CreateLearningTrackForm = () => {
   );
   const isLoading = useSelector((state) => state.supervisorDashboard.isLoading);
 
-  const coachesAndMentorsList = useSelector(
-    (state) => state.supervisorDashboard.listOfCoachesAndMentors
+  const listOfCoaches = useSelector(
+    (state) => state.supervisorDashboard.listOfCoaches
+  );
+
+  const listOfMentors = useSelector(
+    (state) => state.supervisorDashboard.listOfMentors
   );
 
   if (learningTrackList.length === 0) {
@@ -63,6 +70,7 @@ const CreateLearningTrackForm = () => {
       alert("Learning Track Name Exist. Please re-enter new LT Name");
     } else {
       console.log(enteredLtName);
+      setNewLtName(enteredLtName)
       setDisableSubmitBtn(true);
     }
   };
@@ -82,13 +90,22 @@ const CreateLearningTrackForm = () => {
     );
 
     if (typeof ltWhereCohortNumberExist === "undefined") {
-      // Entered cohort number not found === new number
+      // Entered cohort number is "undefined" means entered number is new number
       setDisableCohortNumberSubmitBtn(true);
+
+      setCohortNum(cohortNumber);
 
       // get list of coaches and mentor
       dispatch(getAllCoachesAndMentorsThunk());
 
-      console.log("🚀 ~ file: CreateLearningTrackForm.js:91 ~ CreateLearningTrackForm ~ coachesAndMentorsList:", coachesAndMentorsList)
+      console.log(
+        "🚀 ~ file: CreateLearningTrackForm.js:92 ~ onSubmitCohortHandler ~ listOfCoaches:",
+        listOfCoaches
+      );
+      console.log(
+        "🚀 ~ file: CreateLearningTrackForm.js:94 ~ onSubmitCohortHandler ~ listOfMentors:",
+        listOfMentors
+      );
     } else {
       inputCohortNumberRef.current.value = "";
       inputCohortNumberRef.current.focus();
@@ -101,10 +118,10 @@ const CreateLearningTrackForm = () => {
   const onSubmitCohortDetailsHandler = (event) => {
     event.preventDefault();
 
-    console.log("onSubmitCohortDetailsHandler");
-    console.log("🚀 ~ file: CreateLearningTrackForm.js:95 ~ handleCoachChange ~ coachName:", coachName)
-    console.log("🚀 ~ file: CreateLearningTrackForm.js:96 ~ handleMentorChange ~ mentorName:", mentorName)
+    setStartDate(inputCohortStartDateRef.current.value);
+    setEndDate(inputCohortEndDateRef.current.value);
 
+    const newLearningTrack = {name: newLtName, cohorts: [{cohortNum, startDate, endDate, mentorName, coachName}]}
   };
 
   const handleCoachChange = (event) => {
@@ -112,15 +129,15 @@ const CreateLearningTrackForm = () => {
 
     setCoachName(event.target.value);
     console.log(coachName);
-    
   };
 
   const handleMentorChange = (event) => {
     event.preventDefault();
 
     setMentorName(event.target.value);
-    
   };
+
+
 
   return (
     <Container
@@ -169,7 +186,7 @@ const CreateLearningTrackForm = () => {
                   <button
                     type="submit"
                     className="btn btn-primary"
-                    disabled={disableSubmitBtn}
+                    hidden={disableSubmitBtn}
                   >
                     Submit
                   </button>
@@ -227,7 +244,7 @@ const CreateLearningTrackForm = () => {
                   variant="warning"
                   size="sm"
                   style={{ marginLeft: 10 }}
-                  disabled={disableCohortNumberSubmitBtn}
+                  hidden={disableCohortNumberSubmitBtn}
                 >
                   Submit
                 </Button>
@@ -313,15 +330,16 @@ const CreateLearningTrackForm = () => {
                           label="Coach Name"
                           onChange={handleCoachChange}
                         >
-                          <MenuItem value="Benny">Benny</MenuItem>
-                          <MenuItem value="Christie">Christie</MenuItem>
-                          <MenuItem value="Ben">Ben</MenuItem>
+                          {listOfCoaches.map((coach, index) => (
+                            <MenuItem key={index} value={coach}>
+                              {coach}
+                            </MenuItem>
+                          ))}
                         </Select>
                       </FormControl>
                     </div>
                     <div style={{ margin: "0px 15px", width: "160px" }}>
-
-                    <FormControl fullWidth>
+                      <FormControl fullWidth>
                         <InputLabel id="Mentor Name">Mentor Name</InputLabel>
                         <Select
                           labelId="Mentor Name"
@@ -330,9 +348,11 @@ const CreateLearningTrackForm = () => {
                           label="Mentor Name"
                           onChange={handleMentorChange}
                         >
-                          <MenuItem value="WK">WK</MenuItem>
-                          <MenuItem value="Thendral">Thendral</MenuItem>
-                          <MenuItem value="HB">HB</MenuItem>
+                           {listOfMentors.map((mentor, index) => (
+                            <MenuItem key={index} value={mentor}>
+                              {mentor}
+                            </MenuItem>
+                          ))}
                         </Select>
                       </FormControl>
                     </div>
