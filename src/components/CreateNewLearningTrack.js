@@ -1,22 +1,14 @@
 import React, { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllLearningTracksThunk } from "../store/features/getAllLearningTracksThunk";
+import { useSelector } from "react-redux";
 import { Box, Paper, Typography } from "@mui/material";
 
 const CreateNewLearningTrack = ({setNewLtName, setDisableSubmitBtn, disableSubmitBtn}) => {
 
   const inputLtRef = useRef("");
 
-  const dispatch = useDispatch();
-
   const learningTrackList = useSelector(
     (state) => state.supervisorDashboard.listOfLearningTracks
   );
-
-  if (learningTrackList.length === 0) {
-    // load LT list from DB is list is empty
-    dispatch(getAllLearningTracksThunk());
-  }
 
   const onSubmitLtHandler = (event) => {
     event.preventDefault();
