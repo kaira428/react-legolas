@@ -1,11 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllLearningTracksThunk } from "../store/features/getAllLearningTracksThunk";
 import { Box, Paper, Typography } from "@mui/material";
 
-const CreateLearningTrack = () => {
-  const [newLtName, setNewLtName] = useState();
-  const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
+const CreateNewLearningTrack = ({setNewLtName, setDisableSubmitBtn, disableSubmitBtn}) => {
 
   const inputLtRef = useRef("");
 
@@ -93,4 +91,4 @@ const CreateLearningTrack = () => {
   );
 };
 
-export default CreateLearningTrack;
+export default CreateNewLearningTrack;
