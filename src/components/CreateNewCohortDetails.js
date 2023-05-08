@@ -22,6 +22,9 @@ const CreateNewCohortDetails = ({
   coachName,
   setMentorName,
   mentorName,
+  setCountry,
+  country,
+  countries,
   disableCohortDetailSubmitBtn
 }) => {
 
@@ -57,6 +60,12 @@ const CreateNewCohortDetails = ({
     
         setMentorName(event.target.value);
       };
+
+      const handleCountryChange = (event) => {
+        event.preventDefault();
+    
+        setCountry(event.target.value);
+      }
 
   return (
     <>
@@ -96,7 +105,7 @@ const CreateNewCohortDetails = ({
                 }}
               >
                 <div style={{ margin: "0px 15px" }}>
-                  <label htmlFor="cohortStartDate">Cohort Start Date:</label>
+                  <label htmlFor="cohortStartDate">Start Date:</label>
                   <input
                     type="date"
                     value={startDate}
@@ -106,7 +115,7 @@ const CreateNewCohortDetails = ({
                   />
                 </div>
                 <div style={{ margin: "0px 15px" }}>
-                  <label htmlFor="cohortEndDate">Cohort End Date:</label>
+                  <label htmlFor="cohortEndDate">End Date:</label>
                   <input
                     type="date"
                     value={endDate}
@@ -164,18 +173,39 @@ const CreateNewCohortDetails = ({
                     </Select>
                   </FormControl>
                 </div>
+
+                <div style={{ margin: "0px 15px", width: "160px" }}>
+                  <FormControl fullWidth>
+                    <InputLabel id="country">Country</InputLabel>
+                    <Select
+                      labelId="country"
+                      id="country"
+                      value={country}
+                      label="Country"
+                      onChange={handleCountryChange}
+                    >
+                      {countries.map((country, index) => (
+                        <MenuItem key={index} value={country}>
+                          {country}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
               </Box>
 
-              <div style={{ textAlign: "center", marginBottom: "25px" }}>
+              <Box style={{display: "flex", justifyContent: "center", marginBottom: "25px" }}>
+                
                 <Button
                   type="submit"
-                  variant="success"
+                  variant="primary"
                   size="sm"
                   disabled={disableCohortDetailSubmitBtn}
                 >
-                  Submit
+                  Save New LT
                 </Button>
-              </div>
+
+              </Box>
             </form>
           </Box>
         </Paper>

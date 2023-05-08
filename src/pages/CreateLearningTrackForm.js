@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-  Container,
-  Grid,
-} from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllLearningTracksThunk } from "../store/features/getAllLearningTracksThunk";
 import classes from "./CreateLearningTrackForm.module.css";
 import CreateNewLearningTrack from "../components/CreateNewLearningTrack";
 import CreateNewCohortNumber from "../components/CreateNewCohortNumber";
 import CreateNewCohortDetails from "../components/CreateNewCohortDetails";
+import { countries } from "../data/listOfCountries";
+import { createNewLearningTrackThunk } from "../store/features/createNewLearningTrackThunk";
 
 const CreateLearningTrackForm = () => {
   const [newLtName, setNewLtName] = useState();
@@ -20,6 +19,7 @@ const CreateLearningTrackForm = () => {
     useState(false);
   const [disableCohortDetailSubmitBtn, setDisableCohortDetailSubmitBtn] =
     useState(true);
+  const [country, setCountry] = useState();
 
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
@@ -41,21 +41,22 @@ const CreateLearningTrackForm = () => {
 
     const newLearningTrack = {
       name: newLtName,
-      cohorts: [{ cohortNum, startDate, endDate, mentorName, coachName }],
+      cohorts: [{ cohortNum, startDate, endDate, mentorName, coachName, country }],
     };
-    console.log(
-      "🚀 ~ file: CreateLearningTrackForm.js:125 ~ onSubmitCohortDetailsHandler ~ newLearningTrack:",
-      newLearningTrack
-    );
+    console.log("🚀 ~ file: CreateLearningTrackForm.js:45 ~ onSubmitCohortDetailsHandler ~ newLearningTrack:", newLearningTrack)
 
+    // dispatch createNewLt thunk
+    dispatch(createNewLearningTrackThunk({newLearningTrack}));
+    
     setDisableCohortDetailSubmitBtn(true);
   };
 
+  // activate submit button only when all the 5 fields are populated
   useEffect(() => {
-    if (startDate && endDate && mentorName && coachName) {
+    if (startDate && endDate && mentorName && coachName && country) {
       setDisableCohortDetailSubmitBtn(false);
     }
-  }, [startDate, endDate, mentorName, coachName]);
+  }, [startDate, endDate, mentorName, coachName, country]);
 
   return (
     <Container
@@ -100,6 +101,9 @@ const CreateLearningTrackForm = () => {
             coachName={coachName}
             setMentorName={setMentorName}
             mentorName={mentorName}
+            setCountry={setCountry}
+            country={country}
+            countries={countries}
             disableCohortDetailSubmitBtn={disableCohortDetailSubmitBtn}
           />
         </Grid>
