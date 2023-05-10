@@ -87,6 +87,7 @@ const CreateNewCohortDetails = ({
                     fontWeight="medium"
                     sx={{
                       textAlign: "right",
+                      marginLeft: "15px"
                     }}
                   >
                     Cohort Details:

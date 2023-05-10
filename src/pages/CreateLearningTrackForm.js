@@ -8,6 +8,7 @@ import CreateNewCohortNumber from "../components/CreateNewCohortNumber";
 import CreateNewCohortDetails from "../components/CreateNewCohortDetails";
 import { countries } from "../data/listOfCountries";
 import { createNewLearningTrackThunk } from "../store/features/createNewLearningTrackThunk";
+import { useNavigate } from "react-router-dom";
 
 const CreateLearningTrackForm = () => {
   const [newLtName, setNewLtName] = useState();
@@ -26,6 +27,8 @@ const CreateLearningTrackForm = () => {
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate()
+
   const learningTrackList = useSelector(
     (state) => state.supervisorDashboard.listOfLearningTracks
   );
@@ -43,12 +46,15 @@ const CreateLearningTrackForm = () => {
       name: newLtName,
       cohorts: [{ cohortNum, startDate, endDate, mentorName, coachName, country }],
     };
-    console.log("🚀 ~ file: CreateLearningTrackForm.js:45 ~ onSubmitCohortDetailsHandler ~ newLearningTrack:", newLearningTrack)
+    // console.log("🚀 ~ file: CreateLearningTrackForm.js:45 ~ onSubmitCohortDetailsHandler ~ newLearningTrack:", newLearningTrack)
 
     // dispatch createNewLt thunk
     dispatch(createNewLearningTrackThunk({newLearningTrack}));
     
     setDisableCohortDetailSubmitBtn(true);
+
+    // navigate to AddTraineesToCohort page
+    navigate("/pages/addTraineesToCohortForm", {state: {newLtName, newCohortNum: cohortNum, country }})
   };
 
   // activate submit button only when all the 5 fields are populated

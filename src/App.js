@@ -4,6 +4,7 @@ import SupervisorDashboard from "./pages/SupervisorDashboard";
 import SupervisorLanding from "./pages/SupervisorLanding";
 import Home from "./pages/Home";
 import CreateLearningTrackForm from "./pages/CreateLearningTrackForm";
+import AddTraineesToCohortForm from "./pages/AddTraineesToCohortForm";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route index element={<SupervisorLanding />} />
           <Route path="supervisorLanding" element={<SupervisorLanding />} />
           <Route path="createLearningTrackForm" element={<CreateLearningTrackForm />} />
+          <Route path="addTraineesToCohortForm" element={<AddTraineesToCohortForm />} />
           <Route path="supervisorDashboard" element={<SupervisorDashboard />}>
             <Route path=":learningTrackId" element={<SupervisorDashboard />} />
             <Route
