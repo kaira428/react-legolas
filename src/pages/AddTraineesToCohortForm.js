@@ -62,6 +62,9 @@ const AddTraineesToCohortForm = () => {
   //   country
   // );
 
+  const numOfModules = location.state.numOfModules;
+  // console.log("🚀 ~ file: AddTraineesToCohortForm.js:66 ~ AddTraineesToCohortForm ~ numOfModules:", numOfModules)
+
   return (
     <>
       <Formik
@@ -73,10 +76,11 @@ const AddTraineesToCohortForm = () => {
           <Form>
             <Container
               style={{
-                backgroundColor: "lightblue",
+                // backgroundColor: "lightblue",
                 height: "35vh",
                 width: "30vw",
-              }} sx={{Paper: true}}
+              }}
+
             >
               <Paper elevation={3} sx={{alignItems: "center", marginTop: "10px"}}>
               <Grid container justifyContent="center">

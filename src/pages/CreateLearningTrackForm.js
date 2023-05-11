@@ -55,15 +55,15 @@ const CreateLearningTrackForm = () => {
     setDisableCohortDetailSubmitBtn(true);
 
     // navigate to AddTraineesToCohort page
-    navigate("/pages/addTraineesToCohortForm", {state: {newLtName, newCohortNum: cohortNum, country }})
+    navigate("/pages/addTraineesToCohortForm", {state: {newLtName, newCohortNum: cohortNum, country, numOfModules }})
   };
 
   // activate submit button only when all the 5 fields are populated
   useEffect(() => {
-    if (startDate && endDate && mentorName && coachName && country) {
+    if (startDate && endDate && mentorName && coachName && country && numOfModules > 0) {
       setDisableCohortDetailSubmitBtn(false);
     }
-  }, [startDate, endDate, mentorName, coachName, country]);
+  }, [startDate, endDate, mentorName, coachName, country, numOfModules]);
 
   return (
     <Container
@@ -113,6 +113,7 @@ const CreateLearningTrackForm = () => {
             countries={countries}
             disableCohortDetailSubmitBtn={disableCohortDetailSubmitBtn}
             setNumOfModules={setNumOfModules}
+            numOfModules={numOfModules}
           />
         </Grid>
       </Grid>

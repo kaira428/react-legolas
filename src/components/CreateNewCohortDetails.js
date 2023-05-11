@@ -26,6 +26,8 @@ const CreateNewCohortDetails = ({
   country,
   countries,
   disableCohortDetailSubmitBtn,
+  setNumOfModules,
+  numOfModules,
 }) => {
   const listOfCoaches = useSelector(
     (state) => state.supervisorDashboard.listOfCoaches
@@ -64,6 +66,17 @@ const CreateNewCohortDetails = ({
     event.preventDefault();
 
     setCountry(event.target.value);
+  };
+
+  const numOfModulesHandler = (event) => {
+    event.preventDefault();
+
+    setNumOfModules(parseInt(event.target.value));
+
+    console.log(
+      "🚀 ~ file: CreateNewCohortDetails.js:76 ~ numOfModulesHandler ~ numOfModules:",
+      numOfModules
+    );
   };
 
   return (
@@ -204,23 +217,30 @@ const CreateNewCohortDetails = ({
                     </Select>
                   </FormControl>
                 </div>
+              </Box>
 
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  p: 1,
+                  m: 1,
+                  bgcolor: "background.paper",
+                  borderRadius: 1,
+                }}
+              >
                 <div style={{ margin: "0px 15px", width: "160px" }}>
                   <FormControl fullWidth>
-                    <InputLabel id="country">Country</InputLabel>
-                    <Select
-                      labelId="country"
-                      id="country"
-                      value={country}
-                      label="Country"
-                      onChange={handleCountryChange}
-                    >
-                      {countries.map((country, index) => (
-                        <MenuItem key={index} value={country}>
-                          {country}
-                        </MenuItem>
-                      ))}
-                    </Select>
+                    <label htmlFor="numOfModules">No. Of Modules</label>
+                    <input
+                      type="number"
+                      value={numOfModules}
+                      className="form-control"
+                      id="numOfModules"
+                      min="1"
+                      onChange={numOfModulesHandler}
+                    />
                   </FormControl>
                 </div>
               </Box>
