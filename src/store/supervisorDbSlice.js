@@ -5,6 +5,7 @@ import { getSelectedCohortTraineesThunk } from "./features/getSelectedCohortTrai
 import { getSelectedTraineesForSelectedLtIdThunk } from "./features/getSelectedTraineesForSelectedLtIdThunk";
 import { getAllCoachesAndMentorsThunk } from "./features/getAllCoachesAndMentorsThunk";
 import { createNewLearningTrackThunk } from "./features/createNewLearningTrackThunk";
+import { createNewTraineeThunk } from "./features/createNewTraineeThunk";
 
 const initialState = {
   isLoading: false,
@@ -123,7 +124,18 @@ export const supervisorDashboardSlice = createSlice({
       })
       .addCase(createNewLearningTrackThunk.rejected, (state) => {
         state.isLoading = false;
-      })  
+      })
+      .addCase(createNewTraineeThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createNewTraineeThunk.fulfilled, (state, action) => {
+
+        console.log("🚀 ~ file: supervisorDbSlice.js:133 ~ .addCase ~ action.payload:", action.payload)
+        state.isLoading = false;
+      })
+      .addCase(createNewTraineeThunk.rejected, (state) => {
+        state.isLoading = false;
+      })
   },
 });
 

@@ -10,6 +10,7 @@ import { countries } from "../data/listOfCountries";
 import { createNewLearningTrackThunk } from "../store/features/createNewLearningTrackThunk";
 import { useNavigate } from "react-router-dom";
 
+
 const CreateLearningTrackForm = () => {
   const [newLtName, setNewLtName] = useState();
   const [cohortNum, setCohortNum] = useState();
@@ -28,7 +29,7 @@ const CreateLearningTrackForm = () => {
 
   const dispatch = useDispatch();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const learningTrackList = useSelector(
     (state) => state.supervisorDashboard.listOfLearningTracks
@@ -45,22 +46,33 @@ const CreateLearningTrackForm = () => {
 
     const newLearningTrack = {
       name: newLtName,
-      cohorts: [{ cohortNum, startDate, endDate, mentorName, coachName, country }],
+      cohorts: [
+        { cohortNum, startDate, endDate, mentorName, coachName, country },
+      ],
     };
     // console.log("🚀 ~ file: CreateLearningTrackForm.js:45 ~ onSubmitCohortDetailsHandler ~ newLearningTrack:", newLearningTrack)
 
     // dispatch createNewLt thunk
-    dispatch(createNewLearningTrackThunk({newLearningTrack}));
-    
+    dispatch(createNewLearningTrackThunk({ newLearningTrack }));
+
     setDisableCohortDetailSubmitBtn(true);
 
     // navigate to AddTraineesToCohort page
-    navigate("/pages/addTraineesToCohortForm", {state: {newLtName, newCohortNum: cohortNum, country, numOfModules }})
+    navigate("/pages/addTraineesToCohortForm", {
+      state: { newLtName, newCohortNum: cohortNum, country, numOfModules },
+    });
   };
 
   // activate submit button only when all the 5 fields are populated
   useEffect(() => {
-    if (startDate && endDate && mentorName && coachName && country && numOfModules > 0) {
+    if (
+      startDate &&
+      endDate &&
+      mentorName &&
+      coachName &&
+      country &&
+      numOfModules > 0
+    ) {
       setDisableCohortDetailSubmitBtn(false);
     }
   }, [startDate, endDate, mentorName, coachName, country, numOfModules]);
@@ -115,6 +127,7 @@ const CreateLearningTrackForm = () => {
             setNumOfModules={setNumOfModules}
             numOfModules={numOfModules}
           />
+
         </Grid>
       </Grid>
     </Container>
