@@ -12,4 +12,5 @@ export const traineeDetailsSchema = Yup.object({
     phone: Yup.string()
       .required("Required")
       .matches(phoneRegExp, "Phone number is invalid"),
+    status: Yup.string().required("Required").oneOf(["Active", "InActive"], "Invalid option")
   });

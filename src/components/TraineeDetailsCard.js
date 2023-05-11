@@ -7,6 +7,8 @@ import { traineeDetailsSchema } from "../schemas/traineeDetailsSchema";
 import CustomInput from "./CustomInput";
 import CustomSelect from "./CustomSelect";
 
+//NOT IN USE
+
 const TraineeDetailsCard = () => {
   const initialValues = {
     firstName: "",
@@ -48,7 +50,7 @@ const TraineeDetailsCard = () => {
                   label="Last Name"
                   as={TextField}
                 />
-              {/* </Grid> */}
+              
               <Grid Container item xs={6}>
                 <Box height={12} />
                 <CustomInput
