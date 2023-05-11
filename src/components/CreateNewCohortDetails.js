@@ -25,47 +25,46 @@ const CreateNewCohortDetails = ({
   setCountry,
   country,
   countries,
-  disableCohortDetailSubmitBtn
+  disableCohortDetailSubmitBtn,
 }) => {
+  const listOfCoaches = useSelector(
+    (state) => state.supervisorDashboard.listOfCoaches
+  );
 
-    const listOfCoaches = useSelector(
-        (state) => state.supervisorDashboard.listOfCoaches
-      );
+  const listOfMentors = useSelector(
+    (state) => state.supervisorDashboard.listOfMentors
+  );
 
-      const listOfMentors = useSelector(
-        (state) => state.supervisorDashboard.listOfMentors
-      );
+  const startDateHandler = (event) => {
+    event.preventDefault();
 
-    const startDateHandler = (event) => {
-        event.preventDefault();
-    
-        setStartDate(event.target.value);
-      };
+    setStartDate(event.target.value);
+  };
 
-      const endDateHandler = (event) => {
-        event.preventDefault();
-    
-        setEndDate(event.target.value);
-      };
+  const endDateHandler = (event) => {
+    event.preventDefault();
 
-      const handleCoachChange = (event) => {
-        event.preventDefault();
-    
-        setCoachName(event.target.value);
-        console.log(coachName);
-      };
-    
-      const handleMentorChange = (event) => {
-        event.preventDefault();
-    
-        setMentorName(event.target.value);
-      };
+    setEndDate(event.target.value);
+  };
 
-      const handleCountryChange = (event) => {
-        event.preventDefault();
-    
-        setCountry(event.target.value);
-      }
+  const handleCoachChange = (event) => {
+    event.preventDefault();
+
+    setCoachName(event.target.value);
+    console.log(coachName);
+  };
+
+  const handleMentorChange = (event) => {
+    event.preventDefault();
+
+    setMentorName(event.target.value);
+  };
+
+  const handleCountryChange = (event) => {
+    event.preventDefault();
+
+    setCountry(event.target.value);
+  };
 
   return (
     <>
@@ -87,7 +86,7 @@ const CreateNewCohortDetails = ({
                     fontWeight="medium"
                     sx={{
                       textAlign: "right",
-                      marginLeft: "15px"
+                      marginLeft: "15px",
                     }}
                   >
                     Cohort Details:
@@ -174,6 +173,37 @@ const CreateNewCohortDetails = ({
                     </Select>
                   </FormControl>
                 </div>
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  p: 1,
+                  m: 1,
+                  bgcolor: "background.paper",
+                  borderRadius: 1,
+                }}
+              >
+                <div style={{ margin: "0px 15px", width: "160px" }}>
+                  <FormControl fullWidth>
+                    <InputLabel id="country">Country</InputLabel>
+                    <Select
+                      labelId="country"
+                      id="country"
+                      value={country}
+                      label="Country"
+                      onChange={handleCountryChange}
+                    >
+                      {countries.map((country, index) => (
+                        <MenuItem key={index} value={country}>
+                          {country}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
 
                 <div style={{ margin: "0px 15px", width: "160px" }}>
                   <FormControl fullWidth>
@@ -195,17 +225,21 @@ const CreateNewCohortDetails = ({
                 </div>
               </Box>
 
-              <Box style={{display: "flex", justifyContent: "center", marginBottom: "25px" }}>
-                
+              <Box
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "25px",
+                }}
+              >
                 <Button
                   type="submit"
                   variant="primary"
-                  size="sm"
+                  size="lg"
                   disabled={disableCohortDetailSubmitBtn}
                 >
-                  Save New LT
+                  Save
                 </Button>
-
               </Box>
             </form>
           </Box>

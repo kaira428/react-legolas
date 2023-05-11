@@ -24,6 +24,7 @@ const CreateLearningTrackForm = () => {
 
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
+  const [numOfModules, setNumOfModules] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -111,6 +112,7 @@ const CreateLearningTrackForm = () => {
             country={country}
             countries={countries}
             disableCohortDetailSubmitBtn={disableCohortDetailSubmitBtn}
+            setNumOfModules={setNumOfModules}
           />
         </Grid>
       </Grid>

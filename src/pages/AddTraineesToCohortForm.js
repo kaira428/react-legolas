@@ -1,4 +1,4 @@
-import { Button, Container, Grid, TextField } from "@mui/material";
+import { Button, Container, Grid, Paper, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -23,32 +23,44 @@ const AddTraineesToCohortForm = () => {
   };
 
   const onSubmitHandler = (values, formikHelpers) => {
+    // console.log(
+    //   "🚀 ~ file: AddTraineesToCohortForm.js:31 ~ onSubmitHandler ~ values:",
+    //   values
+    // );
+
+    const result = {
+      ...values,
+      learningTrack: learningTrackName,
+      cohort: cohortNumber,
+      country,
+    };
     console.log(
-      "🚀 ~ file: AddTraineesToCohortForm.js:31 ~ onSubmitHandler ~ values:",
-      values
+      "🚀 ~ file: AddTraineesToCohortForm.js:32 ~ onSubmitHandler ~ result:",
+      result
     );
+
     formikHelpers.resetForm();
   };
 
   const location = useLocation();
 
   const learningTrackName = location.state.newLtName;
-  console.log(
-    "🚀 ~ file: AddTraineesToCohortForm.js:19 ~ AddTraineesToCohortForm ~ learningTrackName:",
-    learningTrackName
-  );
+  // console.log(
+  //   "🚀 ~ file: AddTraineesToCohortForm.js:19 ~ AddTraineesToCohortForm ~ learningTrackName:",
+  //   learningTrackName
+  // );
 
   const cohortNumber = location.state.newCohortNum;
-  console.log(
-    "🚀 ~ file: AddTraineesToCohortForm.js:22 ~ AddTraineesToCohortForm ~ cohortNumber:",
-    cohortNumber
-  );
+  // console.log(
+  //   "🚀 ~ file: AddTraineesToCohortForm.js:22 ~ AddTraineesToCohortForm ~ cohortNumber:",
+  //   cohortNumber
+  // );
 
   const country = location.state.country;
-  console.log(
-    "🚀 ~ file: AddTraineesToCohortForm.js:25 ~ AddTraineesToCohortForm ~ country:",
-    country
-  );
+  // console.log(
+  //   "🚀 ~ file: AddTraineesToCohortForm.js:25 ~ AddTraineesToCohortForm ~ country:",
+  //   country
+  // );
 
   return (
     <>
@@ -62,17 +74,36 @@ const AddTraineesToCohortForm = () => {
             <Container
               style={{
                 backgroundColor: "lightblue",
-                height: "100vh",
-                width: "100vw",
-              }}
+                height: "35vh",
+                width: "30vw",
+              }} sx={{Paper: true}}
             >
+              <Paper elevation={3} sx={{alignItems: "center", marginTop: "10px"}}>
+              <Grid container justifyContent="center">
+                <Grid item xs={12} sx={{textAlign: "center"}} margin={1}>
+                <Typography variant="h4" component="h3">
+                  {learningTrackName}
+                </Typography>
+                </Grid>
+                <Grid item xs={12} sx={{textAlign: "center"}}>
+                <Typography variant="h6" component="h4">
+                  {`Cohort: ${cohortNumber}`}
+                </Typography>
+                </Grid>
+                <Grid item xs={12} sx={{textAlign: "center"}}>
+                <Typography variant="h6" component="h4">
+                  {country.toUpperCase()}
+                </Typography>
+                </Grid>
+              </Grid>
               <Grid
                 container
                 spacing={3}
                 padding={3}
                 justifyContent="space-evenly"
+                alignItems={"center"}
               >
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={6} sx={{textAlign: "right"}}>
                   <CustomInput
                     name="firstName"
                     variant="outlined"
@@ -90,7 +121,7 @@ const AddTraineesToCohortForm = () => {
                     as={TextField}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={6} sx={{textAlign: "right"}}>
                   <CustomInput
                     name="email"
                     variant="outlined"
@@ -108,7 +139,7 @@ const AddTraineesToCohortForm = () => {
                     as={TextField}
                   />
                 </Grid>
-                <Grid container item justifyContent={"flex-start"}>
+                <Grid container item justifyContent={"center"}>
                   <CustomSelect
                     name="status"
                     id="status"
@@ -128,10 +159,12 @@ const AddTraineesToCohortForm = () => {
                   variant="contained"
                   color="primary"
                   disabled={!dirty || !isValid}
+                  style={{marginBottom: "10px"}}
                 >
                   Add Trainee
                 </Button>
               </Grid>
+              </Paper>
             </Container>
           </Form>
         )}
