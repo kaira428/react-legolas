@@ -18,10 +18,6 @@ import { createModuleObjectOrArrayForNewCohort } from "../helpers/createModuleOb
 
 const AddTraineesToCohortForm = () => {
   const data = useSelector((state) => state.supervisorDashboard);
-  console.log(
-    "🚀 ~ file: AddTraineesToCohortForm.js:7 ~ AddTraineesToCohortForm ~ data:",
-    data
-  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -84,7 +80,6 @@ const AddTraineesToCohortForm = () => {
       >
         {({ errors, isValid, touched, dirty }) => (
           <Form>
-            {/* <ModuleCard numOfModules={numOfModules} /> */}
             <Container
               style={{
                 // backgroundColor: "lightblue",

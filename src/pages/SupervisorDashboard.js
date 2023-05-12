@@ -1,4 +1,4 @@
-import { Container, Grid } from "@mui/material";
+import { Button, Container, Grid } from "@mui/material";
 import React from "react";
 import CohortProgressChart from "../components/CohortProgressChart";
 import CohortLeaderBoardCard from "../components/CohortLeaderBoardCard";
@@ -7,14 +7,16 @@ import TrainingDetails from "../components/TrainingDetails";
 import LearningTrackCard from "../components/LearningTrackCard";
 import CohortIdCard from "../components/CohortIdCard";
 import classes from "./SupervisorDashboard.module.css";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getAllLearningTracksThunk } from "../store/features/getAllLearningTracksThunk";
+import { useNavigate } from "react-router-dom";
 
 const SupervisorDashboard = () => {
   // setup React hooks
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const allLearningTracksInfo = useSelector(
     (state) => state.supervisorDashboard.listOfLearningTracks
   );
@@ -48,6 +50,16 @@ const SupervisorDashboard = () => {
             </div>
           )}
           <CohortLeaderBoardCard />
+          <Grid container item justifyContent={"center"} marginTop={5}>
+            <Button
+              variant="contained"
+              size="large"
+              hidden={false}
+              onClick={() => navigate("/pages/updateTraineeResultsForm")}
+            >
+              Update Trainee Results
+            </Button>
+          </Grid>
         </Grid>
 
         <Grid item className={classes.screen3}>
