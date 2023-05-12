@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CustomInput from "../components/CustomInput";
 import { Form, Formik } from "formik";
 import { traineeDetailsSchema } from "../schemas/traineeDetailsSchema";
@@ -24,6 +24,7 @@ const AddTraineesToCohortForm = () => {
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const initialValues = {
     firstName: "",
@@ -34,11 +35,6 @@ const AddTraineesToCohortForm = () => {
   };
 
   const onSubmitHandler = (values, formikHelpers) => {
-    // console.log(
-    //   "🚀 ~ file: AddTraineesToCohortForm.js:31 ~ onSubmitHandler ~ values:",
-    //   values
-    // );
-
     // create module array
     const moduleArray = createModuleObjectOrArrayForNewCohort(numOfModules);
 
@@ -49,13 +45,9 @@ const AddTraineesToCohortForm = () => {
       country,
       modules: moduleArray,
     };
-    console.log(
-      "🚀 ~ file: AddTraineesToCohortForm.js:32 ~ onSubmitHandler ~ newTrainee:",
-      newTrainee
-    );
 
     // save trainee object to MongoDB
-    dispatch(createNewTraineeThunk({newTrainee}));
+    dispatch(createNewTraineeThunk({ newTrainee }));
 
     formikHelpers.resetForm();
   };
@@ -178,7 +170,16 @@ const AddTraineesToCohortForm = () => {
                     </CustomSelect>
                   </Grid>
                 </Grid>
-                <Grid container item justifyContent={"center"}>
+                <Grid container item justifyContent={"space-evenly"}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                    style={{ marginBottom: "10px"}}
+                    onClick={() => navigate("/pages/supervisorDashboard")}
+                  >
+                    Back To Dashboard
+                  </Button>
                   <Button
                     type="submit"
                     variant="contained"
