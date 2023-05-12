@@ -31,6 +31,8 @@ const AddTraineesToCohortForm = () => {
   };
 
   const onSubmitHandler = (values, formikHelpers) => {
+    
+    console.log("🚀 ~ file: AddTraineesToCohortForm.js:34 ~ onSubmitHandler ~ values:", values)
     // create module array
     const moduleArray = createModuleObjectOrArrayForNewCohort(numOfModules);
 

@@ -1,8 +1,7 @@
 import { Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { traineeResultsSchema } from "../schemas/traineeResultsSchema";
 import {
   Box,
   Button,
@@ -19,6 +18,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import CustomInput from "../components/CustomInput";
 
 const UpdateTraineeResultsForm = () => {
   const data = useSelector((state) => state.supervisorDashboard);
@@ -38,10 +38,6 @@ const UpdateTraineeResultsForm = () => {
 
   const initialValues = {
     moduleScore: null,
-  };
-
-  const onSubmitHandler = (values) => {
-    console.log(values);
   };
 
   const learningTrackName = data.selectedLtName;
@@ -104,6 +100,38 @@ const UpdateTraineeResultsForm = () => {
   //     arrayOfTraineeAndSelectedModule
   //   );
 
+  const onSubmitHandler = (values) => {
+    console.log(values);
+    arrayOfTraineeAndSelectedModule.map((trainee, index) =>
+      console.log(`Index ${index} is ${trainee.firstName}`)
+    );
+
+    // setup updated array of trainees with updated score for the selected module
+    let requiredListOfTraineeArray = [...listOfTraineeForSelectedCohort];
+    console.log(
+      "🚀 ~ file: UpdateTraineeResultsForm.js:109 ~ onSubmitHandler ~ requiredListOfTraineeArray:",
+      requiredListOfTraineeArray
+    );
+
+    console.log(
+      "🚀 ~ file: UpdateTraineeResultsForm.js:116 ~ onSubmitHandler ~ requiredListOfTraineeArray:",
+      requiredListOfTraineeArray[0].modules
+    );
+
+    console.log(selectedModule);
+    console.log(Object.values(values)[0]);
+
+    // replace the required module result object
+    let testObject = {...requiredListOfTraineeArray[0].modules,
+      [`${selectedModule}`]: parseFloat(Object.values(values)[0]),
+    };
+
+    console.log(
+      "🚀 ~ file: UpdateTraineeResultsForm.js:114 ~ onSubmitHandler ~ testObj:",
+      testObject
+    );
+  };
+
   const moduleChangeHandler = (event) => {
     setSelectedModule(event.target.value);
   };
@@ -113,7 +141,7 @@ const UpdateTraineeResultsForm = () => {
       <Container
         style={{
           height: "18vh",
-          width: "30vw",
+          width: "40vw",
         }}
       >
         <Paper elevation={3} sx={{ alignItems: "center", marginTop: "15px" }}>
@@ -148,7 +176,7 @@ const UpdateTraineeResultsForm = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmitHandler}
-        validationSchema={traineeResultsSchema}
+        validator={() => ({})}
       >
         {({ errors, isValid, touched, dirty }) => (
           <Form>
@@ -157,40 +185,65 @@ const UpdateTraineeResultsForm = () => {
                 style={{
                   // backgroundColor: "lightblue",
                   height: "70vh",
-                  width: "30vw",
+                  width: "40vw",
                 }}
               >
                 <Paper elevation={3} sx={{ alignItems: "center" }}>
-                  <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 250 }} aria-label="simple table">
+                  <TableContainer
+                    component={Paper}
+                    sx={{ height: 450, border: "1px solid darkGrey" }}
+                  >
+                    <Table
+                      sx={{ height: "max-content", minWidth: 300 }}
+                      aria-label="simple table"
+                      stickyHeader
+                    >
                       <TableHead>
                         <TableRow>
                           <TableCell>Trainee Name</TableCell>
                           <TableCell align="center">Score</TableCell>
                         </TableRow>
                       </TableHead>
-                      <TableBody>
-                        {arrayOfTraineeAndSelectedModule.map((trainee) => (
-                          <TableRow
-                            key={trainee._id}
-                            sx={{
-                              "&:last-child td, &:last-child th": { border: 0 },
-                            }}
-                          >
-                            <TableCell component="th" scope="row">
-                              {`${trainee.firstName} ${trainee.lastName}`}
-                            </TableCell>
-                            <TableCell align="right" component="th" scope="row">
-                              <span>
-                                <input
+
+                      <TableBody sx={{ overflow: "auto" }}>
+                        {arrayOfTraineeAndSelectedModule.map(
+                          (trainee, index) => (
+                            <TableRow
+                              key={index}
+                              sx={{
+                                "&:last-child td, &:last-child th": {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell component="th" scope="row">
+                                {`${trainee.firstName} ${trainee.lastName}`}
+                              </TableCell>
+                              <TableCell
+                                align="right"
+                                component="th"
+                                scope="row"
+                              >
+                                <span>
+                                  <CustomInput
+                                    name={index}
+                                    variant="outlined"
+                                    color="primary"
+                                    as={TextField}
+                                    //   value={
+                                    //     trainee.score !== null ? trainee.score : "-"
+                                    //   }
+                                  />
+                                  {/* <input
                                   value={
                                     trainee.score !== null ? trainee.score : "-"
                                   }
-                                />
-                              </span>
-                            </TableCell>
-                          </TableRow>
-                        ))}
+                                /> */}
+                                </span>
+                              </TableCell>
+                            </TableRow>
+                          )
+                        )}
                       </TableBody>
                     </Table>
                   </TableContainer>
