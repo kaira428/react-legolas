@@ -6,6 +6,7 @@ import { getSelectedTraineesForSelectedLtIdThunk } from "./features/getSelectedT
 import { getAllCoachesAndMentorsThunk } from "./features/getAllCoachesAndMentorsThunk";
 import { createNewLearningTrackThunk } from "./features/createNewLearningTrackThunk";
 import { createNewTraineeThunk } from "./features/createNewTraineeThunk";
+import { updateTraineeResultsThunk } from "./features/updateTraineeResultsThunk";
 
 const initialState = {
   isLoading: false,
@@ -134,6 +135,18 @@ export const supervisorDashboardSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(createNewTraineeThunk.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updateTraineeResultsThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateTraineeResultsThunk.fulfilled, (state, action) => {
+        // update state.listOfTraineesForSelectedCohortNumber
+        // state.listOfTraineesForSelectedCohortNumber = action.payload.listOfTrainees;
+        
+        state.isLoading = false;
+      })
+      .addCase(updateTraineeResultsThunk.rejected, (state) => {
         state.isLoading = false;
       })
   },

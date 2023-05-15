@@ -54,6 +54,8 @@ const SupervisorDashboard = () => {
             </div>
           )}
           <CohortLeaderBoardCard />
+
+          {/* Hide button when no cohort is selected to display trainee results */}
           {listOfTraineesForSelectedCohortId.length > 0 && (
             <Grid container item justifyContent={"center"} marginTop={5}>
               <Button

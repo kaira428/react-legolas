@@ -19,6 +19,7 @@ import {
   Typography,
 } from "@mui/material";
 import CustomInput from "../components/CustomInput";
+import { updateTraineeResultsThunk } from "../store/features/updateTraineeResultsThunk";
 
 const UpdateTraineeResultsForm = () => {
   const data = useSelector((state) => state.supervisorDashboard);
@@ -113,7 +114,7 @@ const UpdateTraineeResultsForm = () => {
       requiredListOfTraineeArray
     );
 
-    let resultedTraineeObject = [];
+    let listOfTrainees = [];
 
     // use for loop to update the result for the required modules for each trainee in the cohort
     for (let i = 0; i < requiredListOfTraineeArray.length; i++) {
@@ -132,13 +133,16 @@ const UpdateTraineeResultsForm = () => {
         updatedObject
       );
 
-      resultedTraineeObject.push(updatedObject);
+      listOfTrainees.push(updatedObject);
     }
 
     console.log(
-      "🚀 ~ file: UpdateTraineeResultsForm.js:134 ~ onSubmitHandler ~ resultedTraineeObject:",
-      resultedTraineeObject
+      "🚀 ~ file: UpdateTraineeResultsForm.js:134 ~ onSubmitHandler ~ listOfTrainees:",
+      listOfTrainees
     );
+
+    // update trainee results to MongoDB
+    dispatch(updateTraineeResultsThunk({listOfTrainees}));
   };
 
   const moduleChangeHandler = (event) => {
