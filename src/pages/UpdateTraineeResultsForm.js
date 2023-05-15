@@ -113,22 +113,31 @@ const UpdateTraineeResultsForm = () => {
       requiredListOfTraineeArray
     );
 
+    let resultedTraineeObject = [];
+
+    // use for loop to update the result for the required modules for each trainee in the cohort
+    for (let i = 0; i < requiredListOfTraineeArray.length; i++) {
+      // replace the required module result object
+      let tempObject = {
+        ...requiredListOfTraineeArray[i].modules,
+        [`${selectedModule}`]: parseFloat(Object.values(values)[i]),
+      };
+
+      let updatedObject = { ...requiredListOfTraineeArray[i] };
+
+      updatedObject.modules = tempObject;
+
+      console.log(
+        "🚀 ~ file: UpdateTraineeResultsForm.js:125 ~ onSubmitHandler ~ updatedObject:",
+        updatedObject
+      );
+
+      resultedTraineeObject.push(updatedObject);
+    }
+
     console.log(
-      "🚀 ~ file: UpdateTraineeResultsForm.js:116 ~ onSubmitHandler ~ requiredListOfTraineeArray:",
-      requiredListOfTraineeArray[0].modules
-    );
-
-    console.log(selectedModule);
-    console.log(Object.values(values)[0]);
-
-    // replace the required module result object
-    let testObject = {...requiredListOfTraineeArray[0].modules,
-      [`${selectedModule}`]: parseFloat(Object.values(values)[0]),
-    };
-
-    console.log(
-      "🚀 ~ file: UpdateTraineeResultsForm.js:114 ~ onSubmitHandler ~ testObj:",
-      testObject
+      "🚀 ~ file: UpdateTraineeResultsForm.js:134 ~ onSubmitHandler ~ resultedTraineeObject:",
+      resultedTraineeObject
     );
   };
 

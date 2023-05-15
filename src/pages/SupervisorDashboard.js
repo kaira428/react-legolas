@@ -27,6 +27,10 @@ const SupervisorDashboard = () => {
     dispatch(getAllLearningTracksThunk());
   }
 
+  const listOfTraineesForSelectedCohortId = useSelector(
+    (state) => state.supervisorDashboard.listOfTraineesForSelectedCohortNumber
+  );
+
   return (
     <Container sx={{ marginTop: 5 }}>
       <Grid
@@ -50,16 +54,18 @@ const SupervisorDashboard = () => {
             </div>
           )}
           <CohortLeaderBoardCard />
-          <Grid container item justifyContent={"center"} marginTop={5}>
-            <Button
-              variant="contained"
-              size="large"
-              hidden={false}
-              onClick={() => navigate("/pages/updateTraineeResultsForm")}
-            >
-              Update Trainee Results
-            </Button>
-          </Grid>
+          {listOfTraineesForSelectedCohortId.length > 0 && (
+            <Grid container item justifyContent={"center"} marginTop={5}>
+              <Button
+                variant="contained"
+                size="large"
+                hidden={false}
+                onClick={() => navigate("/pages/updateTraineeResultsForm")}
+              >
+                Update Trainee Results
+              </Button>
+            </Grid>
+          )}
         </Grid>
 
         <Grid item className={classes.screen3}>
