@@ -142,8 +142,8 @@ export const supervisorDashboardSlice = createSlice({
       })
       .addCase(updateTraineeResultsThunk.fulfilled, (state, action) => {
         // update state.listOfTraineesForSelectedCohortNumber
-        // state.listOfTraineesForSelectedCohortNumber = action.payload.listOfTrainees;
-        
+        state.listOfTraineesForSelectedCohortNumber = action.payload;
+       
         state.isLoading = false;
       })
       .addCase(updateTraineeResultsThunk.rejected, (state) => {

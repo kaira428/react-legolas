@@ -10,9 +10,9 @@ export async function updateTraineeResults(listOfTrainees) {
 
     const response = await user.functions.updateTraineeResults(listOfTrainees);
     
-    console.log("🚀 ~ file: updateTraineeResults.js:12 ~ updateTraineeResults ~ response:", response)
+    console.log("🚀 ~ file: updateTraineeResults.js:13 ~ updateTraineeResults ~ response:", response)
     
-    return "Trainee results updated";
+    return response;
 
   } catch (error) {
     console.error(error);

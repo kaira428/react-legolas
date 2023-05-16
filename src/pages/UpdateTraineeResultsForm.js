@@ -20,19 +20,14 @@ import {
 } from "@mui/material";
 import CustomInput from "../components/CustomInput";
 import { updateTraineeResultsThunk } from "../store/features/updateTraineeResultsThunk";
+import { getSelectedCohortTraineesThunk } from "../store/features/getSelectedCohortTraineesThunk";
 
 const UpdateTraineeResultsForm = () => {
   const data = useSelector((state) => state.supervisorDashboard);
-  console.log(
-    "🚀 ~ file: UpdateTraineeResultsForm.js:7 ~ UpdateTraineeResultsForm ~ data:",
-    data
-  );
+
+  const isLoading = useSelector((state) => state.supervisorDashboard.isLoading);
 
   const [selectedModule, setSelectedModule] = useState(null);
-  console.log(
-    "🚀 ~ file: UpdateTraineeResultsForm.js:30 ~ UpdateTraineeResultsForm ~ selectedModule:",
-    selectedModule
-  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,39 +37,16 @@ const UpdateTraineeResultsForm = () => {
   };
 
   const learningTrackName = data.selectedLtName;
-  //   console.log(
-  //     "🚀 ~ file: UpdateTraineeResultsForm.js:24 ~ UpdateTraineeResultsForm ~ learningTrackName:",
-  //     learningTrackName
-  //   );
 
   const cohortNumber = data.cohortDetailsForSelectedCohortNumber.cohortNum;
-  //   console.log(
-  //     "🚀 ~ file: UpdateTraineeResultsForm.js:27 ~ UpdateTraineeResultsForm ~ cohortNumber:",
-  //     cohortNumber
-  //   );
-
-  const listOfCohorts = data.listOfCohortNumbers;
-  //   console.log(
-  //     "🚀 ~ file: UpdateTraineeResultsForm.js:30 ~ UpdateTraineeResultsForm ~ listOfCohorts:",
-  //     listOfCohorts
-  //   );
 
   const listOfTraineeForSelectedCohort =
     data.listOfTraineesForSelectedCohortNumber;
-
-  //   console.log(
-  //     "🚀 ~ file: UpdateTraineeResultsForm.js:33 ~ UpdateTraineeResultsForm ~ listOfTraineeForSelectedCohort:",
-  //     listOfTraineeForSelectedCohort
-  //   );
 
   // convert module object to array of modules
   const arrayOfModulesForSelectedCohort = Object.entries(
     listOfTraineeForSelectedCohort[0].modules
   );
-  //   console.log(
-  //     "🚀 ~ file: UpdateTraineeResultsForm.js:67 ~ UpdateTraineeResultsForm ~ arrayOfModulesForSelectedCohort:",
-  //     arrayOfModulesForSelectedCohort
-  //   );
 
   let arrayOfTraineeAndSelectedModule = [];
 
@@ -87,6 +59,7 @@ const UpdateTraineeResultsForm = () => {
           lastName: trainee.lastName,
           module: selectedModule,
           score: trainee.modules[selectedModule],
+          status: trainee.status,
         };
       }
     );
@@ -96,15 +69,15 @@ const UpdateTraineeResultsForm = () => {
     getTraineeResultForSelectedModuleArray();
   }
 
-  //   console.log(
-  //     "🚀 ~ file: UpdateTraineeResultsForm.js:84 ~ UpdateTraineeResultsForm ~ arrayOfTraineeAndSelectedModule:",
-  //     arrayOfTraineeAndSelectedModule
-  //   );
-
-  const onSubmitHandler = (values) => {
+  const onSubmitHandler = (values, formikHelpers) => {
     console.log(values);
     arrayOfTraineeAndSelectedModule.map((trainee, index) =>
       console.log(`Index ${index} is ${trainee.firstName}`)
+    );
+
+    console.log(
+      "🚀 ~ file: UpdateTraineeResultsForm.js:78 ~ onSubmitHandler ~ formikHelpers:",
+      formikHelpers
     );
 
     // setup updated array of trainees with updated score for the selected module
@@ -118,10 +91,35 @@ const UpdateTraineeResultsForm = () => {
 
     // use for loop to update the result for the required modules for each trainee in the cohort
     for (let i = 0; i < requiredListOfTraineeArray.length; i++) {
+
+      let currentScore = requiredListOfTraineeArray[i].modules[`${selectedModule}`];
+      console.log("🚀 ~ file: UpdateTraineeResultsForm.js:94 ~ onSubmitHandler ~ currentScore:", currentScore)
+
+      let tempScore;
+
+      console.log("values[i]: " + values[i])
+
       // replace the required module result object
+      if (currentScore >= 0 && values[i] === "") {
+        tempScore = currentScore;
+      } else if (currentScore >= 0 && values[i] !== "" && !(Number.isNaN(parseFloat(Object.values(values)[i])))) {
+        tempScore = parseFloat(Object.values(values)[i]);
+      }
+      else if (currentScore >= 0 && Number.isNaN(parseFloat(Object.values(values)[i]))){
+        tempScore = currentScore;
+      }
+      else
+      {
+        tempScore = 0;
+      }
+
+      // tempScore = Number.isNaN(parseFloat(Object.values(values)[i]))
+      //   ? 0
+      //   : parseFloat(Object.values(values)[i]);
+
       let tempObject = {
         ...requiredListOfTraineeArray[i].modules,
-        [`${selectedModule}`]: parseFloat(Object.values(values)[i]),
+        [`${selectedModule}`]: tempScore,
       };
 
       let updatedObject = { ...requiredListOfTraineeArray[i] };
@@ -142,7 +140,11 @@ const UpdateTraineeResultsForm = () => {
     );
 
     // update trainee results to MongoDB
-    dispatch(updateTraineeResultsThunk({listOfTrainees}));
+    dispatch(updateTraineeResultsThunk({ listOfTrainees }));
+
+    // reset the form
+    // formikHelpers.resetForm({values: {}});
+    
   };
 
   const moduleChangeHandler = (event) => {
@@ -153,7 +155,7 @@ const UpdateTraineeResultsForm = () => {
     <>
       <Container
         style={{
-          height: "18vh",
+          height: "20vh",
           width: "40vw",
         }}
       >
@@ -168,6 +170,7 @@ const UpdateTraineeResultsForm = () => {
               </Typography>
             </Grid>
           </Grid>
+
           <Grid container item justifyContent={"center"}>
             <Box sx={{ width: "150px", margin: "20px" }}>
               <TextField
@@ -186,6 +189,15 @@ const UpdateTraineeResultsForm = () => {
           </Grid>
         </Paper>
       </Container>
+      {isLoading && (
+        <div className="d-flex justify-content-center">
+          <div
+            className="spinner-border text-primary"
+            style={{ width: "5rem", height: "5rem" }}
+            role="status"
+          ></div>
+        </div>
+      )}
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmitHandler}
@@ -197,7 +209,7 @@ const UpdateTraineeResultsForm = () => {
               <Container
                 style={{
                   // backgroundColor: "lightblue",
-                  height: "70vh",
+                  height: "60vh",
                   width: "40vw",
                 }}
               >
@@ -213,8 +225,39 @@ const UpdateTraineeResultsForm = () => {
                     >
                       <TableHead>
                         <TableRow>
-                          <TableCell>Trainee Name</TableCell>
-                          <TableCell align="center">Score</TableCell>
+                          <TableCell align="center">
+                            <span>
+                              <Typography
+                                variant="body1"
+                                component="h6"
+                                sx={{ fontWeight: "bold" }}
+                              >
+                                Trainee Name
+                              </Typography>
+                            </span>
+                          </TableCell>
+                          <TableCell align="center">
+                            <span>
+                              <Typography
+                                variant="body1"
+                                component="h6"
+                                sx={{ fontWeight: "bold" }}
+                              >
+                                Current Score
+                              </Typography>
+                            </span>
+                          </TableCell>
+                          <TableCell align="center">
+                            <span>
+                              <Typography
+                                variant="body1"
+                                component="h6"
+                                sx={{ fontWeight: "bold" }}
+                              >
+                                Updated Score
+                              </Typography>
+                            </span>
+                          </TableCell>
                         </TableRow>
                       </TableHead>
 
@@ -229,11 +272,46 @@ const UpdateTraineeResultsForm = () => {
                                 },
                               }}
                             >
-                              <TableCell component="th" scope="row">
-                                {`${trainee.firstName} ${trainee.lastName}`}
+                              <TableCell
+                                align="center"
+                                component="th"
+                                scope="row"
+                              >
+                                <span>
+                                  <Typography
+                                    variant="body1"
+                                    component="p"
+                                    sx={
+                                      trainee.status === "InActive"
+                                        ? { backgroundColor: "grey" }
+                                        : ""
+                                    }
+                                  >
+                                    {trainee.firstName + " " + trainee.lastName}
+                                  </Typography>
+                                </span>
                               </TableCell>
                               <TableCell
-                                align="right"
+                                align="center"
+                                component="th"
+                                scope="row"
+                              >
+                                <span>
+                                  <Typography
+                                    variant="body1"
+                                    component="p"
+                                    sx={
+                                      trainee.status === "InActive"
+                                        ? { backgroundColor: "grey" }
+                                        : ""
+                                    }
+                                  >
+                                    {trainee.score}
+                                  </Typography>
+                                </span>
+                              </TableCell>
+                              <TableCell
+                                align="center"
                                 component="th"
                                 scope="row"
                               >
@@ -243,15 +321,12 @@ const UpdateTraineeResultsForm = () => {
                                     variant="outlined"
                                     color="primary"
                                     as={TextField}
-                                    //   value={
-                                    //     trainee.score !== null ? trainee.score : "-"
-                                    //   }
+                                    disabled={
+                                      trainee.status === "InActive"
+                                        ? true
+                                        : false
+                                    }
                                   />
-                                  {/* <input
-                                  value={
-                                    trainee.score !== null ? trainee.score : "-"
-                                  }
-                                /> */}
                                 </span>
                               </TableCell>
                             </TableRow>
@@ -270,7 +345,9 @@ const UpdateTraineeResultsForm = () => {
                   <Button
                     variant="contained"
                     color="secondary"
-                    onClick={() => navigate("/pages/supervisorDashboard")}
+                    onClick={() => {
+                      dispatch(getSelectedCohortTraineesThunk({cohortNum: cohortNumber}))
+                      navigate("/pages/supervisorDashboard")}}
                   >
                     Back To Dashboard
                   </Button>
