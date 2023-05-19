@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import CreateLearningTrackForm from "./pages/CreateLearningTrackForm";
 import AddTraineesToCohortForm from "./pages/AddTraineesToCohortForm";
 import UpdateTraineeResultsForm from "./pages/UpdateTraineeResultsForm";
+import CreateNewCohortForm from "./pages/CreateNewCohortForm";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route index element={<SupervisorLanding />} />
           <Route path="supervisorLanding" element={<SupervisorLanding />} />
           <Route path="createLearningTrackForm" element={<CreateLearningTrackForm />} />
+          <Route path="createNewCohortForm" element={<CreateNewCohortForm />} />
           <Route path="addTraineesToCohortForm" element={<AddTraineesToCohortForm />} />
           <Route path="updateTraineeResultsForm" element={<UpdateTraineeResultsForm />} />
           <Route path="supervisorDashboard" element={<SupervisorDashboard />}>

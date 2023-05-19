@@ -32,9 +32,7 @@ const UpdateTraineeResultsForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const initialValues = {
-    moduleScore: null,
-  };
+  const initialValues = {};
 
   const learningTrackName = data.selectedLtName;
 

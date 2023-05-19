@@ -22,6 +22,10 @@ const SupervisorDashboard = () => {
   );
   const isLoading = useSelector((state) => state.supervisorDashboard.isLoading);
 
+  const ltName = useSelector(
+    (state) => state.supervisorDashboard.selectedLtName
+  );
+
   if (allLearningTracksInfo.length === 0) {
     // load LT list from DB is list is empty
     dispatch(getAllLearningTracksThunk());
@@ -65,6 +69,21 @@ const SupervisorDashboard = () => {
                 onClick={() => navigate("/pages/updateTraineeResultsForm")}
               >
                 Update Trainee Results
+              </Button>
+            </Grid>
+          )}
+
+          {/* Hide button when no LT is selected */}
+          {ltName !== "" && (
+            <Grid container item justifyContent={"center"} marginTop={5}>
+              <Button
+                variant="contained"
+                size="large"
+                hidden={false}
+                onClick={() => navigate("/pages/createNewCohortForm")
+                }
+              >
+                Create New Cohort for Selected LT
               </Button>
             </Grid>
           )}
