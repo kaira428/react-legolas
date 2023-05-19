@@ -2,8 +2,11 @@ import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import { Box, Paper, Typography } from "@mui/material";
 
-const CreateNewLearningTrack = ({setNewLtName, setDisableSubmitBtn, disableSubmitBtn}) => {
-
+const CreateNewLearningTrack = ({
+  setNewLtName,
+  setDisableSubmitBtn,
+  disableSubmitBtn,
+}) => {
   const inputLtRef = useRef("");
 
   const learningTrackList = useSelector(
@@ -17,7 +20,9 @@ const CreateNewLearningTrack = ({setNewLtName, setDisableSubmitBtn, disableSubmi
 
     // check if LT exists
     const ltNameExist = learningTrackList.find(
-      (lt) => lt.name === enteredLtName
+      (lt) =>
+        lt.name.toLowerCase().trim().split(" ").join("") ===
+        enteredLtName.toLowerCase().trim().split(" ").join("")
     );
 
     if (ltNameExist) {

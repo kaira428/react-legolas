@@ -15,7 +15,7 @@ import { countries } from "../data/listOfCountries";
 import { object, string, number, date, ValidationError } from "yup";
 import { getAllCoachesAndMentorsThunk } from "../store/features/getAllCoachesAndMentorsThunk";
 
-const CreateNewCohort = () => {
+const CreateNewCohort = ({onSubmitCohortHandler}) => {
   const learningTrackName = useSelector(
     (state) => state.supervisorDashboard.selectedLtName
   );
@@ -82,10 +82,13 @@ const CreateNewCohort = () => {
       mentorName: values.mentorName,
       coachName: values.coachName,
       country: values.country,
+      // number of modules missing
     };
 
     console.log(newCohort)
     formikHelpers.resetForm({ values: initialValues() });
+
+    onSubmitCohortHandler({newCohort, numOfModules: values.numOfModules});
 
     return;
   };

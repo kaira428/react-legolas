@@ -51,27 +51,28 @@ const AddTraineesToCohortForm = () => {
   };
 
   const location = useLocation();
+  console.log("🚀 ~ file: AddTraineesToCohortForm.js:54 ~ AddTraineesToCohortForm ~ location.state:", location.state)
 
-  const learningTrackName = location.state.newLtName;
-  // console.log(
-  //   "🚀 ~ file: AddTraineesToCohortForm.js:19 ~ AddTraineesToCohortForm ~ learningTrackName:",
-  //   learningTrackName
-  // );
+  const learningTrackName = location.state.newLearningTrack.name;
+  console.log(
+    "🚀 ~ file: AddTraineesToCohortForm.js:19 ~ AddTraineesToCohortForm ~ learningTrackName:",
+    learningTrackName
+  );
 
-  const cohortNumber = location.state.newCohortNum;
-  // console.log(
-  //   "🚀 ~ file: AddTraineesToCohortForm.js:22 ~ AddTraineesToCohortForm ~ cohortNumber:",
-  //   cohortNumber
-  // );
+  const cohortNumber = location.state.newLearningTrack.cohorts[0].cohortNum;
+  console.log(
+    "🚀 ~ file: AddTraineesToCohortForm.js:22 ~ AddTraineesToCohortForm ~ cohortNumber:",
+    cohortNumber
+  );
 
-  const country = location.state.country;
-  // console.log(
-  //   "🚀 ~ file: AddTraineesToCohortForm.js:25 ~ AddTraineesToCohortForm ~ country:",
-  //   country
-  // );
+  const country = location.state.newLearningTrack.cohorts[0].country;
+  console.log(
+    "🚀 ~ file: AddTraineesToCohortForm.js:25 ~ AddTraineesToCohortForm ~ country:",
+    country
+  );
 
   const numOfModules = location.state.numOfModules;
-  // console.log("🚀 ~ file: AddTraineesToCohortForm.js:66 ~ AddTraineesToCohortForm ~ numOfModules:", numOfModules)
+  console.log("🚀 ~ file: AddTraineesToCohortForm.js:66 ~ AddTraineesToCohortForm ~ numOfModules:", numOfModules)
 
   return (
     <>

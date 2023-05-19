@@ -9,6 +9,7 @@ import CreateNewCohortDetails from "../components/CreateNewCohortDetails";
 import { countries } from "../data/listOfCountries";
 import { createNewLearningTrackThunk } from "../store/features/createNewLearningTrackThunk";
 import { useNavigate } from "react-router-dom";
+import CreateNewCohort from "../components/CreateNewCohort";
 
 
 const CreateLearningTrackForm = () => {
@@ -41,16 +42,17 @@ const CreateLearningTrackForm = () => {
     dispatch(getAllLearningTracksThunk());
   }
 
-  const onSubmitCohortDetailsHandler = (event) => {
-    event.preventDefault();
-
+  const onSubmitCohortDetailsHandler = (cohortData) => {
+    console.log("🚀 ~ file: CreateLearningTrackForm.js:46 ~ onSubmitCohortDetailsHandler ~ cohortData:", cohortData)
+    
     const newLearningTrack = {
       name: newLtName,
       cohorts: [
-        { cohortNum, startDate, endDate, mentorName, coachName, country },
+        // { cohortNum, startDate, endDate, mentorName, coachName, country },
+        {...cohortData.newCohort}
       ],
     };
-    // console.log("🚀 ~ file: CreateLearningTrackForm.js:45 ~ onSubmitCohortDetailsHandler ~ newLearningTrack:", newLearningTrack)
+    console.log("🚀 ~ file: CreateLearningTrackForm.js:54 ~ onSubmitCohortDetailsHandler ~ newLearningTrack:", newLearningTrack)
 
     // dispatch createNewLt thunk
     dispatch(createNewLearningTrackThunk({ newLearningTrack }));
@@ -59,7 +61,8 @@ const CreateLearningTrackForm = () => {
 
     // navigate to AddTraineesToCohort page
     navigate("/pages/addTraineesToCohortForm", {
-      state: { newLtName, newCohortNum: cohortNum, country, numOfModules },
+      // state: { newLtName, newCohortNum: cohortNum, country, numOfModules },
+      state: { newLearningTrack, numOfModules: cohortData.numOfModules },
     });
   };
 
@@ -102,7 +105,9 @@ const CreateLearningTrackForm = () => {
               ></div>
             </div>
           )}
-          <CreateNewCohortNumber
+
+          <CreateNewCohort onSubmitCohortHandler={onSubmitCohortDetailsHandler}/>
+          {/* <CreateNewCohortNumber
             disableSubmitBtn={disableSubmitBtn}
             setDisableCohortNumberSubmitBtn={setDisableCohortNumberSubmitBtn}
             setCohortNum={setCohortNum}
@@ -126,7 +131,7 @@ const CreateLearningTrackForm = () => {
             disableCohortDetailSubmitBtn={disableCohortDetailSubmitBtn}
             setNumOfModules={setNumOfModules}
             numOfModules={numOfModules}
-          />
+          /> */}
 
         </Grid>
       </Grid>
