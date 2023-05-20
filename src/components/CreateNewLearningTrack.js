@@ -1,90 +1,112 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, CircularProgress, Grid, Paper, Typography } from "@mui/material";
+import { Field, Form, Formik } from "formik";
+import { TextField } from "formik-material-ui";
+import { object, string, ValidationError } from "yup";
 
 const CreateNewLearningTrack = ({
-  setNewLtName,
-  setDisableSubmitBtn,
-  disableSubmitBtn,
+  setNewLtName
 }) => {
-  const inputLtRef = useRef("");
+   const [hideSubmitBtn, setHideSubmitBtn] = useState(false);
 
   const learningTrackList = useSelector(
     (state) => state.supervisorDashboard.listOfLearningTracks
   );
 
-  const onSubmitLtHandler = (event) => {
-    event.preventDefault();
+  const onSubmitLtHandler = (values) => {
 
-    const enteredLtName = inputLtRef.current.value;
+    setNewLtName(values.learningTrackName);
 
-    // check if LT exists
+    setHideSubmitBtn(true);
+  };
+
+  const checkIfLearningTrackIsUsed = (learningTrackName) => {
     const ltNameExist = learningTrackList.find(
       (lt) =>
         lt.name.toLowerCase().trim().split(" ").join("") ===
-        enteredLtName.toLowerCase().trim().split(" ").join("")
+        learningTrackName.toLowerCase().trim().split(" ").join("")
     );
 
     if (ltNameExist) {
-      // reset Lt input file to blank and return focus to input field
-      inputLtRef.current.value = "";
-      inputLtRef.current.focus();
-      alert("Learning Track Name Exist. Please re-enter new LT Name");
-    } else {
-      console.log(enteredLtName);
-      setNewLtName(enteredLtName);
-      setDisableSubmitBtn(true);
+      // LT Name already in use
+      return new ValidationError(
+        "Learning Track Name already in use.",
+        undefined,
+        "learningTrackName"
+      );
     }
+
+    return true;
   };
 
   return (
-    <Paper elevation={3} sx={{ width: 1 }}>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          backgroundColor: "lightblue",
-        }}
-      >
-        <Typography
-          variant="h4"
-          component="h3"
-          sx={{ textAlign: "center", padding: "25px 40px 25px 25px" }}
-        >
-          Create New Learning Track
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <form onSubmit={onSubmitLtHandler}>
-          <div className="mb-3">
-            {/* <label htmlFor="LtName" className="form-label" /> */}
-            <input
-              type="text"
-              ref={inputLtRef}
-              className="form-control"
-              id="LtName"
-              style={{ marginTop: "10px" }}
-              disabled={disableSubmitBtn}
-              autoFocus={!disableSubmitBtn}
-            />
-          </div>
-          <div style={{ textAlign: "center", marginBottom: "25px" }}>
-            <button
-              type="submit"
-              className="btn btn-primary"
-              hidden={disableSubmitBtn}
-            >
-              Submit
-            </button>
-          </div>
-        </form>
-      </Box>
-    </Paper>
+    <>
+      <Card>
+        <CardContent>
+          <Formik
+            initialValues={{ learningTrackName: "" }}
+            validationSchema={object({
+              learningTrackName: string()
+                .required("Required")
+                .test((learningTrackName) =>
+                  checkIfLearningTrackIsUsed(learningTrackName)
+                ),
+            })}
+            onSubmit={onSubmitLtHandler}
+          >
+            {({ values, errors, isSubmitting, resetForm }) => (
+              <Form autoComplete="off">
+                <Grid
+                  container
+                  direction="column"
+                  spacing={3}
+                  sx={{ alignContent: "center" }}
+                >
+                  <Grid item>
+                    <Typography
+                      variant="h4"
+                      component="h3"
+                      sx={{
+                        textAlign: "center",
+                      }}
+                    >
+                      Create New Learning Track
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Field
+                      fullWidth
+                      name="learningTrackName"
+                      type="text"
+                      component={TextField}
+                      label="Learning Track Name"
+                    />
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      disabled={isSubmitting}
+                      hidden={hideSubmitBtn}
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      startIcon={
+                        isSubmitting ? (
+                          <CircularProgress size="0.8rem" />
+                        ) : undefined
+                      }
+                    >
+                      {isSubmitting ? "Submitting" : "Submit"}
+                    </Button>
+                  </Grid>
+                </Grid>
+                <pre>{JSON.stringify({ values, errors }, null, 4)}</pre>
+              </Form>
+            )}
+          </Formik>
+        </CardContent>
+      </Card>
+    </>
   );
 };
 

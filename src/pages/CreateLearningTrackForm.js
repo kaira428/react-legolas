@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllLearningTracksThunk } from "../store/features/getAllLearningTracksThunk";
 import classes from "./CreateLearningTrackForm.module.css";
 import CreateNewLearningTrack from "../components/CreateNewLearningTrack";
-import CreateNewCohortNumber from "../components/CreateNewCohortNumber";
-import CreateNewCohortDetails from "../components/CreateNewCohortDetails";
-import { countries } from "../data/listOfCountries";
 import { createNewLearningTrackThunk } from "../store/features/createNewLearningTrackThunk";
 import { useNavigate } from "react-router-dom";
 import CreateNewCohort from "../components/CreateNewCohort";
@@ -14,19 +11,6 @@ import CreateNewCohort from "../components/CreateNewCohort";
 
 const CreateLearningTrackForm = () => {
   const [newLtName, setNewLtName] = useState();
-  const [cohortNum, setCohortNum] = useState();
-  const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
-  const [coachName, setCoachName] = useState("");
-  const [mentorName, setMentorName] = useState("");
-  const [disableCohortNumberSubmitBtn, setDisableCohortNumberSubmitBtn] =
-    useState(false);
-  const [disableCohortDetailSubmitBtn, setDisableCohortDetailSubmitBtn] =
-    useState(true);
-  const [country, setCountry] = useState();
-
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
-  const [numOfModules, setNumOfModules] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -35,6 +19,8 @@ const CreateLearningTrackForm = () => {
   const learningTrackList = useSelector(
     (state) => state.supervisorDashboard.listOfLearningTracks
   );
+  console.log("🚀 ~ file: CreateLearningTrackForm.js:38 ~ CreateLearningTrackForm ~ learningTrackList:", learningTrackList)
+  
   const isLoading = useSelector((state) => state.supervisorDashboard.isLoading);
 
   if (learningTrackList.length === 0) {
@@ -48,7 +34,6 @@ const CreateLearningTrackForm = () => {
     const newLearningTrack = {
       name: newLtName,
       cohorts: [
-        // { cohortNum, startDate, endDate, mentorName, coachName, country },
         {...cohortData.newCohort}
       ],
     };
@@ -57,28 +42,12 @@ const CreateLearningTrackForm = () => {
     // dispatch createNewLt thunk
     dispatch(createNewLearningTrackThunk({ newLearningTrack }));
 
-    setDisableCohortDetailSubmitBtn(true);
-
     // navigate to AddTraineesToCohort page
     navigate("/pages/addTraineesToCohortForm", {
       // state: { newLtName, newCohortNum: cohortNum, country, numOfModules },
       state: { newLearningTrack, numOfModules: cohortData.numOfModules },
     });
   };
-
-  // activate submit button only when all the 5 fields are populated
-  useEffect(() => {
-    if (
-      startDate &&
-      endDate &&
-      mentorName &&
-      coachName &&
-      country &&
-      numOfModules > 0
-    ) {
-      setDisableCohortDetailSubmitBtn(false);
-    }
-  }, [startDate, endDate, mentorName, coachName, country, numOfModules]);
 
   return (
     <Container
@@ -90,8 +59,6 @@ const CreateLearningTrackForm = () => {
         <Grid item>
           <CreateNewLearningTrack
             setNewLtName={setNewLtName}
-            setDisableSubmitBtn={setDisableSubmitBtn}
-            disableSubmitBtn={disableSubmitBtn}
           />
           {isLoading && (
             <div
@@ -100,38 +67,13 @@ const CreateLearningTrackForm = () => {
             >
               <div
                 className="spinner-border text-primary"
-                style={{ width: "5rem", height: "5rem" }}
+                style={{ width: "2rem", height: "2rem" }}
                 role="status"
-              ></div>
+              />
             </div>
           )}
 
-          <CreateNewCohort onSubmitCohortHandler={onSubmitCohortDetailsHandler}/>
-          {/* <CreateNewCohortNumber
-            disableSubmitBtn={disableSubmitBtn}
-            setDisableCohortNumberSubmitBtn={setDisableCohortNumberSubmitBtn}
-            setCohortNum={setCohortNum}
-            disableCohortNumberSubmitBtn={disableCohortNumberSubmitBtn}
-          />
-
-          <CreateNewCohortDetails
-            disableCohortNumberSubmitBtn={disableCohortNumberSubmitBtn}
-            onSubmitCohortDetailsHandler={onSubmitCohortDetailsHandler}
-            setStartDate={setStartDate}
-            startDate={startDate}
-            setEndDate={setEndDate}
-            endDate={endDate}
-            setCoachName={setCoachName}
-            coachName={coachName}
-            setMentorName={setMentorName}
-            mentorName={mentorName}
-            setCountry={setCountry}
-            country={country}
-            countries={countries}
-            disableCohortDetailSubmitBtn={disableCohortDetailSubmitBtn}
-            setNumOfModules={setNumOfModules}
-            numOfModules={numOfModules}
-          /> */}
+          {newLtName && <CreateNewCohort onSubmitCohortHandler={onSubmitCohortDetailsHandler} existingLt={false}/>}
 
         </Grid>
       </Grid>

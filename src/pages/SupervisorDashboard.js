@@ -52,7 +52,7 @@ const SupervisorDashboard = () => {
             <div className="d-flex justify-content-center">
               <div
                 className="spinner-border text-primary"
-                style={{ width: "5rem", height: "5rem" }}
+                style={{ width: "2rem", height: "2rem" }}
                 role="status"
               ></div>
             </div>
