@@ -9,6 +9,7 @@ const CohortIdCard = (props) => {
   const cohortIdForSelectedLtId = useSelector(
     (state) => state.supervisorDashboard.listOfCohortNumbers
   );
+  console.log("🚀 ~ file: CohortIdCard.js:12 ~ CohortIdCard ~ cohortIdForSelectedLtId:", cohortIdForSelectedLtId)
 
   const onClickHandler = (cohortNum) => {
     // get list of trainees in selected cohortNumber

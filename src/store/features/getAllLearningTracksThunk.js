@@ -9,8 +9,8 @@ export const getAllLearningTracksThunk = createAsyncThunk(
       const data = await getAllLearningTracks();
 
       // sort the cohort numbers in ascending order
-      data.forEach((cohort) =>
-        cohort.cohorts.sort((a, b) => a.cohortNum - b.cohortNum)
+      data.forEach((lt) =>
+        lt.cohorts.sort((a, b) => a.cohortNum - b.cohortNum)
       );
 
       return data;

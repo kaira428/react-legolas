@@ -8,6 +8,7 @@ import { createNewLearningTrackThunk } from "./features/createNewLearningTrackTh
 import { createNewTraineeThunk } from "./features/createNewTraineeThunk";
 import { updateTraineeResultsThunk } from "./features/updateTraineeResultsThunk";
 import { updateLtWithNewCohortThunk } from "./features/updateLtWithNewCohortThunk";
+import { refreshSupervisorDashboard4ltIdCohortIdThunk } from "./features/refreshSupervisorDashboard4ltIdCohortIdThunk";
 
 const initialState = {
   isLoading: false,
@@ -37,10 +38,16 @@ export const supervisorDashboardSlice = createSlice({
       );
 
       state.selectedLtId = ltCohortListForChosenLtId.ltId;
+      console.log("🚀 ~ file: supervisorDbSlice.js:40 ~ state.selectedLtId:", state.selectedLtId)
+      
       state.selectedLtName = ltCohortListForChosenLtId.ltName;
+      console.log("🚀 ~ file: supervisorDbSlice.js:43 ~ state.selectedLtName:", state.selectedLtName)
+      
       state.listOfCohortNumbers = ltCohortListForChosenLtId.cohortDetailsList;
-      state.listOfCohortsProgressForSelectedLtId =
-        ltCohortListForChosenLtId.cohortsProgress;
+      console.log("🚀 ~ file: supervisorDbSlice.js:46 ~ state.listOfCohortNumbers:", state.listOfCohortNumbers)
+      
+      state.listOfCohortsProgressForSelectedLtId = ltCohortListForChosenLtId.cohortsProgress;
+      console.log("🚀 ~ file: supervisorDbSlice.js:49 ~ state.listOfCohortsProgressForSelectedLtId:", state.listOfCohortsProgressForSelectedLtId)
     },
 
     resetSupervisorDashboardSlice: (state) => {
@@ -160,7 +167,18 @@ export const supervisorDashboardSlice = createSlice({
       .addCase(updateLtWithNewCohortThunk.rejected, (state) => {
         state.isLoading = false;
       })
-
+      .addCase(refreshSupervisorDashboard4ltIdCohortIdThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(refreshSupervisorDashboard4ltIdCohortIdThunk.fulfilled, (state, action) => {
+        console.log("🚀 ~ file: supervisorDbSlice.js:174 ~ .addCase ~ action.payload:", action.payload)
+        
+        state.isLoading = false;
+      })
+      .addCase(refreshSupervisorDashboard4ltIdCohortIdThunk.rejected, (state) => {
+        state.isLoading = false;
+      })
+      
       
   },
 });

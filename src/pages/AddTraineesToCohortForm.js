@@ -15,6 +15,10 @@ import { traineeDetailsSchema } from "../schemas/traineeDetailsSchema";
 import CustomSelect from "../components/CustomSelect";
 import { createNewTraineeThunk } from "../store/features/createNewTraineeThunk";
 import { createModuleObjectOrArrayForNewCohort } from "../helpers/createModuleObjectOrArrayForNewCohort";
+import { getAllLearningTracksThunk } from "../store/features/getAllLearningTracksThunk";
+import { refreshSupervisorDashboard4ltIdCohortIdThunk } from "../store/features/refreshSupervisorDashboard4ltIdCohortIdThunk";
+import { getSelectedTraineesForSelectedLtIdThunk } from "../store/features/getSelectedTraineesForSelectedLtIdThunk";
+import { getSelectedCohortTraineesThunk } from "../store/features/getSelectedCohortTraineesThunk";
 
 const AddTraineesToCohortForm = () => {
   const data = useSelector((state) => state.supervisorDashboard);
@@ -31,8 +35,10 @@ const AddTraineesToCohortForm = () => {
   };
 
   const onSubmitHandler = (values, formikHelpers) => {
-    
-    console.log("🚀 ~ file: AddTraineesToCohortForm.js:34 ~ onSubmitHandler ~ values:", values)
+    console.log(
+      "🚀 ~ file: AddTraineesToCohortForm.js:34 ~ onSubmitHandler ~ values:",
+      values
+    );
     // create module array
     const moduleArray = createModuleObjectOrArrayForNewCohort(numOfModules);
 
@@ -51,7 +57,10 @@ const AddTraineesToCohortForm = () => {
   };
 
   const location = useLocation();
-  console.log("🚀 ~ file: AddTraineesToCohortForm.js:54 ~ AddTraineesToCohortForm ~ location.state:", location.state)
+  console.log(
+    "🚀 ~ file: AddTraineesToCohortForm.js:54 ~ AddTraineesToCohortForm ~ location.state:",
+    location.state
+  );
 
   const learningTrackName = location.state.newLearningTrack.name;
   console.log(
@@ -72,7 +81,21 @@ const AddTraineesToCohortForm = () => {
   );
 
   const numOfModules = location.state.numOfModules;
-  console.log("🚀 ~ file: AddTraineesToCohortForm.js:66 ~ AddTraineesToCohortForm ~ numOfModules:", numOfModules)
+  console.log(
+    "🚀 ~ file: AddTraineesToCohortForm.js:66 ~ AddTraineesToCohortForm ~ numOfModules:",
+    numOfModules
+  );
+
+  const onSubmitBackToSupervisorDashboardHandler = () => {
+    // dispatch(refreshSupervisorDashboard4ltIdCohortIdThunk({ltName : learningTrackName, cohortNum : cohortNumber}));
+    dispatch(getAllLearningTracksThunk());
+    dispatch(getSelectedTraineesForSelectedLtIdThunk({
+      ltId: learningTrackName,
+    }));
+    // dispatch(getSelectedCohortTraineesThunk({ cohortNum : cohortNumber }))
+    
+    navigate("/pages/supervisorDashboard");
+  };
 
   return (
     <>
@@ -170,11 +193,12 @@ const AddTraineesToCohortForm = () => {
                 </Grid>
                 <Grid container item justifyContent={"space-evenly"}>
                   <Button
-                    type="submit"
+                    type="button"
+                    // type="submit"
                     variant="contained"
                     color="secondary"
-                    style={{ marginBottom: "10px"}}
-                    onClick={() => navigate("/pages/supervisorDashboard")}
+                    style={{ marginBottom: "10px" }}
+                    onClick={onSubmitBackToSupervisorDashboardHandler}
                   >
                     Back To Dashboard
                   </Button>

@@ -6,13 +6,14 @@ import { traineeDetailsBySelectedLtIdAndCohortId } from "../../helpers/superviso
 export const getSelectedCohortTraineesThunk = createAsyncThunk(
   "supervisorDashboard/getSelectedCohortTraineesThunk",
   async ({ cohortNum }, thunkAPI) => {
+  console.log("🚀 ~ file: getSelectedCohortTraineesThunk.js:9 ~ cohortNum:", cohortNum)
 
     try {
       const data = await getCohortTraineesForSelectedCohortNum(cohortNum);
 
       const leaderboardTraineeDetails = traineeDetailsBySelectedLtIdAndCohortId(data);
 
-      const selectedCohortInfo = thunkAPI
+      const selectedCohortInfo = await thunkAPI
         .getState()
         .supervisorDashboard.listOfCohortNumbers.find(
           (cohort) => cohort.cohortNum === cohortNum

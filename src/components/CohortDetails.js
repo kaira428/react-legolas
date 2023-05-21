@@ -9,8 +9,10 @@ const CohortDetails = () => {
   );
 
   const cohortInfo = result.cohortDetailsForSelectedCohortNumber;
+  console.log("🚀 ~ file: CohortDetails.js:12 ~ CohortDetails ~ cohortInfo:", cohortInfo)
 
   const numModulesNumTrainees = result.numTraineesNumModules;
+  console.log("🚀 ~ file: CohortDetails.js:15 ~ CohortDetails ~ numModulesNumTrainees:", numModulesNumTrainees)
 
   return (
     <Grid item sx={{ my: 8 }}>
