@@ -38,16 +38,29 @@ export const supervisorDashboardSlice = createSlice({
       );
 
       state.selectedLtId = ltCohortListForChosenLtId.ltId;
-      console.log("🚀 ~ file: supervisorDbSlice.js:40 ~ state.selectedLtId:", state.selectedLtId)
-      
+      console.log(
+        "🚀 ~ file: supervisorDbSlice.js:40 ~ state.selectedLtId:",
+        state.selectedLtId
+      );
+
       state.selectedLtName = ltCohortListForChosenLtId.ltName;
-      console.log("🚀 ~ file: supervisorDbSlice.js:43 ~ state.selectedLtName:", state.selectedLtName)
-      
+      console.log(
+        "🚀 ~ file: supervisorDbSlice.js:43 ~ state.selectedLtName:",
+        state.selectedLtName
+      );
+
       state.listOfCohortNumbers = ltCohortListForChosenLtId.cohortDetailsList;
-      console.log("🚀 ~ file: supervisorDbSlice.js:46 ~ state.listOfCohortNumbers:", state.listOfCohortNumbers)
-      
-      state.listOfCohortsProgressForSelectedLtId = ltCohortListForChosenLtId.cohortsProgress;
-      console.log("🚀 ~ file: supervisorDbSlice.js:49 ~ state.listOfCohortsProgressForSelectedLtId:", state.listOfCohortsProgressForSelectedLtId)
+      console.log(
+        "🚀 ~ file: supervisorDbSlice.js:46 ~ state.listOfCohortNumbers:",
+        state.listOfCohortNumbers
+      );
+
+      state.listOfCohortsProgressForSelectedLtId =
+        ltCohortListForChosenLtId.cohortsProgress;
+      console.log(
+        "🚀 ~ file: supervisorDbSlice.js:49 ~ state.listOfCohortsProgressForSelectedLtId:",
+        state.listOfCohortsProgressForSelectedLtId
+      );
     },
 
     resetSupervisorDashboardSlice: (state) => {
@@ -56,7 +69,28 @@ export const supervisorDashboardSlice = createSlice({
       state.cohortDetailsForSelectedCohortNumber = {};
       state.trainingStatus = "";
     },
+
+    refreshSupervisorDashboard: (state, action) => {
+      // refresh updatedListOfLearningTracks
+      const tempUpdatedListOfLearningTracks = [
+        ...state.listOfLearningTracks,
+        action.payload,
+      ];
+      // sort LT name alphabetically
+      tempUpdatedListOfLearningTracks.sort((a, b) => {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
+
+      state.listOfLearningTracks = tempUpdatedListOfLearningTracks;
+    },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(getAllLearningTracksThunk.pending, (state) => {
@@ -105,19 +139,18 @@ export const supervisorDashboardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getAllCoachesAndMentorsThunk.fulfilled, (state, action) => {
-
-        action.payload.forEach(list => {
-          if (list.hasOwnProperty('coaches')) {
-            const pre_sortedListOfCoaches = [...list.coaches]
+        action.payload.forEach((list) => {
+          if (list.hasOwnProperty("coaches")) {
+            const pre_sortedListOfCoaches = [...list.coaches];
             state.listOfCoaches = pre_sortedListOfCoaches.sort();
           }
-  
-          if (list.hasOwnProperty('mentors')) {
-            const pre_sortedListOfMentors = [...list.mentors]
+
+          if (list.hasOwnProperty("mentors")) {
+            const pre_sortedListOfMentors = [...list.mentors];
             state.listOfMentors = pre_sortedListOfMentors.sort();
-          }        
-        })
-        
+          }
+        });
+
         state.isLoading = false;
       })
       .addCase(getAllCoachesAndMentorsThunk.rejected, (state) => {
@@ -127,8 +160,11 @@ export const supervisorDashboardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(createNewLearningTrackThunk.fulfilled, (state, action) => {
-        console.log("🚀 ~ file: supervisorDbSlice.js:120 ~ .addCase ~ action.payload:", action.payload)
-        
+        console.log(
+          "🚀 ~ file: supervisorDbSlice.js:120 ~ .addCase ~ action.payload:",
+          action.payload
+        );
+
         state.isLoading = false;
       })
       .addCase(createNewLearningTrackThunk.rejected, (state) => {
@@ -138,8 +174,10 @@ export const supervisorDashboardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(createNewTraineeThunk.fulfilled, (state, action) => {
-
-        console.log("🚀 ~ file: supervisorDbSlice.js:133 ~ .addCase ~ action.payload:", action.payload)
+        console.log(
+          "🚀 ~ file: supervisorDbSlice.js:133 ~ .addCase ~ action.payload:",
+          action.payload
+        );
         state.isLoading = false;
       })
       .addCase(createNewTraineeThunk.rejected, (state) => {
@@ -151,7 +189,7 @@ export const supervisorDashboardSlice = createSlice({
       .addCase(updateTraineeResultsThunk.fulfilled, (state, action) => {
         // update state.listOfTraineesForSelectedCohortNumber
         state.listOfTraineesForSelectedCohortNumber = action.payload;
-       
+
         state.isLoading = false;
       })
       .addCase(updateTraineeResultsThunk.rejected, (state) => {
@@ -161,25 +199,34 @@ export const supervisorDashboardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(updateLtWithNewCohortThunk.fulfilled, (state, action) => {
-        
         state.isLoading = false;
       })
       .addCase(updateLtWithNewCohortThunk.rejected, (state) => {
         state.isLoading = false;
       })
-      .addCase(refreshSupervisorDashboard4ltIdCohortIdThunk.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(refreshSupervisorDashboard4ltIdCohortIdThunk.fulfilled, (state, action) => {
-        console.log("🚀 ~ file: supervisorDbSlice.js:174 ~ .addCase ~ action.payload:", action.payload)
-        
-        state.isLoading = false;
-      })
-      .addCase(refreshSupervisorDashboard4ltIdCohortIdThunk.rejected, (state) => {
-        state.isLoading = false;
-      })
-      
-      
+      .addCase(
+        refreshSupervisorDashboard4ltIdCohortIdThunk.pending,
+        (state) => {
+          state.isLoading = true;
+        }
+      )
+      .addCase(
+        refreshSupervisorDashboard4ltIdCohortIdThunk.fulfilled,
+        (state, action) => {
+          console.log(
+            "🚀 ~ file: supervisorDbSlice.js:174 ~ .addCase ~ action.payload:",
+            action.payload
+          );
+
+          state.isLoading = false;
+        }
+      )
+      .addCase(
+        refreshSupervisorDashboard4ltIdCohortIdThunk.rejected,
+        (state) => {
+          state.isLoading = false;
+        }
+      );
   },
 });
 
@@ -188,6 +235,7 @@ export const {
   getTraineeAndCohortDetailsList,
   resetSupervisorDashboardSlice,
   resetSupervisorDashboardSliceLeaderBoard,
+  refreshSupervisorDashboard,
 } = supervisorDashboardSlice.actions;
 
 export default supervisorDashboardSlice.reducer;

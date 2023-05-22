@@ -14,6 +14,8 @@ const CohortDetails = () => {
   const numModulesNumTrainees = result.numTraineesNumModules;
   console.log("🚀 ~ file: CohortDetails.js:15 ~ CohortDetails ~ numModulesNumTrainees:", numModulesNumTrainees)
 
+  const numberOfModules = cohortInfo.numberOfModules;
+
   return (
     <Grid item sx={{ my: 8 }}>
       <Box sx={{ width: 250, border: "1px solid lightgrey" }}>
@@ -85,7 +87,7 @@ const CohortDetails = () => {
                     colSpan={2}
                     style={{ textAlign: "center", fontWeight: "bold" }}
                   >
-                    {numModulesNumTrainees.numberOfModulesForCohort}
+                    {numberOfModules}
                   </td>
                 </tr>
                 <tr>

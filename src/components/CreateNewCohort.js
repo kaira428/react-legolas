@@ -19,7 +19,7 @@ const CreateNewCohort = ({ onSubmitCohortHandler, existingLt }) => {
   const learningTrackName = useSelector(
     (state) => state.supervisorDashboard.selectedLtName
   );
-  console.log("🚀 ~ file: CreateNewCohort.js:22 ~ CreateNewCohort ~ learningTrackName:", learningTrackName)
+  // console.log("🚀 ~ file: CreateNewCohort.js:22 ~ CreateNewCohort ~ learningTrackName:", learningTrackName)
 
   const learningTrackList = useSelector(
     (state) => state.supervisorDashboard.listOfLearningTracks
@@ -62,8 +62,8 @@ const CreateNewCohort = ({ onSubmitCohortHandler, existingLt }) => {
       lt.cohorts.find((cohort) => cohort.cohortNum === cohortNumber)
     );
 
-    console.log(cohortNumber);
-    console.log(ltWhereCohortNumberExist);
+    // console.log(cohortNumber);
+    // console.log(ltWhereCohortNumberExist);
 
     if (typeof ltWhereCohortNumberExist !== "undefined") {
       return new ValidationError(
@@ -84,10 +84,11 @@ const CreateNewCohort = ({ onSubmitCohortHandler, existingLt }) => {
       mentorName: values.mentorName,
       coachName: values.coachName,
       country: values.country,
+      numberOfModules: values.numOfModules
       // number of modules missing
     };
 
-    console.log(newCohort);
+    // console.log(newCohort);
     formikHelpers.resetForm({ values: initialValues() });
 
     onSubmitCohortHandler({ newCohort, numOfModules: values.numOfModules, learningTrackName });

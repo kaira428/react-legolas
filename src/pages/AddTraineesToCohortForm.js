@@ -87,13 +87,14 @@ const AddTraineesToCohortForm = () => {
   );
 
   const onSubmitBackToSupervisorDashboardHandler = () => {
-    // dispatch(refreshSupervisorDashboard4ltIdCohortIdThunk({ltName : learningTrackName, cohortNum : cohortNumber}));
-    dispatch(getAllLearningTracksThunk());
+    // refresh necessary states
     dispatch(getSelectedTraineesForSelectedLtIdThunk({
       ltId: learningTrackName,
-    }));
-    // dispatch(getSelectedCohortTraineesThunk({ cohortNum : cohortNumber }))
     
+    }));
+    dispatch(getSelectedCohortTraineesThunk({ cohortNum : cohortNumber }))
+    
+    // navigate back to supervisor dashboard
     navigate("/pages/supervisorDashboard");
   };
 

@@ -8,6 +8,7 @@ const LearningTrackCard = (props) => {
   const dispatch = useDispatch();
 
   const learningTracks = props.learningTrackList;
+  console.log("🚀 ~ file: LearningTrackCard.js:11 ~ LearningTrackCard ~ learningTracks:", learningTracks)
 
   const clickHandler = (ltId) => {
     dispatch(resetSupervisorDashboardSlice());
