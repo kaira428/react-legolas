@@ -28,26 +28,26 @@ const CreateLearningTrackForm = () => {
     dispatch(getAllLearningTracksThunk());
   }
 
-  const onSubmitCohortDetailsHandler = (cohortData) => {
-    // console.log("🚀 ~ file: CreateLearningTrackForm.js:46 ~ onSubmitCohortDetailsHandler ~ cohortData:", cohortData)
+  // const onSubmitCohortDetailsHandler = (cohortData) => {
+  //   // console.log("🚀 ~ file: CreateLearningTrackForm.js:46 ~ onSubmitCohortDetailsHandler ~ cohortData:", cohortData)
     
-    const newLearningTrack = {
-      name: newLtName,
-      cohorts: [
-        {...cohortData.newCohort}
-      ],
-    };
-    // console.log("🚀 ~ file: CreateLearningTrackForm.js:54 ~ onSubmitCohortDetailsHandler ~ newLearningTrack:", newLearningTrack)
+  //   const newLearningTrack = {
+  //     name: newLtName,
+  //     cohorts: [
+  //       {...cohortData.newCohort}
+  //     ],
+  //   };
+  //   // console.log("🚀 ~ file: CreateLearningTrackForm.js:54 ~ onSubmitCohortDetailsHandler ~ newLearningTrack:", newLearningTrack)
 
-    // dispatch createNewLt thunk
-    dispatch(createNewLearningTrackThunk({ newLearningTrack }));
+  //   // dispatch createNewLt thunk
+  //   dispatch(createNewLearningTrackThunk({ newLearningTrack }));
 
-    // navigate to AddTraineesToCohort page
-    navigate("/pages/addTraineesToCohortForm", {
-      // state: { newLtName, newCohortNum: cohortNum, country, numOfModules },
-      state: { newLearningTrack, numOfModules: cohortData.numOfModules },
-    });
-  };
+  //   // navigate to AddTraineesToCohort page
+  //   navigate("/pages/addTraineesToCohortForm", {
+  //     // state: { newLtName, newCohortNum: cohortNum, country, numOfModules },
+  //     state: { newLearningTrack, numOfModules: cohortData.numOfModules },
+  //   });
+  // };
 
   return (
     <Container
@@ -73,7 +73,8 @@ const CreateLearningTrackForm = () => {
             </div>
           )}
 
-          {newLtName && <CreateNewCohort onSubmitCohortHandler={onSubmitCohortDetailsHandler} existingLt={false}/>}
+          {/* {newLtName && <CreateNewCohort onSubmitCohortHandler={onSubmitCohortDetailsHandler} existingLt={false}/>} */}
+          {newLtName && <CreateNewCohort newLtName={newLtName} existingLt={false}/>}
 
         </Grid>
       </Grid>

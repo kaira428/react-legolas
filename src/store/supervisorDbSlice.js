@@ -16,7 +16,7 @@ import { refreshSupervisorDashboard4ltIdCohortIdThunk } from "./features/refresh
 const initialState = {
   isLoading: false,
   listOfLearningTracks: [],
-  selectedLtId: 0,
+  selectedLtId: null,
   selectedLtName: "",
   listOfCohortNumbers: [],
   cohortTrainingStatus: "In Progress",
@@ -240,6 +240,8 @@ export const supervisorDashboardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(updateLtWithNewCohortThunk.fulfilled, (state, action) => {
+
+        state.listOfCohortNumbers = action.payload.cohorts;
         state.isLoading = false;
       })
       .addCase(updateLtWithNewCohortThunk.rejected, (state) => {

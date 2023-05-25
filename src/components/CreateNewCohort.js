@@ -4,7 +4,6 @@ import {
   CardContent,
   CircularProgress,
   Grid,
-  Paper,
   Typography,
 } from "@mui/material";
 import { Field, Form, Formik } from "formik";
@@ -14,11 +13,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { countries } from "../data/listOfCountries";
 import { object, string, number, date, ValidationError } from "yup";
 import { getAllCoachesAndMentorsThunk } from "../store/features/getAllCoachesAndMentorsThunk";
+import { createNewLearningTrackThunk } from "../store/features/createNewLearningTrackThunk";
+import { useNavigate } from "react-router-dom";
+import { updateLtWithNewCohortThunk } from "../store/features/updateLtWithNewCohortThunk";
 
-const CreateNewCohort = ({ onSubmitCohortHandler, existingLt }) => {
+const CreateNewCohort = ({ newLtName, existingLt }) => {
   const learningTrackName = useSelector(
     (state) => state.supervisorDashboard.selectedLtName
   );
+
+  const lt_Id = useSelector(state => state.supervisorDashboard.selectedLtId)
+  console.log("🚀 ~ file: CreateNewCohort.js:25 ~ CreateNewCohort ~ lt_Id:", lt_Id.toString())
+
+  const listOfCohorts = useSelector(state => state.supervisorDashboard.listOfCohortNumbers);
+  console.log("🚀 ~ file: CreateNewCohort.js:29 ~ CreateNewCohort ~ listOfCohort:", listOfCohorts)
+  
+
+  //  if this component is accessed within a displayed Learning Track instead of creating a new LT
+  if (existingLt) {
+    newLtName = learningTrackName;
+  }
   // console.log("🚀 ~ file: CreateNewCohort.js:22 ~ CreateNewCohort ~ learningTrackName:", learningTrackName)
 
   const learningTrackList = useSelector(
@@ -26,6 +40,7 @@ const CreateNewCohort = ({ onSubmitCohortHandler, existingLt }) => {
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // get list of coaches and mentors
   useEffect(() => {
@@ -41,7 +56,10 @@ const CreateNewCohort = ({ onSubmitCohortHandler, existingLt }) => {
   const mentorList = useSelector(
     (state) => state.supervisorDashboard.listOfMentors
   );
-  console.log("🚀 ~ file: CreateNewCohort.js:43 ~ CreateNewCohort ~ mentorList:", mentorList)
+  console.log(
+    "🚀 ~ file: CreateNewCohort.js:43 ~ CreateNewCohort ~ mentorList:",
+    mentorList
+  );
 
   const listOfMentors = ["Please select Mentor", ...mentorList];
 
@@ -76,6 +94,39 @@ const CreateNewCohort = ({ onSubmitCohortHandler, existingLt }) => {
     return true;
   };
 
+  const cohortDetailsHandler = (cohortData) => {
+    // console.log("🚀 ~ file: CreateLearningTrackForm.js:46 ~ onSubmitCohortDetailsHandler ~ cohortData:", cohortData)
+
+    const newLearningTrack = {
+      name: newLtName,
+      cohorts: [{ ...cohortData.newCohort }],
+    };
+
+    
+    console.log("🚀 ~ file: CreateLearningTrackForm.js:54 ~ onSubmitCohortDetailsHandler ~ newLearningTrack:", newLearningTrack)
+   
+    let existingLtWithUpdatedListOfCohorts = {}
+
+    // dispatch createNewLt thunk if it is not an existing Learning Track
+    if (!existingLt) {
+      dispatch(createNewLearningTrackThunk({ newLearningTrack }));
+    }
+    else {
+      const updatedListOfCohorts = [...listOfCohorts, { ...cohortData.newCohort }];
+
+      existingLtWithUpdatedListOfCohorts = {_id : lt_Id, cohorts: updatedListOfCohorts};
+      console.log("🚀 ~ file: CreateNewCohort.js:111 ~ cohortDetailsHandler ~ newCohort:", existingLtWithUpdatedListOfCohorts)
+
+      dispatch(updateLtWithNewCohortThunk({ltWithNewCohort: existingLtWithUpdatedListOfCohorts}));
+    }
+
+    // navigate to AddTraineesToCohort page
+    navigate("/pages/addTraineesToCohortForm", {
+      // state: { newLtName, newCohortNum: cohortNum, country, numOfModules },
+      state: { newLearningTrack, numOfModules: cohortData.numOfModules },
+    });
+  };
+
   const onSubmitHandler = (values, formikHelpers) => {
     const newCohort = {
       cohortNum: values.cohortNumber,
@@ -84,13 +135,17 @@ const CreateNewCohort = ({ onSubmitCohortHandler, existingLt }) => {
       mentorName: values.mentorName,
       coachName: values.coachName,
       country: values.country,
-      numberOfModules: values.numOfModules
+      numberOfModules: values.numOfModules,
     };
 
     // console.log(newCohort);
     formikHelpers.resetForm({ values: initialValues() });
 
-    onSubmitCohortHandler({ newCohort, numOfModules: values.numOfModules, learningTrackName });
+    cohortDetailsHandler({
+      newCohort,
+      numOfModules: values.numOfModules,
+      learningTrackName,
+    });
 
     return;
   };
