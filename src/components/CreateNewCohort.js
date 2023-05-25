@@ -85,7 +85,6 @@ const CreateNewCohort = ({ onSubmitCohortHandler, existingLt }) => {
       coachName: values.coachName,
       country: values.country,
       numberOfModules: values.numOfModules
-      // number of modules missing
     };
 
     // console.log(newCohort);

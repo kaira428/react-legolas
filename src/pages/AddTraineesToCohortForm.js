@@ -15,10 +15,7 @@ import { traineeDetailsSchema } from "../schemas/traineeDetailsSchema";
 import CustomSelect from "../components/CustomSelect";
 import { createNewTraineeThunk } from "../store/features/createNewTraineeThunk";
 import { createModuleObjectOrArrayForNewCohort } from "../helpers/createModuleObjectOrArrayForNewCohort";
-import { getAllLearningTracksThunk } from "../store/features/getAllLearningTracksThunk";
-import { refreshSupervisorDashboard4ltIdCohortIdThunk } from "../store/features/refreshSupervisorDashboard4ltIdCohortIdThunk";
-import { getSelectedTraineesForSelectedLtIdThunk } from "../store/features/getSelectedTraineesForSelectedLtIdThunk";
-import { getSelectedCohortTraineesThunk } from "../store/features/getSelectedCohortTraineesThunk";
+
 
 const AddTraineesToCohortForm = () => {
   const data = useSelector((state) => state.supervisorDashboard);
@@ -63,36 +60,36 @@ const AddTraineesToCohortForm = () => {
   );
 
   const learningTrackName = location.state.newLearningTrack.name;
-  console.log(
-    "🚀 ~ file: AddTraineesToCohortForm.js:19 ~ AddTraineesToCohortForm ~ learningTrackName:",
-    learningTrackName
-  );
+  // console.log(
+  //   "🚀 ~ file: AddTraineesToCohortForm.js:19 ~ AddTraineesToCohortForm ~ learningTrackName:",
+  //   learningTrackName
+  // );
 
   const cohortNumber = location.state.newLearningTrack.cohorts[0].cohortNum;
-  console.log(
-    "🚀 ~ file: AddTraineesToCohortForm.js:22 ~ AddTraineesToCohortForm ~ cohortNumber:",
-    cohortNumber
-  );
+  // console.log(
+  //   "🚀 ~ file: AddTraineesToCohortForm.js:22 ~ AddTraineesToCohortForm ~ cohortNumber:",
+  //   cohortNumber
+  // );
 
   const country = location.state.newLearningTrack.cohorts[0].country;
-  console.log(
-    "🚀 ~ file: AddTraineesToCohortForm.js:25 ~ AddTraineesToCohortForm ~ country:",
-    country
-  );
+  // console.log(
+  //   "🚀 ~ file: AddTraineesToCohortForm.js:25 ~ AddTraineesToCohortForm ~ country:",
+  //   country
+  // );
 
   const numOfModules = location.state.numOfModules;
-  console.log(
-    "🚀 ~ file: AddTraineesToCohortForm.js:66 ~ AddTraineesToCohortForm ~ numOfModules:",
-    numOfModules
-  );
+  // console.log(
+  //   "🚀 ~ file: AddTraineesToCohortForm.js:66 ~ AddTraineesToCohortForm ~ numOfModules:",
+  //   numOfModules
+  // );
 
   const onSubmitBackToSupervisorDashboardHandler = () => {
     // refresh necessary states
-    dispatch(getSelectedTraineesForSelectedLtIdThunk({
-      ltId: learningTrackName,
+    // dispatch(getAllTraineesForSelectedLtId({
+    //   ltId: learningTrackName,
     
-    }));
-    dispatch(getSelectedCohortTraineesThunk({ cohortNum : cohortNumber }))
+    // }));
+    // dispatch(getSelectedCohortTraineesThunk({ cohortNum : cohortNumber }))
     
     // navigate back to supervisor dashboard
     navigate("/pages/supervisorDashboard");

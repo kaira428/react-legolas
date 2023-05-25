@@ -2,8 +2,9 @@ import { Grid, Paper, Box, Typography, Button } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSelectedCohortTraineesThunk } from "../store/features/getSelectedCohortTraineesThunk";
+import { getAllTraineesForSelectedCohortNumber } from "../store/supervisorDbSlice";
 
-const CohortIdCard = (props) => {
+const CohortIdCard = () => {
   const dispatch = useDispatch();
 
   const cohortIdForSelectedLtId = useSelector(
@@ -13,7 +14,8 @@ const CohortIdCard = (props) => {
 
   const onClickHandler = (cohortNum) => {
     // get list of trainees in selected cohortNumber
-    dispatch(getSelectedCohortTraineesThunk({ cohortNum }));
+    dispatch(getAllTraineesForSelectedCohortNumber({cohortNum}));
+    // dispatch(getSelectedCohortTraineesThunk({ cohortNum }));
   };
 
   return (

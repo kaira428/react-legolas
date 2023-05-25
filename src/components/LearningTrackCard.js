@@ -1,14 +1,21 @@
 import { Grid, Paper, Box, Typography, Button } from "@mui/material";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { resetSupervisorDashboardSlice } from "../store/supervisorDbSlice";
 import { getSelectedTraineesForSelectedLtIdThunk } from "../store/features/getSelectedTraineesForSelectedLtIdThunk";
+import { getAllLearningTracksThunk } from "../store/features/getAllLearningTracksThunk";
 
-const LearningTrackCard = (props) => {
+const LearningTrackCard = () => {
   const dispatch = useDispatch();
 
-  const learningTracks = props.learningTrackList;
-  console.log("🚀 ~ file: LearningTrackCard.js:11 ~ LearningTrackCard ~ learningTracks:", learningTracks)
+  const learningTracks = useSelector(
+    (state) => state.supervisorDashboard.listOfLearningTracks
+  );
+
+  // load LT list from DB is list is empty
+  if (learningTracks.length === 0) {
+    dispatch(getAllLearningTracksThunk());
+  }
 
   const clickHandler = (ltId) => {
     dispatch(resetSupervisorDashboardSlice());

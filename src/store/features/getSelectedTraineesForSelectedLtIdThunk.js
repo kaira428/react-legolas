@@ -32,7 +32,8 @@ export const getSelectedTraineesForSelectedLtIdThunk = createAsyncThunk(
         })
       );
 
-      return data;
+      return data; //array of all trainees for selected LT
+      
     } catch (error) {
       console.log(error);
       return;

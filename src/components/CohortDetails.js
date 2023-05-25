@@ -12,7 +12,7 @@ const CohortDetails = () => {
   console.log("🚀 ~ file: CohortDetails.js:12 ~ CohortDetails ~ cohortInfo:", cohortInfo)
 
   const numModulesNumTrainees = result.numTraineesNumModules;
-  console.log("🚀 ~ file: CohortDetails.js:15 ~ CohortDetails ~ numModulesNumTrainees:", numModulesNumTrainees)
+  // console.log("🚀 ~ file: CohortDetails.js:15 ~ CohortDetails ~ numModulesNumTrainees:", numModulesNumTrainees)
 
   const numberOfModules = cohortInfo.numberOfModules;
 

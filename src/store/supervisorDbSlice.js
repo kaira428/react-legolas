@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getLtNameAndCohortIDsForChosenLtId } from "../helpers/supervisorDashboardSliceUtilities";
+import {
+  getLtNameAndCohortIDsForChosenLtId,
+  traineeDetailsBySelectedLtIdAndCohortId,
+} from "../helpers/supervisorDashboardSliceUtilities";
 import { getAllLearningTracksThunk } from "./features/getAllLearningTracksThunk";
 import { getSelectedCohortTraineesThunk } from "./features/getSelectedCohortTraineesThunk";
 import { getSelectedTraineesForSelectedLtIdThunk } from "./features/getSelectedTraineesForSelectedLtIdThunk";
@@ -38,29 +41,29 @@ export const supervisorDashboardSlice = createSlice({
       );
 
       state.selectedLtId = ltCohortListForChosenLtId.ltId;
-      console.log(
-        "🚀 ~ file: supervisorDbSlice.js:40 ~ state.selectedLtId:",
-        state.selectedLtId
-      );
+      // console.log(
+      //   "🚀 ~ file: supervisorDbSlice.js:40 ~ state.selectedLtId:",
+      //   state.selectedLtId
+      // );
 
       state.selectedLtName = ltCohortListForChosenLtId.ltName;
-      console.log(
-        "🚀 ~ file: supervisorDbSlice.js:43 ~ state.selectedLtName:",
-        state.selectedLtName
-      );
+      // console.log(
+      //   "🚀 ~ file: supervisorDbSlice.js:43 ~ state.selectedLtName:",
+      //   state.selectedLtName
+      // );
 
       state.listOfCohortNumbers = ltCohortListForChosenLtId.cohortDetailsList;
-      console.log(
-        "🚀 ~ file: supervisorDbSlice.js:46 ~ state.listOfCohortNumbers:",
-        state.listOfCohortNumbers
-      );
+      // console.log(
+      //   "🚀 ~ file: supervisorDbSlice.js:46 ~ state.listOfCohortNumbers:",
+      //   state.listOfCohortNumbers
+      // );
 
       state.listOfCohortsProgressForSelectedLtId =
         ltCohortListForChosenLtId.cohortsProgress;
-      console.log(
-        "🚀 ~ file: supervisorDbSlice.js:49 ~ state.listOfCohortsProgressForSelectedLtId:",
-        state.listOfCohortsProgressForSelectedLtId
-      );
+      // console.log(
+      //   "🚀 ~ file: supervisorDbSlice.js:49 ~ state.listOfCohortsProgressForSelectedLtId:",
+      //   state.listOfCohortsProgressForSelectedLtId
+      // );
     },
 
     resetSupervisorDashboardSlice: (state) => {
@@ -68,6 +71,36 @@ export const supervisorDashboardSlice = createSlice({
       state.numTraineesNumModules = {};
       state.cohortDetailsForSelectedCohortNumber = {};
       state.trainingStatus = "";
+    },
+
+    getAllTraineesForSelectedCohortNumber: (state, action) => {
+      const allTraineesForSelectedLearningTrack = [
+        ...state.listOfTraineesForSelectedLtId,
+      ];
+
+      // get all trainees for selected cohort number
+      const listOfTraineesForSelectedCohortNumber =
+        allTraineesForSelectedLearningTrack.filter(
+          (trainee) => trainee.cohort === action.payload.cohortNum
+        );
+
+      // process leadboard trainee details
+      const leaderboardTraineeDetails = traineeDetailsBySelectedLtIdAndCohortId(
+        listOfTraineesForSelectedCohortNumber
+      );
+
+      // get details of selected cohort number
+      const selectedCohortInfo = state.listOfCohortNumbers.find(
+        (cohort) => cohort.cohortNum === action.payload.cohortNum
+      );
+
+      // update relevant states in redux-toolkit store
+      state.trainingStatus = leaderboardTraineeDetails.trainingStatus;
+      state.listOfTraineesForSelectedCohortNumber =
+        leaderboardTraineeDetails.traineeDataWithTotalModuleResults;
+      state.numTraineesNumModules =
+        leaderboardTraineeDetails.numTraineesNumModules;
+      state.cohortDetailsForSelectedCohortNumber = selectedCohortInfo;
     },
 
     refreshSupervisorDashboard: (state, action) => {
@@ -88,6 +121,10 @@ export const supervisorDashboardSlice = createSlice({
       });
 
       state.listOfLearningTracks = tempUpdatedListOfLearningTracks;
+    },
+
+    getAllTraineesForSelectedLt: (state, action) => {
+      state.listOfTraineesForSelectedLtId = action.payload;
     },
   },
 
@@ -129,6 +166,10 @@ export const supervisorDashboardSlice = createSlice({
         getSelectedTraineesForSelectedLtIdThunk.fulfilled,
         (state, action) => {
           state.listOfTraineesForSelectedLtId = action.payload;
+          console.log(
+            "🚀 ~ file: supervisorDbSlice.js:145 ~ state.listOfTraineesForSelectedLtId:",
+            state.listOfTraineesForSelectedLtId
+          );
           state.isLoading = false;
         }
       )
@@ -160,10 +201,10 @@ export const supervisorDashboardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(createNewLearningTrackThunk.fulfilled, (state, action) => {
-        console.log(
-          "🚀 ~ file: supervisorDbSlice.js:120 ~ .addCase ~ action.payload:",
-          action.payload
-        );
+        // console.log(
+        //   "🚀 ~ file: supervisorDbSlice.js:120 ~ .addCase ~ action.payload:",
+        //   action.payload
+        // );
 
         state.isLoading = false;
       })
@@ -174,10 +215,10 @@ export const supervisorDashboardSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(createNewTraineeThunk.fulfilled, (state, action) => {
-        console.log(
-          "🚀 ~ file: supervisorDbSlice.js:133 ~ .addCase ~ action.payload:",
-          action.payload
-        );
+        // console.log(
+        //   "🚀 ~ file: supervisorDbSlice.js:133 ~ .addCase ~ action.payload:",
+        //   action.payload
+        // );
         state.isLoading = false;
       })
       .addCase(createNewTraineeThunk.rejected, (state) => {
@@ -236,6 +277,8 @@ export const {
   resetSupervisorDashboardSlice,
   resetSupervisorDashboardSliceLeaderBoard,
   refreshSupervisorDashboard,
+  getAllTraineesForSelectedLt,
+  getAllTraineesForSelectedCohortNumber,
 } = supervisorDashboardSlice.actions;
 
 export default supervisorDashboardSlice.reducer;

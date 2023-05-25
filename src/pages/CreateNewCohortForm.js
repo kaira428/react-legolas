@@ -13,7 +13,7 @@ const CreateNewCohortForm = () => {
 
 // get list of Learning Tracks
 const listOfLearningTracks = useSelector(state => state.supervisorDashboard.listOfLearningTracks);
-console.log("🚀 ~ file: CreateNewCohortForm.js:11 ~ CreateNewCohortForm ~ listOfLearningTracks:", listOfLearningTracks.length)
+// console.log("🚀 ~ file: CreateNewCohortForm.js:11 ~ CreateNewCohortForm ~ listOfLearningTracks:", listOfLearningTracks.length)
 
 // if (listOfLearningTracks.length === 0) {
 //     // get list of learning tracks
@@ -21,10 +21,10 @@ console.log("🚀 ~ file: CreateNewCohortForm.js:11 ~ CreateNewCohortForm ~ list
 // }
 
 const onSubmitNewCohortDetails = (data) => {
-  console.log("🚀 ~ file: CreateNewCohortForm.js:19 ~ onSubmitNewCohortDetails ~ data:", data)
+  // console.log("🚀 ~ file: CreateNewCohortForm.js:19 ~ onSubmitNewCohortDetails ~ data:", data)
 
   const learningTrackName = data.learningTrackName;
-  console.log("🚀 ~ file: CreateNewCohortForm.js:22 ~ onSubmitNewCohortDetails ~ learningTrackName:", learningTrackName)
+  // console.log("🚀 ~ file: CreateNewCohortForm.js:22 ~ onSubmitNewCohortDetails ~ learningTrackName:", learningTrackName)
 
   // get required LT from listOfLearningTracks
   let resultLt = listOfLearningTracks.find(lt => lt.name.toLowerCase().trim().split(" ").join("") ===
@@ -34,14 +34,16 @@ const onSubmitNewCohortDetails = (data) => {
   let arrayNewCohort = [...resultLt["cohorts"]]
   // push new cohort object to required LT modules array
   arrayNewCohort.push(data.newCohort)
-  console.log("🚀 ~ file: CreateNewCohortForm.js:30 ~ onSubmitNewCohortDetails ~ arrayNewCohort:", arrayNewCohort)
+  // console.log("🚀 ~ file: CreateNewCohortForm.js:30 ~ onSubmitNewCohortDetails ~ arrayNewCohort:", arrayNewCohort)
 
   const result = {...resultLt, cohorts: arrayNewCohort};
 
+  console.log("🚀 ~ file: CreateNewCohortForm.js:41 ~ onSubmitNewCohortDetails ~ result:", result)
   // save updated LT to MongoDB
   dispatch(updateLtWithNewCohortThunk({ltWithNewCohort: result}));
+
+  // update redux state for list of cohort numbers for selected LT
   
-  console.log("🚀 ~ file: CreateNewCohortForm.js:36 ~ onSubmitNewCohortDetails ~ result:", result)
 
   // set up newLearningTrack object for AddTraineeForm
   const newLearningTrack = {name: learningTrackName, cohorts: [data.newCohort]}

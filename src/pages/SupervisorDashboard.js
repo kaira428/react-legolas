@@ -7,33 +7,32 @@ import TrainingDetails from "../components/TrainingDetails";
 import LearningTrackCard from "../components/LearningTrackCard";
 import CohortIdCard from "../components/CohortIdCard";
 import classes from "./SupervisorDashboard.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { getAllLearningTracksThunk } from "../store/features/getAllLearningTracksThunk";
 import { useNavigate } from "react-router-dom";
 
 const SupervisorDashboard = () => {
   // setup React hooks
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const allLearningTracksInfo = useSelector(
-    (state) => state.supervisorDashboard.listOfLearningTracks
-  );
-  console.log("🚀 ~ file: SupervisorDashboard.js:23 ~ SupervisorDashboard ~ allLearningTracksInfo:", allLearningTracksInfo)
+  // const allLearningTracksInfo = useSelector(
+  //   (state) => state.supervisorDashboard.listOfLearningTracks
+  // );
+  // console.log("🚀 ~ file: SupervisorDashboard.js:23 ~ SupervisorDashboard ~ allLearningTracksInfo:", allLearningTracksInfo)
   
   const isLoading = useSelector((state) => state.supervisorDashboard.isLoading);
 
   const ltName = useSelector(
     (state) => state.supervisorDashboard.selectedLtName
   );
-  console.log("🚀 ~ file: SupervisorDashboard.js:28 ~ SupervisorDashboard ~ ltName:", ltName)
+  // console.log("🚀 ~ file: SupervisorDashboard.js:28 ~ SupervisorDashboard ~ ltName:", ltName)
 
   // should I remove this line?
-  if (allLearningTracksInfo.length === 0) {
-    // load LT list from DB is list is empty
-    dispatch(getAllLearningTracksThunk());
-  }
+  // if (allLearningTracksInfo.length === 0) {
+  //   // load LT list from DB is list is empty
+  //   dispatch(getAllLearningTracksThunk());
+  // }
 
   const listOfTraineesForSelectedCohortId = useSelector(
     (state) => state.supervisorDashboard.listOfTraineesForSelectedCohortNumber
@@ -46,7 +45,7 @@ const SupervisorDashboard = () => {
         sx={{ gridTemplateColumns: "auto auto auto", gridColumnGap: "30px" }}
       >
         <Grid item className={classes.screen1}>
-          <LearningTrackCard learningTrackList={allLearningTracksInfo} />
+          <LearningTrackCard />
           <CohortIdCard />
         </Grid>
 

@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import React from "react";
 import { createNewLearningTrack } from "../../mongodb_serverless/createNewLearningTrack";
-import { getAllLearningTracksThunk } from "./getAllLearningTracksThunk";
 import { refreshSupervisorDashboard } from "../supervisorDbSlice";
 
 export const createNewLearningTrackThunk = createAsyncThunk(
@@ -13,12 +12,9 @@ export const createNewLearningTrackThunk = createAsyncThunk(
         "🚀 ~ file: createNewLearningTrackThunk.js:11 ~ newLearningTrack:",
         newLearningTrack
       );
-      console.log("🚀 ~ file: createNewLearningTrackThunk.js:12 ~ data:", data);
+      // console.log("🚀 ~ file: createNewLearningTrackThunk.js:12 ~ data:", data);
 
       thunkAPI.dispatch(refreshSupervisorDashboard(newLearningTrack));
-
-      //   reload all learning tracks
-      // thunkAPI.dispatch(getAllLearningTracksThunk());
 
       return data;
     } catch (error) {

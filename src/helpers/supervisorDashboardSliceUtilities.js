@@ -82,17 +82,17 @@ export const traineeDetailsBySelectedLtIdAndCohortId = (data) => {
   );
   const numberOfTraineesInCohort = traineeDataWithTotalModuleResults.length; //number of trainees in the required Cohort
 
-  let numberOfModulesForCohort = 0;
+  // let numberOfModulesForCohort = 0;
 
-  if (numberOfTraineesInCohort > 0) {
-    numberOfModulesForCohort = Object.keys(
-      traineeDataWithTotalModuleResults[0].modules
-    ).length; //number of modules in trainee[0]
-  }
+  // if (numberOfTraineesInCohort > 0) {
+  //   numberOfModulesForCohort = Object.keys(
+  //     traineeDataWithTotalModuleResults[0].modules
+  //   ).length; //number of modules in trainee[0]
+  // }
 
   const numTraineesNumModules = {
     numberOfTraineesInCohort,
-    numberOfModulesForCohort,
+    // numberOfModulesForCohort,
   };
 
   const result = {

@@ -19,7 +19,7 @@ const CreateLearningTrackForm = () => {
   const learningTrackList = useSelector(
     (state) => state.supervisorDashboard.listOfLearningTracks
   );
-  console.log("🚀 ~ file: CreateLearningTrackForm.js:38 ~ CreateLearningTrackForm ~ learningTrackList:", learningTrackList)
+  // console.log("🚀 ~ file: CreateLearningTrackForm.js:38 ~ CreateLearningTrackForm ~ learningTrackList:", learningTrackList)
   
   const isLoading = useSelector((state) => state.supervisorDashboard.isLoading);
 
@@ -29,7 +29,7 @@ const CreateLearningTrackForm = () => {
   }
 
   const onSubmitCohortDetailsHandler = (cohortData) => {
-    console.log("🚀 ~ file: CreateLearningTrackForm.js:46 ~ onSubmitCohortDetailsHandler ~ cohortData:", cohortData)
+    // console.log("🚀 ~ file: CreateLearningTrackForm.js:46 ~ onSubmitCohortDetailsHandler ~ cohortData:", cohortData)
     
     const newLearningTrack = {
       name: newLtName,
@@ -37,7 +37,7 @@ const CreateLearningTrackForm = () => {
         {...cohortData.newCohort}
       ],
     };
-    console.log("🚀 ~ file: CreateLearningTrackForm.js:54 ~ onSubmitCohortDetailsHandler ~ newLearningTrack:", newLearningTrack)
+    // console.log("🚀 ~ file: CreateLearningTrackForm.js:54 ~ onSubmitCohortDetailsHandler ~ newLearningTrack:", newLearningTrack)
 
     // dispatch createNewLt thunk
     dispatch(createNewLearningTrackThunk({ newLearningTrack }));
