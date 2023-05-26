@@ -12,7 +12,7 @@ const LearningTrackCard = () => {
     (state) => state.supervisorDashboard.listOfLearningTracks
   );
 
-  // load LT list from DB is list is empty
+  // load LT list from DB if list is empty
   if (learningTracks.length === 0) {
     dispatch(getAllLearningTracksThunk());
   }

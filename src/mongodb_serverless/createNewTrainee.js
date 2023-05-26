@@ -10,7 +10,7 @@ export async function createNewTrainee(newTrainee) {
 
     const response = await user.functions.createNewTrainee(newTrainee);
     
-    return "New Trainee saved";
+    return response;
 
   } catch (error) {
     console.error(error);

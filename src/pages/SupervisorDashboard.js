@@ -15,25 +15,13 @@ import { useNavigate } from "react-router-dom";
 const SupervisorDashboard = () => {
   // setup React hooks
   const navigate = useNavigate();
-
-  // const allLearningTracksInfo = useSelector(
-  //   (state) => state.supervisorDashboard.listOfLearningTracks
-  // );
-  // console.log("🚀 ~ file: SupervisorDashboard.js:23 ~ SupervisorDashboard ~ allLearningTracksInfo:", allLearningTracksInfo)
   
   const isLoading = useSelector((state) => state.supervisorDashboard.isLoading);
 
   const ltName = useSelector(
     (state) => state.supervisorDashboard.selectedLtName
   );
-  // console.log("🚀 ~ file: SupervisorDashboard.js:28 ~ SupervisorDashboard ~ ltName:", ltName)
-
-  // should I remove this line?
-  // if (allLearningTracksInfo.length === 0) {
-  //   // load LT list from DB is list is empty
-  //   dispatch(getAllLearningTracksThunk());
-  // }
-
+  
   const listOfTraineesForSelectedCohortId = useSelector(
     (state) => state.supervisorDashboard.listOfTraineesForSelectedCohortNumber
   );

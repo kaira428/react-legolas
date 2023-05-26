@@ -22,30 +22,19 @@ const CreateNewCohort = ({ newLtName, existingLt }) => {
     (state) => state.supervisorDashboard.selectedLtName
   );
 
-  const lt_Id = useSelector(state => state.supervisorDashboard.selectedLtId)
-  console.log("🚀 ~ file: CreateNewCohort.js:25 ~ CreateNewCohort ~ lt_Id:", lt_Id.toString())
-
-  const listOfCohorts = useSelector(state => state.supervisorDashboard.listOfCohortNumbers);
-  console.log("🚀 ~ file: CreateNewCohort.js:29 ~ CreateNewCohort ~ listOfCohort:", listOfCohorts)
-  
-
-  //  if this component is accessed within a displayed Learning Track instead of creating a new LT
-  if (existingLt) {
-    newLtName = learningTrackName;
-  }
-  // console.log("🚀 ~ file: CreateNewCohort.js:22 ~ CreateNewCohort ~ learningTrackName:", learningTrackName)
-
-  const learningTrackList = useSelector(
-    (state) => state.supervisorDashboard.listOfLearningTracks
+  const lt_Id = useSelector((state) => state.supervisorDashboard.selectedLtId);
+  console.log(
+    "🚀 ~ file: CreateNewCohort.js:25 ~ CreateNewCohort ~ lt_Id:",
+    lt_Id
   );
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  // get list of coaches and mentors
-  useEffect(() => {
-    dispatch(getAllCoachesAndMentorsThunk());
-  }, []);
+  const listOfCohorts = useSelector(
+    (state) => state.supervisorDashboard.listOfCohortNumbers
+  );
+  console.log(
+    "🚀 ~ file: CreateNewCohort.js:29 ~ CreateNewCohort ~ listOfCohort:",
+    listOfCohorts
+  );
 
   const coachList = useSelector(
     (state) => state.supervisorDashboard.listOfCoaches
@@ -64,6 +53,26 @@ const CreateNewCohort = ({ newLtName, existingLt }) => {
   const listOfMentors = ["Please select Mentor", ...mentorList];
 
   const listOfCountries = ["Please select Country", ...countries];
+
+  //  if this component is accessed within a displayed Learning Track instead of creating a new LT
+  if (existingLt) {
+    newLtName = learningTrackName;
+  }
+  // console.log("🚀 ~ file: CreateNewCohort.js:22 ~ CreateNewCohort ~ learningTrackName:", learningTrackName)
+
+  const learningTrackList = useSelector(
+    (state) => state.supervisorDashboard.listOfLearningTracks
+  );
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // get list of coaches and mentors if such data is not loaded
+  useEffect(() => {
+    if (listOfCoaches.length <= 1 || listOfMentors.length <= 1) {
+      dispatch(getAllCoachesAndMentorsThunk());
+    }
+  }, []);
 
   const initialValues = () => ({
     cohortNumber: null,
@@ -102,22 +111,40 @@ const CreateNewCohort = ({ newLtName, existingLt }) => {
       cohorts: [{ ...cohortData.newCohort }],
     };
 
-    
-    console.log("🚀 ~ file: CreateLearningTrackForm.js:54 ~ onSubmitCohortDetailsHandler ~ newLearningTrack:", newLearningTrack)
-   
-    let existingLtWithUpdatedListOfCohorts = {}
+    console.log(
+      "🚀 ~ file: CreateLearningTrackForm.js:54 ~ onSubmitCohortDetailsHandler ~ newLearningTrack:",
+      newLearningTrack
+    );
+
+    let existingLtWithUpdatedListOfCohorts = {};
 
     // dispatch createNewLt thunk if it is not an existing Learning Track
     if (!existingLt) {
       dispatch(createNewLearningTrackThunk({ newLearningTrack }));
-    }
-    else {
-      const updatedListOfCohorts = [...listOfCohorts, { ...cohortData.newCohort }];
+    } else {
+      const updatedListOfCohorts = [
+        ...listOfCohorts,
+        { ...cohortData.newCohort },
+      ];
 
-      existingLtWithUpdatedListOfCohorts = {_id : lt_Id, cohorts: updatedListOfCohorts};
-      console.log("🚀 ~ file: CreateNewCohort.js:111 ~ cohortDetailsHandler ~ newCohort:", existingLtWithUpdatedListOfCohorts)
+      existingLtWithUpdatedListOfCohorts = {
+        _id: lt_Id,
+        cohorts: updatedListOfCohorts,
+      };
+      console.log(
+        "🚀 ~ file: CreateNewCohort.js:111 ~ cohortDetailsHandler ~ newCohort:",
+        existingLtWithUpdatedListOfCohorts
+      );
 
-      dispatch(updateLtWithNewCohortThunk({ltWithNewCohort: existingLtWithUpdatedListOfCohorts}));
+      const result = dispatch(
+        updateLtWithNewCohortThunk({
+          ltWithNewCohort: existingLtWithUpdatedListOfCohorts,
+        })
+      );
+      console.log(
+        "🚀 ~ file: CreateNewCohort.js:120 ~ cohortDetailsHandler ~ result:",
+        result
+      );
     }
 
     // navigate to AddTraineesToCohort page
@@ -299,7 +326,7 @@ const CreateNewCohort = ({ newLtName, existingLt }) => {
                     color="primary"
                     startIcon={
                       isSubmitting ? (
-                        <CircularProgress size="0.8rem" />
+                        <CircularProgress size="0.6rem" />
                       ) : undefined
                     }
                   >

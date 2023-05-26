@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import React from "react";
 import { createNewLearningTrack } from "../../mongodb_serverless/createNewLearningTrack";
-import { refreshSupervisorDashboard } from "../supervisorDbSlice";
+import { getLtCohortInfo, refreshSupervisorDashboard } from "../supervisorDbSlice";
 
 export const createNewLearningTrackThunk = createAsyncThunk(
   "supervisorDashboard/createNewLearningTrackThunk",
@@ -14,7 +14,16 @@ export const createNewLearningTrackThunk = createAsyncThunk(
       );
       // console.log("🚀 ~ file: createNewLearningTrackThunk.js:12 ~ data:", data);
 
+      // const listOfTraineesForSelectedLtName = thunkAPI.getState().supervisorDashboard.listOfTraineesForSelectedLtId;
+
       thunkAPI.dispatch(refreshSupervisorDashboard(newLearningTrack));
+      
+      // thunkAPI.dispatch(
+      //   getLtCohortInfo({
+      //     resultForSelectedLt: newLearningTrack,
+      //     selectedLtTraineeData: listOfTraineesForSelectedLtName,
+      //   })
+      // );
 
       return data;
     } catch (error) {

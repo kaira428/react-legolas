@@ -92,7 +92,7 @@ const CreateNewLearningTrack = ({
                       color="primary"
                       startIcon={
                         isSubmitting ? (
-                          <CircularProgress size="0.8rem" />
+                          <CircularProgress size="0.6rem" />
                         ) : undefined
                       }
                     >
