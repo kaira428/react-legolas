@@ -17,6 +17,7 @@ const initialState = {
   isLoading: false,
   listOfLearningTracks: [],
   selectedLtId: null,
+  selectedLtObject: {},
   selectedLtName: "",
   listOfCohortNumbers: [],
   cohortTrainingStatus: "In Progress",
@@ -39,6 +40,7 @@ export const supervisorDashboardSlice = createSlice({
         action.payload.resultForSelectedLt,
         action.payload.selectedLtTraineeData
       );
+      console.log("🚀 ~ file: supervisorDbSlice.js:43 ~ action.payload.selectedLtTraineeData:", action.payload.selectedLtTraineeData)
 
       state.selectedLtId = ltCohortListForChosenLtId.ltId;
       console.log(
@@ -51,6 +53,9 @@ export const supervisorDashboardSlice = createSlice({
         "🚀 ~ file: supervisorDbSlice.js:43 ~ state.selectedLtName:",
         state.selectedLtName
       );
+
+      state.selectedLtObject = action.payload.resultForSelectedLt;
+      console.log("🚀 ~ file: supervisorDbSlice.js:57 ~ state.selectedLtObject:", state.selectedLtObject)
 
       state.listOfCohortNumbers = ltCohortListForChosenLtId.cohortDetailsList;
       console.log(
@@ -78,6 +83,8 @@ export const supervisorDashboardSlice = createSlice({
         ...state.listOfTraineesForSelectedLtId,
       ];
 
+      console.log("🚀 ~ file: supervisorDbSlice.js:85 ~ action.payload.cohortNum:", action.payload.cohortNum)
+
       // get all trainees for selected cohort number
       const listOfTraineesForSelectedCohortNumber =
         allTraineesForSelectedLearningTrack.filter(
@@ -93,6 +100,7 @@ export const supervisorDashboardSlice = createSlice({
       const selectedCohortInfo = state.listOfCohortNumbers.find(
         (cohort) => cohort.cohortNum === action.payload.cohortNum
       );
+      console.log("🚀 ~ file: supervisorDbSlice.js:102 ~ selectedCohortInfo:", selectedCohortInfo)
 
       // update relevant states in redux-toolkit store
       state.trainingStatus = leaderboardTraineeDetails.trainingStatus;
@@ -119,6 +127,9 @@ export const supervisorDashboardSlice = createSlice({
         }
         return 0;
       });
+
+      state.selectedLtObject = action.payload;
+      console.log("🚀 ~ file: supervisorDbSlice.js:128 ~ state.selectedLtObject:", state.selectedLtObject)
 
       state.listOfLearningTracks = tempUpdatedListOfLearningTracks;
       state.listOfCohortNumbers = action.payload.cohorts
@@ -221,6 +232,9 @@ export const supervisorDashboardSlice = createSlice({
         console.log("🚀 ~ file: supervisorDbSlice.js:225 ~ .addCase ~ state.listOfTraineesForSelectedCohortNumber:", state.listOfTraineesForSelectedCohortNumber)
         
         state.listOfTraineesForSelectedLtId = [...state.listOfTraineesForSelectedLtId, action.payload]
+        console.log("🚀 ~ file: supervisorDbSlice.js:230 ~ .addCase ~ state.listOfTraineesForSelectedLtId:", state.listOfTraineesForSelectedLtId)
+        console.log("🚀 ~ file: supervisorDbSlice.js:231 ~ .addCase ~ state.selectedLtObject:", state.selectedLtObject)
+        
         
         state.isLoading = false;
       })
@@ -245,6 +259,10 @@ export const supervisorDashboardSlice = createSlice({
       .addCase(updateLtWithNewCohortThunk.fulfilled, (state, action) => {
 
         state.listOfCohortNumbers = action.payload.cohorts;
+        console.log("🚀 ~ file: supervisorDbSlice.js:261 ~ .addCase ~ state.listOfCohortNumbers:", state.listOfCohortNumbers)
+        
+        state.selectedLtObject = action.payload;
+        
         state.isLoading = false;
       })
       .addCase(updateLtWithNewCohortThunk.rejected, (state) => {

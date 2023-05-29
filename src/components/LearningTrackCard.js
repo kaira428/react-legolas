@@ -18,7 +18,7 @@ const LearningTrackCard = () => {
   }
 
   const clickHandler = (ltId) => {
-    dispatch(resetSupervisorDashboardSlice());
+    // dispatch(resetSupervisorDashboardSlice());
     // get all trainees for selected ltId
     dispatch(getSelectedTraineesForSelectedLtIdThunk({ ltId }));
   };

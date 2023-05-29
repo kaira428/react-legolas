@@ -9,7 +9,7 @@ export const createModuleObjectOrArrayForNewCohort = (numOfModules) => {
     moduleObject = {...moduleObject, "Mock Presentation": null}
     
     const moduleArray = Object.entries(moduleObject);
-    // console.log("🚀 ~ file: ModuleCard.js:17 ~ ModuleCard ~ moduleArray:", moduleArray)
+    console.log("🚀 ~ file: ModuleCard.js:12 ~ ModuleCard ~ moduleArray:", moduleArray)
 
     return moduleObject;
 }

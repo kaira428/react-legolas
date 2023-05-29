@@ -6,7 +6,7 @@ export async function createNewLearningTrack(newLt) {
     user = await connectToMongDB();
     const response = await user.functions.createNewLearningTrack(newLt);
     
-    return "New LT saved";
+    return response;
 
   } catch (error) {
     console.error(error);

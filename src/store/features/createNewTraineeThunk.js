@@ -1,40 +1,55 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import React from "react";
 import { createNewTrainee } from "../../mongodb_serverless/createNewTrainee";
-import { getSelectedCohortTraineesThunk } from "./getSelectedCohortTraineesThunk";
-import { getLtCohortInfo } from "../supervisorDbSlice";
-
+import {
+  getAllTraineesForSelectedCohortNumber,
+  getLtCohortInfo,
+} from "../supervisorDbSlice";
 
 export const createNewTraineeThunk = createAsyncThunk(
   "supervisorDashboard/createNewTraineeThunk",
   async ({ newTrainee }, thunkAPI) => {
     try {
-      console.log("🚀 ~ file: createNewTraineeThunk.js:11 ~ newTrainee:", newTrainee)
+      console.log(
+        "🚀 ~ file: createNewTraineeThunk.js:11 ~ newTrainee:",
+        newTrainee
+      );
 
       const data = await createNewTrainee(newTrainee);
-      console.log("🚀 ~ file: createNewTraineeThunk.js:14 ~ data:", data)
+      console.log("🚀 ~ file: createNewTraineeThunk.js:14 ~ data:", data);
 
-      // const listOfTraineesForSelectedLtName = thunkAPI.getState().supervisorDashboard.listOfTraineesForSelectedLtId;
+      const result = { _id: data.insertedId, ...newTrainee };
 
-      // const resultantListOfTrainees = [...listOfTraineesForSelectedLtName.push(newTrainee)];
-      // console.log("🚀 ~ file: createNewTraineeThunk.js:20 ~ resultantListOfTrainees:", resultantListOfTrainees)
+      console.log("🚀 ~ file: createNewTraineeThunk.js:16 ~ result:", result);
 
-      // const listOfLearningTracks = thunkAPI.getState().supervisorDashboard.listOfLearningTracks;
+      const tempListOfTraineesForSelectedLtId = await thunkAPI.getState()
+        .supervisorDashboard.listOfTraineesForSelectedLtId;
 
-      // const requiredLt = listOfLearningTracks.filter(lt => lt.name === newTrainee.learningTrack)
-      // console.log("🚀 ~ file: createNewTraineeThunk.js:24 ~ requiredLt:", requiredLt)
+      const listOfTraineesForSelectedLtId = [...tempListOfTraineesForSelectedLtId, result];
 
-      // thunkAPI.dispatch(
-      //     getLtCohortInfo({
-      //       resultForSelectedLt: requiredLt,
-      //       selectedLtTraineeData: resultantListOfTrainees,
-      //     })
-      //   );
+      const learningTrack = await thunkAPI.getState().supervisorDashboard
+        .selectedLtObject;
+      console.log(
+        "🚀 ~ file: createNewTraineeThunk.js:23 ~ learningTrack:",
+        learningTrack
+      );
 
-      const result = {_id: data.insertedId, ...newTrainee}
-      
+      console.log(
+        "🚀 ~ file: refreshSupervisorDashboard4ltIdCohortIdThunk.js:46 ~ // ~ listOfTraineesForSelectedLtId:",
+        listOfTraineesForSelectedLtId
+      );
+
+      await thunkAPI.dispatch(
+        getLtCohortInfo({
+          resultForSelectedLt: learningTrack,
+          selectedLtTraineeData: listOfTraineesForSelectedLtId,
+        })
+      );
+      thunkAPI.dispatch(
+        getAllTraineesForSelectedCohortNumber({ cohortNum: newTrainee.cohort })
+      );
+
       return result;
-      
     } catch (error) {
       throw new Error(error);
     }

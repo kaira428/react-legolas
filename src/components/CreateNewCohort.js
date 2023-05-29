@@ -121,6 +121,8 @@ const CreateNewCohort = ({ newLtName, existingLt }) => {
     // dispatch createNewLt thunk if it is not an existing Learning Track
     if (!existingLt) {
       dispatch(createNewLearningTrackThunk({ newLearningTrack }));
+      // refresh supervisorDashboard
+    // dispatch(refreshSupervisorDashboard4ltIdCohortIdThunk({learningTrack: newLearningTrack, newcohortNum : cohortData.newCohort.cohortNum }));
     } else {
       const updatedListOfCohorts = [
         ...listOfCohorts,
@@ -129,6 +131,7 @@ const CreateNewCohort = ({ newLtName, existingLt }) => {
 
       existingLtWithUpdatedListOfCohorts = {
         _id: lt_Id,
+        name: learningTrackName,
         cohorts: updatedListOfCohorts,
       };
       console.log(
@@ -145,7 +148,12 @@ const CreateNewCohort = ({ newLtName, existingLt }) => {
         "🚀 ~ file: CreateNewCohort.js:120 ~ cohortDetailsHandler ~ result:",
         result
       );
+
+      // refresh supervisorDashboard
+    // dispatch(refreshSupervisorDashboard4ltIdCohortIdThunk({learningTrack: existingLtWithUpdatedListOfCohorts, newcohortNum : cohortData.newCohort.cohortNum }))
     }
+
+    
 
     // navigate to AddTraineesToCohort page
     navigate("/pages/addTraineesToCohortForm", {

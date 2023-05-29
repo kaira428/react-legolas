@@ -113,7 +113,6 @@ const computeCohortProgress = (reqCohortIdObj, traineeData) => {
         trainee.cohort === cohort.cohortNum && trainee.status !== "InActive"
       );
     });
-
     reqTraineeArray.push([cohort.cohortNum, found]);
   });
 
